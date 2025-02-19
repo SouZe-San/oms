@@ -1,0 +1,17 @@
+{
+  "name": "@oms/types",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "exports": {
+    "./buttonType": "./src/buttonType.ts"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+   "typescript": "5.7.3"
+  },
+"devDependencies": {
+   "@types/react": "19.0.8"
+}
+
+}
