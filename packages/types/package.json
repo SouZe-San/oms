@@ -7,11 +7,12 @@
     "./buttonType": "./src/buttonType.ts"
   },
   "dependencies": {
-    "react": "^19.0.0",
-   "typescript": "5.7.3"
+    "react": "^19.0.0"
   },
-"devDependencies": {
-   "@types/react": "19.0.8"
-}
-
+  "devDependencies": {
+    "@oms/eslint-config": "*",
+    "@oms/typescript-config": "*",
+    "@types/react": "19.0.8",
+    "typescript": "5.7.3"
+  }
 }
