@@ -4,11 +4,12 @@
   "main": "index.js",
   "license": "MIT",
   "exports": {
-     "./countAtom": "./src/atoms/count.ts",
-     "./countSelector": "./src/selectors/countSelector.ts"
   },
   "dependencies": {
-    "recoil": "^0.7.7",
+  },
+  "devDependencies": {
+    "@oms/eslint-config": "*",
+    "@oms/typescript-config": "*",
     "typescript": "5.7.3"
   }
 }
