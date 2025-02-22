@@ -4,8 +4,13 @@
   "main": "index.js",
   "license": "MIT",
   "exports": {
+    "./UseStore": "./src/store.ts",
+    "./hooks": "./src/hooks.ts",
+    "./counter": "./src/features/counterSlice.ts"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.5.1",
+    "react-redux": "^9.2.0"
   },
   "devDependencies": {
     "@oms/eslint-config": "*",
