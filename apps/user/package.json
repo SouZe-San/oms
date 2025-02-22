@@ -13,6 +13,7 @@
   "dependencies": {
     "@oms/types": "*",
     "@oms/ui": "*",
+    "@oms/store": "*",
     "@tailwindcss/postcss": "^4.0.6",
     "next": "^15.1.6",
     "postcss": "^8.5.2",

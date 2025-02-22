@@ -447,16 +447,6 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@oms/eslint-config@file:packages/eslint-config":
-  version "0.0.0"
-  dependencies:
-    "@oms/eslint-config" "file:C:/Users/Sufal/AppData/Local/Yarn/Cache/v6/npm-@oms-eslint-config-0.0.0-8cea2604-0b14-46ea-88cd-3dd983425614-1740222465310/node_modules/@oms/eslint-config"
-
-"@oms/typescript-config@file:packages/typescript-config":
-  version "0.0.0"
-  dependencies:
-    "@oms/typescript-config" "file:C:/Users/Sufal/AppData/Local/Yarn/Cache/v6/npm-@oms-typescript-config-0.0.0-f8849b64-b16a-4b63-b74f-02d6bd009acd-1740222465306/node_modules/@oms/typescript-config"
-
 "@prisma/client@^6.3.1":
   version "6.4.0"
   resolved "https://registry.yarnpkg.com/@prisma/client/-/client-6.4.0.tgz#341f56b747ea7b70e4f1d2d362f0e7cdc2b1bdb4"
