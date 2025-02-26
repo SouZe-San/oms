@@ -16,9 +16,9 @@
 
  </div>
 
-## Let's start
+## Let's start 🏃
 
-### Clone the repo
+### ⬇️ Clone the repo
 
 ```bash
 git clone https://github.com/alfaarghya/oms.git
@@ -29,28 +29,106 @@ git clone git@github.com:alfaarghya/oms.git
 
 ```
 
-### Install Dependencies
+### 🛠️ Install Dependencies
 
 ```bash
 cd oms
 yarn install
 ```
 
-### fill all of the `.env` files
+### 🔒 fill all of the `.env` files
 
 - go to all `apps` and `packages`
 - if `.env.example` is available, make a copy of `.env.example` as `.env` and fill up data.
 
-### Run the application
+### 🐳 Run psql in docker
 
 ```bash
+docker pull postgres        #need to run once to install postgres image
+docker run -e POSTGRES_PASSWORD=omsadminpassward -p 5432:5432 -d postgres
+```
+
+### 🔒 Fill up the `.env` file in the `package/db`
+
+```bash
+DATABASE_URL="postgresql://postgres:omsadminpassward@localhost:5432/omsDB?schema=public"
+```
+
+### 🔗 Connect the db with prisma
+
+```bash
+cd packages/db                             #go the the db package
+npx prisma migrate dev --name init         #migrate to psql db
+```
+
+### 🌱 Seed the db
+
+after running this `npx prisma migrate` something like this will appear -
+
+```bash
+Running seed command `ts-node prisma/seed.ts` ...
+Database seeded successfully!
+
+🌱  The seed command has been executed.
+```
+
+if, this does not seem to be appear on the terminal, run the below command
+
+```bash
+npx prisma db seed
+```
+
+Now come back to the `root dir`
+
+### 🏃 Run the application
+
+```bash
+cd ../..             #Now come back to the root dir
 yarn run db:generate #need to run once
 yarn run dev
 ```
 
-`if database is locally host and connected to our server application, it may crash!`
+`if database is not connected properly, server application may crash!` in that can try to reach out [@alfaarghya](https://www.github.com/alfaarghya) [@SouZe-San](https://github.com/SouZe-San)
 
-## Run apps separately
+## Look into your db with prisma 👀
+
+```bash
+cd packages/db     #go to db package
+npx prisma studio  #go to the localhost:5555 on browser
+```
+
+## Some useful docker command </>
+
+### 📦 GO inside the running docker container
+
+```bash
+docker ps #check the running container & find out our postgress container id
+docker exec -it <container_id> psql -U postgres #now you are inside the psql db
+```
+
+### ⛃ psql commands inside docker container
+
+```bash
+\l                         # to see all the database
+\c omsDB                   # go to your database
+\dt                        # check the tables
+
+# now you can run basic sql commands like this -
+SELECT * FROM "User";      # always put table name inside ""
+
+exit                       # to exit from db run this
+```
+
+### 🔪 Kill the running container
+
+after finishing all work always check if your docker container is running or not. If it’s running stop that.
+
+```bash
+docker ps #check the running container & find out the container id
+docker kill <container_id> # this will stop your container
+```
+
+## Run apps separately 🏃
 
 ```bash
 cd apps/<app_name>
@@ -58,7 +136,7 @@ yarn install
 yarn run dev
 ```
 
-## Let's understand Project Structure
+## Let's understand Project Structure 🧬
 
 ```
 oms
@@ -94,14 +172,14 @@ oms
 
 ```
 
-### basics
+### 🤓 basics
 
 - every `apps` can run separately
 - `packages` does not run because it contain some common files or dependencies that are required to run our `apps`.
 - in every `apps` we are going to work on `src/`
 - in `apps` or `packages` if we see a `.env.example` file we must create a .env file
 
-### Need to know
+### 🧐 Need to know
 
 - let's checkout `packages/<package_name>/package.json`
 
@@ -132,7 +210,7 @@ oms
   - Now we can use this `ui component` in our apps
 - Like the `ui` package & `admin` app, we can see similar things `db` package & `server` app, Try to explore more!
 
-### Advance
+### 🎓 Advance
 
 - in root, `package.json` we have all of the script and dependencies to run the monorepo
 - in every dir we have `package.json`, try to read it for better understanding
@@ -143,10 +221,9 @@ oms
   - `store` package for state management components
   - etc.
 
-## Important things to Do before `git commit` & `git push`
+## 📌 Important things to Do before `git commit` & `git push` ⚠️
 
 1. always `git pull` before start working or before committing the changes.
 2. run `yarn run check-types` to check typescript type.
 3. run `yarn run lint` to check linting, if gives warning or error fix that.
-4. run `yarn run format`, this will automatic format the codebase with prettier
-5. If there are no errors, now you can commit and push the code.
+4. If there are no errors, now you can commit and push the code.
