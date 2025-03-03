@@ -57,8 +57,7 @@ DATABASE_URL="postgresql://postgres:omsadminpassward@localhost:5432/omsDB?schema
 ### 🔗 Connect the db with prisma
 
 ```bash
-cd packages/db                             #go the the db package
-npx prisma migrate dev --name init         #migrate to psql db
+yarn run db:migrate         #migrate to psql db
 ```
 
 ### 🌱 Seed the db
@@ -75,10 +74,8 @@ Database seeded successfully!
 if, this does not seem to be appear on the terminal, run the below command
 
 ```bash
-npx prisma db seed
+yarn run db:seed
 ```
-
-Now come back to the `root dir`
 
 ### 🏃 Run the application
 
