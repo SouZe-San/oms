@@ -62,7 +62,7 @@ yarn run db:migrate         #migrate to psql db
 
 ### 🌱 Seed the db
 
-after running this `npx prisma migrate` something like this will appear -
+after running this `yarn run db:migrate` something like this will appear -
 
 ```bash
 Running seed command `ts-node prisma/seed.ts` ...
@@ -90,8 +90,7 @@ yarn run dev
 ## Look into your db with prisma 👀
 
 ```bash
-cd packages/db     #go to db package
-npx prisma studio  #go to the localhost:5555 on browser
+yarn run db:show  #go to the localhost:5555 on browser
 ```
 
 ## Some useful docker command </>
