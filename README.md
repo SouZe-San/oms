@@ -219,7 +219,7 @@ oms
 
 ## 📌 Important things to Do before `git commit` & `git push` ⚠️
 
-1. always `git pull` before start working or before committing the changes.
+1. always `git pull --rebase` before start working And before committing the changes.
 2. run `yarn run check-types` to check typescript type.
 3. run `yarn run lint` to check linting, if gives warning or error fix that.
 4. If there are no errors, now you can commit and push the code.
