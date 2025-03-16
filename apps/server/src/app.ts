@@ -1,9 +1,14 @@
 import express from "express";
+import cookieParser from "cookie-parser";
+import cors from "cors";
 import checkRoutes from "./middleware/checkRoutes";
 
 const app = express();
-app.use(express.json()); //parse incoming JSON
 
+//middlewares
+app.use(cors());
+app.use(cookieParser()); //parse the cookie
+app.use(express.json()); //parse incoming JSON
 app.use(checkRoutes);
 
 app.get("/", (req, res) => {
