@@ -152,3 +152,17 @@ export const signinController = async (req: Request, res: Response) => {
     return;
   }
 }
+
+// logout Controller
+export const logoutController = (req: Request, res: Response) => {
+  // clear the auth cookies
+  res.clearCookie("token", { ...COOKIE_OPTIONS, maxAge: 0 });
+
+  res.status(Status.Success).json({
+    status: Status.Success,
+    statusMessage: StatusMessages[Status.Success],
+    message: "Logged out successfully",
+  });
+
+  return;
+};
