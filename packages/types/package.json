@@ -4,10 +4,12 @@
   "main": "index.js",
   "license": "MIT",
   "exports": {
-    "./buttonType": "./src/buttonType.ts"
+    "./buttonType": "./src/buttonType.ts",
+    "./auth.type": "./src/auth.type.ts"
   },
   "dependencies": {
-    "react": "^19.0.0"
+    "react": "^19.0.0",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@oms/eslint-config": "*",
