@@ -7,6 +7,6 @@ export const SignUpSchema = z.object({
   email: z.string().email("Email is required"),
   password: z.string().min(8, "minimum password length is 8"),
   primaryMobile: z.string().length(10, "must contain 10 char exactly"),
-  date: z.string().date("Format: YYYY-MM-DD"),
+  dob: z.string().date("Format: YYYY-MM-DD"),
   role: z.string().default("CUSTOMER")
 });
