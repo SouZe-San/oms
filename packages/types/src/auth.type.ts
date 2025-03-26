@@ -10,15 +10,11 @@ export const SignUpSchema = z.object({
   dob: z.string().date("Format: YYYY-MM-DD"),
   role: z.string().default("CUSTOMER")
 });
+
+//Sign in schema for validate
 export const SignInSchema = z.object({
-  identifier: z
-    .string()
-    .trim()
-    .min(3, { message: "Identifier must be at least 3 characters" })
-    .max(255, { message: "Identifier must not exceed 255 characters" })
-    .refine((value: string) => /\S+@\S+\.\S+/.test(value) || /^\d{10}$/.test(value), {
-      message: "Must be a valid email or 10-digit phone number",
-    }),
+  email: z.string().email("Must be a valid email").optional(),
+  primaryMobile: z.string().length(10, "must contain 10 char exactly").optional(),
   password: z.string().min(8, { message: "Password must be at least 8 characters" }),
 });
 
