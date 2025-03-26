@@ -1,4 +1,4 @@
-import dbConnect from "./dbConnect";
+import dbConnect from "./db.controller";
 
 const startServer = async (port: number) => {
   try {
