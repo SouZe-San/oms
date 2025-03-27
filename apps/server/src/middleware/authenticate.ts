@@ -28,15 +28,6 @@ const authenticate = (req: Request, res: Response, next: NextFunction) => {
 
     // check if all data present in token
     if (decode && decode.id && decode.email && decode.role) {
-      // @ In general, i prefer to passe it in as One Object in req body
-      // req.body = {
-      //   // Attach user details to the request
-      //   userId: decode.id,
-      //   email: decode.email,
-      //   role: decode.role,
-      //   ...req.body // Keep rest of request body
-      // };
-
       // Create a user object and attach it to the request
       const user = {
         userId: decode.id,
@@ -46,10 +37,8 @@ const authenticate = (req: Request, res: Response, next: NextFunction) => {
 
       req.body = {
         user,
-        ...req.body,
+        ...req.body, // keep rest of the body
       };
-
-      // // we can also pass user in req object not in Request body
 
       next(); //Proceed to the next middleware or route handler
     } else {
@@ -58,6 +47,7 @@ const authenticate = (req: Request, res: Response, next: NextFunction) => {
         statusMessage: StatusMessages[Status.Unauthorized],
         message: "Invalid token. Please log in again.",
       });
+      return;
     }
   } catch (error) {
     console.error("JWT verification error:", error);
@@ -66,6 +56,7 @@ const authenticate = (req: Request, res: Response, next: NextFunction) => {
       statusMessage: StatusMessages[Status.InternalServerError],
       message: "Internal server error. Please try again later.",
     });
+    return;
   }
 };
 
