@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { SignInSchema, SignUpSchema } from "@oms/types/auth.type"
+import { SignInSchema, SignUpSchema } from "@oms/types/auth.type";
 import prisma from "@oms/db/prisma";
 import { Status, StatusMessages } from "../statusCode/response";
 import { COOKIE_OPTIONS } from "../utils/cookieOptions";
 
-// eslint-disable-next-line turbo/no-undeclared-env-vars
-const JWT_SECRET = process.env.JWT_SECRET as string;
+// ! kindly recheck this before Production/Final Deployment
+const JWT_SECRET = process.env.JWT_SECRET ?? "this-is-no-secret";
 
 // sign up controller
 export const signupController = async (req: Request, res: Response) => {
@@ -19,7 +19,7 @@ export const signupController = async (req: Request, res: Response) => {
     res.status(Status.InvalidInput).json({
       status: Status.InvalidInput,
       statusMessage: StatusMessages[Status.InvalidInput],
-      message: validation.error.errors.map(err => err.path + " " + err.message).join(", "),
+      message: validation.error.errors.map((err) => err.path + " " + err.message).join(", "),
     });
     return;
   }
@@ -27,7 +27,7 @@ export const signupController = async (req: Request, res: Response) => {
   try {
     const { firstName, lastName, email, password, primaryMobile, dob, role } = validation.data;
 
-    //check if email or primaryMobile already exists 
+    //check if email or primaryMobile already exists
     if (await prisma.user.findFirst({ where: { OR: [{ email }, { primaryMobile }] } })) {
       res.status(Status.Conflict).json({
         status: Status.Conflict,
@@ -38,26 +38,25 @@ export const signupController = async (req: Request, res: Response) => {
     }
 
     //Hash Password
-    const hashedPassword = await bcrypt.hash(password, 10)
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     //create new user
     let newUser;
     if (role === "ADMIN") {
       newUser = await prisma.user.create({
-        data: { firstName, lastName, email, primaryMobile, dob, role, password: hashedPassword }
+        data: { firstName, lastName, email, primaryMobile, dob, role, password: hashedPassword },
       });
-    } else { //role will be CUSTOMER
+    } else {
+      //role will be CUSTOMER
       newUser = await prisma.user.create({
-        data: { firstName, lastName, email, primaryMobile, dob, password: hashedPassword }
+        data: { firstName, lastName, email, primaryMobile, dob, password: hashedPassword },
       });
     }
 
     //Generate JWT token
-    const token = jwt.sign(
-      { userId: newUser.id, email: newUser.email, role: newUser.role },
-      JWT_SECRET,
-      { expiresIn: "7d" }
-    );
+    const token = jwt.sign({ userId: newUser.id, email: newUser.email, role: newUser.role }, JWT_SECRET, {
+      expiresIn: "7d",
+    });
 
     //set token in cookie
     res.cookie("token", token, COOKIE_OPTIONS);
@@ -78,7 +77,7 @@ export const signupController = async (req: Request, res: Response) => {
     });
     return;
   }
-}
+};
 
 // sign in controller
 export const signinController = async (req: Request, res: Response) => {
@@ -90,7 +89,7 @@ export const signinController = async (req: Request, res: Response) => {
     res.status(Status.InvalidInput).json({
       status: Status.InvalidInput,
       statusMessage: StatusMessages[Status.InvalidInput],
-      message: validation.error.errors.map(err => err.path + " " + err.message).join(", "),
+      message: validation.error.errors.map((err) => err.path + " " + err.message).join(", "),
     });
     return;
   }
@@ -100,7 +99,7 @@ export const signinController = async (req: Request, res: Response) => {
 
     //get user from db
     const user = await prisma.user.findFirst({
-      where: { OR: [{ email }, { primaryMobile }] }
+      where: { OR: [{ email }, { primaryMobile }] },
     });
 
     if (!user) {
@@ -126,11 +125,7 @@ export const signinController = async (req: Request, res: Response) => {
     }
 
     //Generate JWT token
-    const token = jwt.sign(
-      { userId: user.id, email: user.email, role: user.role },
-      JWT_SECRET,
-      { expiresIn: "7d" }
-    );
+    const token = jwt.sign({ userId: user.id, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: "7d" });
 
     //set token in cookie
     res.cookie("token", token, COOKIE_OPTIONS);
@@ -151,7 +146,7 @@ export const signinController = async (req: Request, res: Response) => {
     });
     return;
   }
-}
+};
 
 // logout Controller
 export const logoutController = (req: Request, res: Response) => {
