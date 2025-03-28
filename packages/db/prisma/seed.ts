@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Role, AddressType, OrderStatus, PaymentStatus } from "@prisma/client";
 import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
@@ -7,7 +7,7 @@ async function main() {
   // Hash password for users
   const hashedPassword = await bcrypt.hash("password123", 10);
 
-  // Create Users
+  // Create Admin
   const admin = await prisma.user.upsert({
     where: { email: "admin@example.com" },
     update: {},
@@ -17,11 +17,11 @@ async function main() {
       email: "admin@example.com",
       primaryMobile: "9999999999",
       password: hashedPassword,
-      role: "ADMIN",
+      role: Role.ADMIN,
       dob: new Date("1990-01-01"),
       addresses: {
         create: [{
-          type: "PERMANENT",
+          type: AddressType.PERMANENT,
           street: "123 Admin St",
           city: "Admin City",
           state: "Admin State",
@@ -32,6 +32,7 @@ async function main() {
     },
   });
 
+  // Create Customer
   const customer = await prisma.user.upsert({
     where: { email: "customer@example.com" },
     update: {},
@@ -41,11 +42,11 @@ async function main() {
       email: "customer@example.com",
       primaryMobile: "8888888888",
       password: hashedPassword,
-      role: "CUSTOMER",
+      role: Role.CUSTOMER,
       dob: new Date("1995-05-15"),
       addresses: {
         create: [{
-          type: "CURRENT",
+          type: AddressType.CURRENT,
           street: "456 Customer St",
           city: "Customer City",
           state: "Customer State",
@@ -81,17 +82,19 @@ async function main() {
   const order = await prisma.order.create({
     data: {
       userId: customer.id,
-      status: "CONFIRMED",
+      status: OrderStatus.CONFIRMED,
       totalAmount: product1.price + product2.price,
-      cart: {
-        create: {
-          cartProducts: {
-            create: [
-              { productId: product1.id, quantity: 1 },
-              { productId: product2.id, quantity: 1 },
-            ],
-          },
-        },
+    },
+  });
+
+  // Create a Cart and link it to the Order
+  const cart = await prisma.cart.create({
+    data: {
+      cartProducts: {
+        create: [
+          { productId: product1.id, quantity: 1 },
+          { productId: product2.id, quantity: 1 },
+        ],
       },
     },
   });
@@ -101,16 +104,16 @@ async function main() {
     data: {
       orderId: order.id,
       amount: order.totalAmount,
-      status: "COMPLETED",
+      status: PaymentStatus.COMPLETED,
     },
   });
 
-  console.log("Database seeded successfully!");
+  console.log("✅ Database seeded successfully!");
 }
 
 main()
   .catch((e) => {
-    console.error(e);
+    console.error("❌ Seeding failed:", e);
     process.exit(1);
   })
   .finally(async () => {
