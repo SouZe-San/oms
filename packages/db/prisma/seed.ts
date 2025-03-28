@@ -20,14 +20,16 @@ async function main() {
       role: Role.ADMIN,
       dob: new Date("1990-01-01"),
       addresses: {
-        create: [{
-          type: AddressType.PERMANENT,
-          street: "123 Admin St",
-          city: "Admin City",
-          state: "Admin State",
-          country: "Admin Land",
-          zipCode: "12345",
-        }],
+        create: [
+          {
+            type: AddressType.PERMANENT,
+            street: "123 Admin St",
+            city: "Admin City",
+            state: "Admin State",
+            country: "Admin Land",
+            zipCode: "12345",
+          },
+        ],
       },
     },
   });
@@ -45,14 +47,16 @@ async function main() {
       role: Role.CUSTOMER,
       dob: new Date("1995-05-15"),
       addresses: {
-        create: [{
-          type: AddressType.CURRENT,
-          street: "456 Customer St",
-          city: "Customer City",
-          state: "Customer State",
-          country: "Customer Land",
-          zipCode: "67890",
-        }],
+        create: [
+          {
+            type: AddressType.CURRENT,
+            street: "456 Customer St",
+            city: "Customer City",
+            state: "Customer State",
+            country: "Customer Land",
+            zipCode: "67890",
+          },
+        ],
       },
     },
   });
@@ -79,34 +83,37 @@ async function main() {
   });
 
   // Create an Order for the customer
-  const order = await prisma.order.create({
+  // Create a Cart and link it to the Order
+  await prisma.cart.create({
     data: {
       userId: customer.id,
-      status: OrderStatus.CONFIRMED,
-      totalAmount: product1.price + product2.price,
-    },
-  });
-
-  // Create a Cart and link it to the Order
-  const cart = await prisma.cart.create({
-    data: {
       cartProducts: {
         create: [
-          { productId: product1.id, quantity: 1 },
+          { productId: product1.id, quantity: 2 },
           { productId: product2.id, quantity: 1 },
         ],
       },
     },
   });
+  // const order = await prisma.order.create({
+  //   data: {
+  //     userId: customer.id,
+  //     status: OrderStatus.CONFIRMED,
+  //     totalAmount: product1.price + product2.price,
+  //     cartProducts: {
+  //       create: [{ productId: product2.id, quantity: 1 }],
+  //     },
+  //   },
+  // });
 
-  // Create a Payment for the Order
-  await prisma.payment.create({
-    data: {
-      orderId: order.id,
-      amount: order.totalAmount,
-      status: PaymentStatus.COMPLETED,
-    },
-  });
+  // // Create a Payment for the Order
+  // await prisma.payment.create({
+  //   data: {
+  //     orderId: order.id,
+  //     amount: order.totalAmount,
+  //     status: PaymentStatus.COMPLETED,
+  //   },
+  // });
 
   console.log("✅ Database seeded successfully!");
 }

@@ -33,6 +33,9 @@ model User {
   // One-to-Many: A User can place multiple Orders
   orders Order[]
 
+  // One-to-Many: A User can have multiple Carts
+  carts Cart[]
+
   // One-to-Many: An Admin manages multiple Products
   inventory Product[] @relation("AdminInventory")
 }
@@ -72,26 +75,28 @@ model Product {
 
 // CartProduct Table - Many-to-Many Relation Between Cart and Product
 model CartProduct {
-  id        String @id @default(uuid())
-  cartId    String
-  productId String
-  quantity  Int
-
-  // Many-to-One: A CartProduct belongs to a Cart
-  cart Cart @relation(fields: [cartId], references: [id])
+  id       String @id @default(uuid())
+  quantity Int
 
   // Many-to-One: A CartProduct belongs to a Product
-  product Product @relation(fields: [productId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+  Cart      Cart?   @relation(fields: [cartId], references: [id])
+  cartId    String?
+  Order     Order?  @relation(fields: [orderId], references: [id])
+  orderId   String?
 }
 
 // Cart Table - Represents a Shopping Cart (One Cart belongs to One Order)
 model Cart {
-  id String @id @default(uuid())
+  id           String        @id @default(uuid())
   // orderId String? @unique // One-to-One: One Cart belongs to one Order
-
   // One-to-Many: A Cart can contain multiple CartProduct entries
   cartProducts CartProduct[]
 
+  // Many-to-One: A Cart belongs to a User
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
   // One-to-One: A Cart is linked to a single Order
   // order Order? @relation(fields: [orderId], references: [id])
 }
@@ -104,8 +109,9 @@ model Order {
   totalAmount Float
   createdAt   DateTime    @default(now())
 
+  cartProducts CartProduct[]
   // Many-to-One: An Order belongs to a User
-  user User @relation(fields: [userId], references: [id])
+  user         User          @relation(fields: [userId], references: [id])
 
   // One-to-One: An Order is linked to a single Cart
   // cart Cart?
