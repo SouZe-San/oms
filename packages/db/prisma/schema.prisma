@@ -86,14 +86,14 @@ model CartProduct {
 
 // Cart Table - Represents a Shopping Cart (One Cart belongs to One Order)
 model Cart {
-  id      String  @id @default(uuid())
-  orderId String? @unique // One-to-One: One Cart belongs to one Order
+  id String @id @default(uuid())
+  // orderId String? @unique // One-to-One: One Cart belongs to one Order
 
   // One-to-Many: A Cart can contain multiple CartProduct entries
   cartProducts CartProduct[]
 
   // One-to-One: A Cart is linked to a single Order
-  order Order? @relation(fields: [orderId], references: [id])
+  // order Order? @relation(fields: [orderId], references: [id])
 }
 
 // Order Table - Stores Order Details (Linked to One Cart)
@@ -108,7 +108,7 @@ model Order {
   user User @relation(fields: [userId], references: [id])
 
   // One-to-One: An Order is linked to a single Cart
-  cart Cart?
+  // cart Cart?
 
   // One-to-One: An Order has a single Payment
   payment Payment?
