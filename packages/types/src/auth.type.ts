@@ -1,5 +1,6 @@
 import { z } from "zod";
-import { Request } from "express";
+
+// @ImanSamantaCoder
 // Sign up schema for validate
 export const SignUpSchema = z.object({
   firstName: z.string().max(25, "First Name must be with in 25 chars"),
@@ -17,11 +18,3 @@ export const SignInSchema = z.object({
   primaryMobile: z.string().length(10, "must contain 10 char exactly").optional(),
   password: z.string().min(8, { message: "Password must be at least 8 characters" }),
 });
-
-export interface AuthorizedRequest extends Request {
-  user?: {
-    userId: string;
-    email: string;
-    role: "ADMIN" | "CUSTOMER";
-  };
-}

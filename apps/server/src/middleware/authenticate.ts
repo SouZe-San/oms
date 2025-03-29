@@ -27,10 +27,10 @@ const authenticate = (req: Request, res: Response, next: NextFunction) => {
     const decode = jwt.verify(token, jwtSecret) as JwtPayload;
 
     // check if all data present in token
-    if (decode && decode.id && decode.email && decode.role) {
+    if (decode && decode.userId && decode.email && decode.role) {
       // Create a user object and attach it to the request
       const user = {
-        userId: decode.id,
+        userId: decode.userId,
         email: decode.email,
         role: decode.role,
       };
