@@ -11,6 +11,7 @@ import { Carts } from "@oms/types/cart.type";
 // @route: POST /api/customer/cart
 export const createCart = async (req: Request, res: Response) => {
   try {
+    // Validate the request body
     const req_validation = await CartAdvance_req_body.safeParseAsync(req.body);
     if (!req_validation.success) {
       res.status(Status.Forbidden).json({
@@ -20,6 +21,7 @@ export const createCart = async (req: Request, res: Response) => {
       return;
     }
 
+    // Destructure user and products
     const { user, products } = req_validation.data;
 
     // Create a new cart
@@ -108,6 +110,7 @@ const updateCartProduct = async (productId: string, quantity: number) => {
 // @route: PUT /api/customer/cart
 export const updateCart = async (req: Request, res: Response) => {
   try {
+    // Validate the request body
     const req_validation = await CartAdvance_req_body.safeParseAsync(req.body);
     if (!req_validation.success) {
       res.status(Status.Forbidden).json({
@@ -117,6 +120,7 @@ export const updateCart = async (req: Request, res: Response) => {
       return;
     }
 
+    // Destructure products from body
     const { products } = req_validation.data;
 
     // collect cartId from params
@@ -207,6 +211,7 @@ export const updateCart = async (req: Request, res: Response) => {
 // @route: DELETE /api/customer/cart/:id
 export const deleteCart = async (req: Request, res: Response) => {
   try {
+    // Validate the request body -- {I think it's not required *_* GONe in few days}
     const req_validation = await Cart_reqBody.safeParseAsync(req.body);
     if (!req_validation.success) {
       res.status(Status.Forbidden).json({
@@ -216,6 +221,7 @@ export const deleteCart = async (req: Request, res: Response) => {
       return;
     }
 
+    // take cartId from params
     const cartId = req.params.id;
     if (!cartId) {
       res.status(Status.InvalidInput).json({
@@ -228,16 +234,14 @@ export const deleteCart = async (req: Request, res: Response) => {
     // delete cartProducts that are linked to this cart
     await deleteCartProducts(cartId);
 
-    const cart = await prisma.cart.delete({
+    // delete the cart
+    await prisma.cart.delete({
       where: {
         id: cartId,
       },
     });
 
-    if (!cart) {
-      throw new Error("Cart not found");
-    }
-
+    // Send response
     res.status(200).json({
       statusMessage: "Deleted",
       message: "Cart deleted successfully",
@@ -258,7 +262,7 @@ export const getAllCarts = async (req: Request, res: Response) => {
     if (!req_validation.success) {
       res.status(Status.InvalidInput).json({
         StatusMessages: StatusMessages[Status.InvalidInput],
-        message: req_validation.error.errors.map((err) => err.message).join(", "),
+        message: `${req_validation.error.errors.map((err) => err.message).join(", ")}`,
       });
       return;
     }
@@ -308,6 +312,7 @@ export const getAllCarts = async (req: Request, res: Response) => {
 // @route: GET /api/customer/cart/:id
 export const getSingleCart = async (req: Request, res: Response) => {
   try {
+    // get cartId from params
     const cartId = req.params.id;
     if (!cartId) {
       res.status(Status.InvalidInput).json({
