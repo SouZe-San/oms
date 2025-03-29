@@ -7,7 +7,9 @@
     "./buttonType": "./src/buttonType.ts",
     "./auth.type": "./src/auth.type.ts",
     "./order.type": "./src/order.type.ts",
-    "./order.validator": "./src/validators/order.validator.ts"
+    "./order.validator": "./src/validators/order.validator.ts",
+    "./cart.validator": "./src/validators/cart.validator.ts",
+    "./cart.type": "./src/cart.type.ts"
   },
   "dependencies": {
     "react": "^19.0.0",

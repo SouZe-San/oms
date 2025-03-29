@@ -9,7 +9,9 @@ import { COOKIE_OPTIONS } from "../utils/cookieOptions";
 // ! kindly recheck this before Production/Final Deployment
 const JWT_SECRET = process.env.JWT_SECRET ?? "this-is-no-secret";
 
-// sign up controller
+// @alfaarghya
+// @description: sign-up controller use for registering new user
+//!sign up controller
 export const signupController = async (req: Request, res: Response) => {
   //validate req body by zod
   const validation = SignUpSchema.safeParse(req.body);
@@ -79,7 +81,9 @@ export const signupController = async (req: Request, res: Response) => {
   }
 };
 
-// sign in controller
+// @alfaarghya
+// @description: sign-in controller use for login user
+//! sign in controller
 export const signinController = async (req: Request, res: Response) => {
   //validate req body by zod
   const validation = SignInSchema.safeParse(req.body);
