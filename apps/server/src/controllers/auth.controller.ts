@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { SignInSchema, SignUpSchema } from "@oms/types/auth.type";
+import { SignInSchema, SignUpSchema } from "@oms/types/auth.validator";
 import prisma from "@oms/db/prisma";
 import { Status, StatusMessages } from "../statusCode/response";
 import { COOKIE_OPTIONS } from "../utils/cookieOptions";
