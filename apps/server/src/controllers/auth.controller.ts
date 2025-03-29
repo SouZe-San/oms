@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { SignInSchema, SignUpSchema } from "@oms/types/auth.validator";
 import prisma from "@oms/db/prisma";
+import { User } from "@oms/types/user.type";
 import { Status, StatusMessages } from "../statusCode/response";
 import { COOKIE_OPTIONS } from "../utils/cookieOptions";
 
@@ -42,7 +43,7 @@ export const signupController = async (req: Request, res: Response) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     //create new user
-    let newUser;
+    let newUser: User;
     if (role === "ADMIN") {
       newUser = await prisma.user.create({
         data: { firstName, lastName, email, primaryMobile, dob, role, password: hashedPassword },
@@ -102,7 +103,7 @@ export const signinController = async (req: Request, res: Response) => {
     const { email, primaryMobile, password } = validation.data;
 
     //get user from db
-    const user = await prisma.user.findFirst({
+    const user: User = await prisma.user.findFirstOrThrow({
       where: { OR: [{ email }, { primaryMobile }] },
     });
 

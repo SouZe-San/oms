@@ -8,6 +8,7 @@
     "./auth.validator": "./src/validators/auth.validator.ts",
     "./order.validator": "./src/validators/order.validator.ts",
     "./cart.validator": "./src/validators/cart.validator.ts",
+    "./user.type": "./src/user.type.ts",
     "./order.type": "./src/order.type.ts",
     "./cart.type": "./src/cart.type.ts"
   },
