@@ -7,7 +7,6 @@ import { Status, StatusMessages } from "../statusCode/response";
 import { COOKIE_OPTIONS } from "../utils/cookieOptions";
 
 // ! kindly recheck this before Production/Final Deployment
-const JWT_SECRET = process.env.JWT_SECRET ?? "this-is-no-secret";
 
 // @alfaarghya
 // @description: sign-up controller use for registering new user
@@ -55,6 +54,7 @@ export const signupController = async (req: Request, res: Response) => {
       });
     }
 
+    const JWT_SECRET = process.env.JWT_SECRET!;
     //Generate JWT token
     const token = jwt.sign({ userId: newUser.id, email: newUser.email, role: newUser.role }, JWT_SECRET, {
       expiresIn: "7d",
@@ -128,6 +128,8 @@ export const signinController = async (req: Request, res: Response) => {
       return;
     }
 
+    const JWT_SECRET = process.env.JWT_SECRET!;
+    console.log("New User:", JWT_SECRET);
     //Generate JWT token
     const token = jwt.sign({ userId: user.id, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: "7d" });
 
