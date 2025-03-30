@@ -1,10 +1,9 @@
-import { PrismaClient, Role, AddressType, OrderStatus, PaymentStatus } from "@prisma/client";
+import { PrismaClient, Role, AddressType, OrderStatus } from "@prisma/client";
 import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
 
 async function main() {
-  // Hash password for users
   const hashedPassword = await bcrypt.hash("password123", 10);
 
   // Create Admin
@@ -31,10 +30,12 @@ async function main() {
           },
         ],
       },
+      carts: { create: {} },
     },
+    include: { carts: true },
   });
 
-  // Create Customer
+  // Create Customer with Cart
   const customer = await prisma.user.upsert({
     where: { email: "customer@example.com" },
     update: {},
@@ -58,10 +59,14 @@ async function main() {
           },
         ],
       },
+      carts: { create: {} }, //create cart when user is created
     },
+    include: { carts: true },
   });
 
-  // Create Products
+  const cart = customer.carts;
+
+  // Create Products (Admin Managed)
   const product1 = await prisma.product.create({
     data: {
       adminId: admin.id,
@@ -82,40 +87,64 @@ async function main() {
     },
   });
 
-  // Create an Order for the customer
-  // Create a Cart and link it to the Order
-  await prisma.cart.create({
+  // Add products to cart
+  //@description: add product temporary into cart, until we make a order
+  await prisma.cartProduct.createMany({
+    data: [
+      { productId: product1.id, quantity: 2, cartId: cart?.id },
+      { productId: product2.id, quantity: 1, cartId: cart?.id },
+    ],
+  });
+
+  // Fetch all Cart Products
+  const cartProducts = await prisma.cartProduct.findMany({
+    where: { cartId: cart?.id },
+    include: { product: true },
+  });
+
+  // Calculate total amount
+  const totalAmount = cartProducts.reduce(
+    (sum, item) => sum + item.product.price * item.quantity,
+    0
+  );
+
+  // Create Order
+  //@description: add all products from cart to order
+  const order = await prisma.order.create({
     data: {
       userId: customer.id,
-      cartProducts: {
-        create: [
-          { productId: product1.id, quantity: 2 },
-          { productId: product2.id, quantity: 1 },
-        ],
+      status: OrderStatus.CONFIRMED,
+      totalAmount,
+      orderProducts: {
+        create: cartProducts.map((item) => ({
+          productId: item.productId,
+          quantity: item.quantity,
+          price: item.product.price, // Store price at order time
+        })),
       },
     },
+    include: { orderProducts: true }
   });
-  // const order = await prisma.order.create({
-  //   data: {
-  //     userId: customer.id,
-  //     status: OrderStatus.CONFIRMED,
-  //     totalAmount: product1.price + product2.price,
-  //     cartProducts: {
-  //       create: [{ productId: product2.id, quantity: 1 }],
-  //     },
-  //   },
-  // });
 
-  // // Create a Payment for the Order
-  // await prisma.payment.create({
-  //   data: {
-  //     orderId: order.id,
-  //     amount: order.totalAmount,
-  //     status: PaymentStatus.COMPLETED,
-  //   },
-  // });
+  //update stock
+  //@description: update stock price when we order items
+  await Promise.all(
+    order.orderProducts.map((item) =>
+      prisma.product.update({
+        where: { id: item.productId },
+        data: { stock: { decrement: item.quantity } }, // Decrease stock
+      })
+    )
+  );
 
-  console.log("✅ Database seeded successfully!");
+
+  // Clear Cart
+  //@description: remove products from cart after making order
+  await prisma.cartProduct.deleteMany({
+    where: { cartId: cart?.id },
+  });
+
+  console.log("✅ Order placed and cart cleared successfully!");
 }
 
 main()

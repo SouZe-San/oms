@@ -33,8 +33,8 @@ model User {
   // One-to-Many: A User can place multiple Orders
   orders Order[]
 
-  // One-to-Many: A User can have multiple Carts
-  carts Cart[]
+  // One-to-one: A User can have multiple Carts
+  carts Cart?
 
   // One-to-Many: An Admin manages multiple Products
   inventory Product[] @relation("AdminInventory")
@@ -69,36 +69,35 @@ model Product {
   // Many-to-Many: A Product can belong to multiple Carts
   carts CartProduct[]
 
+  //many-to-many: a product can belong to multiple orders
+  OrderProduct OrderProduct[]
+
   // Many-to-One: A Product is managed by an Admin (User)
   admin User @relation(fields: [adminId], references: [id], name: "AdminInventory")
 }
 
 // CartProduct Table - Many-to-Many Relation Between Cart and Product
 model CartProduct {
-  id       String @id @default(uuid())
-  quantity Int
+  id        String  @id @default(uuid())
+  productId String
+  quantity  Int
+  cartId    String?
 
   // Many-to-One: A CartProduct belongs to a Product
-  product   Product @relation(fields: [productId], references: [id])
-  productId String
-  Cart      Cart?   @relation(fields: [cartId], references: [id])
-  cartId    String?
-  Order     Order?  @relation(fields: [orderId], references: [id])
-  orderId   String?
+  product Product @relation(fields: [productId], references: [id])
+  cart    Cart?   @relation(fields: [cartId], references: [id])
 }
 
 // Cart Table - Represents a Shopping Cart (One Cart belongs to One Order)
 model Cart {
-  id           String        @id @default(uuid())
-  // orderId String? @unique // One-to-One: One Cart belongs to one Order
+  id     String @id @default(uuid())
+  userId String @unique
+
   // One-to-Many: A Cart can contain multiple CartProduct entries
   cartProducts CartProduct[]
 
-  // Many-to-One: A Cart belongs to a User
-  userId String
-  user   User   @relation(fields: [userId], references: [id])
-  // One-to-One: A Cart is linked to a single Order
-  // order Order? @relation(fields: [orderId], references: [id])
+  // one-to-One: A Cart belongs to a User
+  user User @relation(fields: [userId], references: [id])
 }
 
 // Order Table - Stores Order Details (Linked to One Cart)
@@ -109,15 +108,26 @@ model Order {
   totalAmount Float
   createdAt   DateTime    @default(now())
 
-  cartProducts CartProduct[]
-  // Many-to-One: An Order belongs to a User
-  user         User          @relation(fields: [userId], references: [id])
+  //one-to-many: order can holds many orderProduct
+  orderProducts OrderProduct[]
 
-  // One-to-One: An Order is linked to a single Cart
-  // cart Cart?
+  // Many-to-One: An Order belongs to a User
+  user User @relation(fields: [userId], references: [id])
 
   // One-to-One: An Order has a single Payment
   payment Payment?
+}
+
+// OrderProduct Table - Many-to-Many Relation Between order and Product
+model OrderProduct {
+  id        String @id @default(uuid())
+  orderId   String
+  productId String
+  quantity  Int
+  price     Float // Store product price at order time
+
+  order   Order   @relation(fields: [orderId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
 }
 
 // Payment Table - Stores Payment Details (Linked to One Order)
