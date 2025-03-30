@@ -6,11 +6,13 @@
   "exports": {
     "./buttonType": "./src/buttonType.ts",
     "./auth.validator": "./src/validators/auth.validator.ts",
-    "./order.validator": "./src/validators/order.validator.ts",
     "./cart.validator": "./src/validators/cart.validator.ts",
-    "./user.type": "./src/user.type.ts",
+    "./product.validator": "./src/validators/product.validator.ts",
+    "./order.validator": "./src/validators/order.validator.ts",
+    "./cart.type": "./src/cart.type.ts",
     "./order.type": "./src/order.type.ts",
-    "./cart.type": "./src/cart.type.ts"
+    "./product.type": "./src/product.type.ts",
+    "./user.type": "./src/user.type.ts"
   },
   "dependencies": {
     "react": "^19.0.0",

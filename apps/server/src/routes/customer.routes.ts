@@ -2,6 +2,7 @@ import { Router } from "express";
 
 // Import Cart controllers
 import { createCart, deleteCart, getAllCarts, getSingleCart, updateCart } from "../controllers/cart.controller";
+import { getAllProducts, getSingleProduct } from "../controllers/customer.product.controller";
 
 // Import middleware
 import authenticate from "../middleware/authenticate";
@@ -10,6 +11,8 @@ import authenticate from "../middleware/authenticate";
 const router = Router();
 
 //! Product Routes - for customers
+router.get("/products", getAllProducts);
+router.get("/product/:id", getSingleProduct);
 
 //! Carts Routes
 router.route("/carts").get(authenticate, getAllCarts);
