@@ -54,6 +54,11 @@ export const getAllProducts = async (req: Request, res: Response) => {
 // @SouZe-San
 // @route GET /api/customer/product/:id
 // @access Public
+/* TODO -> 
+need if we have additional data in db respect to the product
+for example, reviews, detail description etc.
+CUZ, in getAllProducts we retrieve all data of a product
+*/
 export const getSingleProduct = async (req: Request, res: Response) => {
   try {
     // get the product id from the request params

@@ -90,3 +90,16 @@ export const getProducts = async (req: Request, res: Response) => {
     errorMessage("Error while Showing All Products in inventory", res, error);
   }
 };
+
+/* TODO -> 
+need if we have additional data in db respect to the product
+for example, reviews, detail descriptionetc
+*/
+// ADMIN can see their product by id
+export const getProduct = (req: Request, res: Response) => {
+  try {
+
+  } catch (error) {
+    errorMessage("error message", res, error);
+  }
+};
