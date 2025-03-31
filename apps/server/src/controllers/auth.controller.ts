@@ -46,12 +46,20 @@ export const signupController = async (req: Request, res: Response) => {
     let newUser: User;
     if (role === "ADMIN") {
       newUser = await prisma.user.create({
-        data: { firstName, lastName, email, primaryMobile, dob, role, password: hashedPassword, carts: {} },
+        data: { firstName, lastName, email, primaryMobile, dob, role, password: hashedPassword, carts: { create: {} } },
       });
     } else {
       //role will be CUSTOMER
       newUser = await prisma.user.create({
-        data: { firstName, lastName, email, primaryMobile, dob, password: hashedPassword, carts: {} },
+        data: {
+          firstName,
+          lastName,
+          email,
+          primaryMobile,
+          dob: new Date(),
+          password: hashedPassword,
+          carts: { create: {} },
+        },
       });
     }
 

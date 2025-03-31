@@ -1,13 +1,12 @@
-export interface CartProducts {
+export interface CartProduct {
   id: string;
   quantity: number;
   productId: string;
   cartId: string | null;
-  orderId: string | null;
 }
 
-export interface Carts {
+export interface Cart {
   id: string;
   userId: string;
-  cartProducts: CartProducts[];
+  cartProducts: CartProduct[];
 }

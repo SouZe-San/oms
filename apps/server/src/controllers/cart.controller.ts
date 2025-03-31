@@ -1,54 +1,53 @@
 import prisma from "@oms/db/prisma";
 import { Request, Response } from "express";
-import { Cart_reqBody, CartAdvance_req_body } from "@oms/types/cart.validator";
+import { Cart_reqBody } from "@oms/types/cart.validator";
 import { Status, StatusMessages } from "../statusCode/response";
 import { errorMessage } from "../utils/ApiError";
-import { Carts } from "@oms/types/cart.type";
+import { Cart } from "@oms/types/cart.type";
+import { protected_reqBody } from "../../../../packages/types/src/validators/user.validator";
 
-// ! Create a new Cart
+// ! Get all carts
 // @SouZe-San
-// @description: Create/add a new cart
-// @route: POST /api/customer/cart
-export const createCart = async (req: Request, res: Response) => {
+// @description: Get cart and cart products of a user
+// @route: GET /api/customer/cart
+export const getCart = async (req: Request, res: Response) => {
   try {
     // Validate the request body
-    const req_validation = await CartAdvance_req_body.safeParseAsync(req.body);
+    const req_validation = await protected_reqBody.safeParseAsync(req.body);
     if (!req_validation.success) {
-      res.status(Status.Forbidden).json({
-        StatusMessages: StatusMessages[Status.Forbidden],
-        message: req_validation.error.errors.map((err) => err.message).join(", "),
+      res.status(Status.InvalidInput).json({
+        StatusMessages: StatusMessages[Status.InvalidInput],
+        message: `${req_validation.error.errors.map((err) => err.message).join(", ")}`,
       });
       return;
     }
 
-    // Destructure user and products
-    const { user, products } = req_validation.data;
+    // Destructure user from body
+    const { user } = req_validation.data;
 
-    // Create a new cart
-    const cart = await prisma.cart.create({
-      data: {
+    // Fetching cart of the user
+    const cart = await prisma.cart.findUnique({
+      where: {
         userId: user.userId,
-        cartProducts: {
-          create: products.map((product) => ({
-            productId: product.productId,
-            quantity: product.quantity,
-          })),
-        },
+      },
+      include: {
+        cartProducts: true,
       },
     });
 
+    // Check if carts are not found (it never actually happens)
     if (!cart) {
-      throw new Error("Cart not created");
+      throw new Error("It's Developer's Thought, *_~ ");
     }
 
     // Send response
-    res.status(Status.Created).json({
-      statusMessage: StatusMessages[Status.Created],
-      message: "Cart created successfully",
-      data: cart,
+    res.status(Status.Success).json({
+      statusMessage: StatusMessages[Status.Success],
+      message: "Successfully fetched all carts",
+      cart,
     });
   } catch (error) {
-    errorMessage("Error While creating Cart: ", res, error);
+    errorMessage("Error From getting all Carts: ", res, error);
   }
 };
 
@@ -111,7 +110,7 @@ const updateCartProduct = async (productId: string, quantity: number) => {
 export const updateCart = async (req: Request, res: Response) => {
   try {
     // Validate the request body
-    const req_validation = await CartAdvance_req_body.safeParseAsync(req.body);
+    const req_validation = await Cart_reqBody.safeParseAsync(req.body);
     if (!req_validation.success) {
       res.status(Status.Forbidden).json({
         StatusMessages: StatusMessages[Status.Forbidden],
@@ -121,22 +120,12 @@ export const updateCart = async (req: Request, res: Response) => {
     }
 
     // Destructure products from body
-    const { products } = req_validation.data;
+    const { products, user } = req_validation.data;
 
-    // collect cartId from params
-    const cartId = req.params.id;
-    if (!cartId) {
-      res.status(Status.InvalidInput).json({
-        StatusMessages: StatusMessages[Status.InvalidInput],
-        message: "Cart ID is required",
-      });
-      return;
-    }
-
-    // Find the  carts
-    const cart: Carts = await prisma.cart.findUniqueOrThrow({
+    // Find the  carts - if cart not found will get an error
+    const cart: Cart = await prisma.cart.findUniqueOrThrow({
       where: {
-        id: cartId,
+        userId: user.userId,
       },
       include: {
         cartProducts: true,
@@ -153,13 +142,14 @@ export const updateCart = async (req: Request, res: Response) => {
     );
 
     // 2. Update the quantities of the products that are already in the cart
-    alreadyInCart.forEach(async (oldProduct) => {
-      const newProduct = upComingProducts.find((product) => product.productId === oldProduct.productId);
-      if (newProduct) {
-        await updateCartProduct(oldProduct.id, newProduct.quantity);
-      }
-    });
-
+    if (alreadyInCart.length > 0) {
+      alreadyInCart.forEach(async (oldProduct) => {
+        const newProduct = upComingProducts.find((product) => product.productId === oldProduct.productId);
+        if (newProduct) {
+          await updateCartProduct(oldProduct.id, newProduct.quantity);
+        }
+      });
+    }
     // ---------------------------------------------------------------------------    //
     // 3. Find the products that are not in the cart
     const notInCart = upComingProducts.filter(
@@ -167,20 +157,21 @@ export const updateCart = async (req: Request, res: Response) => {
     );
 
     // 4. Add the products that are not in the cart
-    await prisma.cart.update({
-      where: {
-        id: cart.id,
-      },
-      data: {
-        cartProducts: {
-          create: notInCart.map((product) => ({
-            productId: product.productId,
-            quantity: product.quantity,
-          })),
+    if (notInCart.length > 0) {
+      await prisma.cart.update({
+        where: {
+          id: cart.id,
         },
-      },
-    });
-
+        data: {
+          cartProducts: {
+            create: notInCart.map((product) => ({
+              productId: product.productId,
+              quantity: product.quantity,
+            })),
+          },
+        },
+      });
+    }
     // ---------------------------------------------------------------------------    //
 
     // 5. Delete the products that are in the cart but not in the request
@@ -189,10 +180,11 @@ export const updateCart = async (req: Request, res: Response) => {
     );
 
     // 6. delete cartProducts those are removed from cart
-    removeProducts.forEach(async (product) => {
-      await deleteCartProduct(product.id);
-    });
-
+    if (removeProducts.length > 0) {
+      removeProducts.forEach(async (product) => {
+        await deleteCartProduct(product.id);
+      });
+    }
     // ---------------------------------------------------------------------------    //
 
     // Send response
@@ -208,27 +200,12 @@ export const updateCart = async (req: Request, res: Response) => {
 // ! DELETE cart
 // @SouZe-San
 // @description: Delete a cart
-// @route: DELETE /api/customer/cart/:id
-export const deleteCart = async (req: Request, res: Response) => {
+// @useCase: When user's account will be DELETED, delete the cart
+export const deleteCart = async (cartId: string) => {
   try {
-    // Validate the request body -- {I think it's not required *_* GONe in few days}
-    const req_validation = await Cart_reqBody.safeParseAsync(req.body);
-    if (!req_validation.success) {
-      res.status(Status.Forbidden).json({
-        StatusMessages: StatusMessages[Status.Forbidden],
-        message: req_validation.error.errors.map((err) => err.message).join(", "),
-      });
-      return;
-    }
-
     // take cartId from params
-    const cartId = req.params.id;
     if (!cartId) {
-      res.status(Status.InvalidInput).json({
-        StatusMessages: StatusMessages[Status.InvalidInput],
-        message: "Cart ID is required",
-      });
-      return;
+      throw new Error("Cart ID is required");
     }
 
     // delete cartProducts that are linked to this cart
@@ -241,110 +218,9 @@ export const deleteCart = async (req: Request, res: Response) => {
       },
     });
 
-    // Send response
-    res.status(200).json({
-      statusMessage: "Deleted",
-      message: "Cart deleted successfully",
-    });
+    // Send respons
   } catch (error) {
-    errorMessage("Error From getting all Carts: ", res, error);
-  }
-};
-
-// ! Get all carts
-// @SouZe-San
-// @description: Get all carts
-// @route: GET /api/customer/carts
-export const getAllCarts = async (req: Request, res: Response) => {
-  try {
-    // Validate the request body
-    const req_validation = await Cart_reqBody.safeParseAsync(req.body);
-    if (!req_validation.success) {
-      res.status(Status.InvalidInput).json({
-        StatusMessages: StatusMessages[Status.InvalidInput],
-        message: `${req_validation.error.errors.map((err) => err.message).join(", ")}`,
-      });
-      return;
-    }
-
-    // Destructure user from body
-    const { user } = req_validation.data;
-
-    // Fetching all carts
-    const carts = await prisma.cart.findMany({
-      where: {
-        userId: user.userId,
-      },
-      include: {
-        cartProducts: true,
-      },
-    });
-
-    // Check if carts are not found (it never actually happens)
-    if (!carts) {
-      throw new Error("It's Developer's Thought, *_~ ");
-    }
-
-    // Send response
-    res.status(Status.Success).json({
-      statusMessage: StatusMessages[Status.Success],
-      message: "Successfully fetched all carts",
-      carts,
-    });
-  } catch (error) {
-    console.error("Error From getting all Carts: ", error);
-
-    let errorMessaged = "Something went wrong!!";
-    if (error instanceof Error) {
-      errorMessaged = error.message;
-    }
-    // Send response - if error occurs
-    res.status(Status.InternalServerError).json({
-      statusMessage: StatusMessages[Status.InternalServerError],
-      message: errorMessaged,
-    });
-  }
-};
-
-// ! Get a single cart
-// @SouZe-San
-// @description: Get a single cart
-// @route: GET /api/customer/cart/:id
-export const getSingleCart = async (req: Request, res: Response) => {
-  try {
-    // get cartId from params
-    const cartId = req.params.id;
-    if (!cartId) {
-      res.status(Status.InvalidInput).json({
-        StatusMessages: StatusMessages[Status.InvalidInput],
-        message: "Cart ID is Missing",
-      });
-
-      return;
-    }
-
-    // Fetching a single cart
-    const cart = await prisma.cart.findUnique({
-      where: {
-        id: cartId,
-      },
-      include: {
-        cartProducts: true,
-      },
-    });
-
-    // Check if cart is not found
-    if (!cart) {
-      throw new Error("Cart not found");
-    }
-
-    // Send response
-    res.status(Status.Success).json({
-      statusMessage: StatusMessages[Status.Success],
-      message: "Successfully fetched cart",
-      cart,
-    });
-  } catch (error) {
-    errorMessage("Error From getting all Carts: ", res, error);
+    console.error("Error while deleting cart: ", error);
+    throw new Error("Error while deleting cart");
   }
 };
