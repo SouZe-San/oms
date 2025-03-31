@@ -37,6 +37,11 @@ export const updateProductValidator = z.object({
     .optional(),
 });
 
+//Validate delete product request by adminId & productId
+export const deleteProductValidator = z.object({
+  adminId: z.string().uuid().nonempty("User ID is required"),
+  productId: z.string().uuid().nonempty("Product ID is required"),
+})
 
 // ! CUSTOMER - PART
 

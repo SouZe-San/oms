@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { errorMessage } from "../utils/ApiError";
-import { createProductValidator, getProductsValidator, updateProductValidator } from "@oms/types/product.validator";
+import { createProductValidator, deleteProductValidator, getProductsValidator, updateProductValidator } from "@oms/types/product.validator";
 import { Status, StatusMessages } from "../statusCode/response";
 import prisma from "@oms/db/prisma";
 
@@ -154,6 +154,57 @@ export const updateProduct = async (req: Request, res: Response) => {
       message: "Product updated successfully",
       updatedProduct,
     });
+    return;
+  } catch (error) {
+    errorMessage("error message", res, error);
+  }
+};
+
+// ADMIN can remove their product store
+export const deleteProduct = async (req: Request, res: Response) => {
+  try {
+    const validator = deleteProductValidator.safeParse({
+      productId: req.params.id,
+      ...req.body
+    });
+
+    //check if input is valid
+    if (!validator.success) {
+      res.status(Status.InvalidInput).json({
+        status: Status.InvalidInput,
+        statusMessage: StatusMessages[Status.InvalidInput],
+        message: validator.error.errors.map((err) => err.path + " " + err.message).join(", "),
+      });
+      return;
+    }
+
+    //get data from validator
+    const { adminId, productId } = validator.data;
+
+    // Check if the product exists 
+    const product = await prisma.product.findUnique({
+      where: { id: productId, adminId },
+    });
+
+    if (!product) {
+      res.status(Status.NotFound).json({
+        statusMessage: StatusMessages[Status.NotFound],
+        message: "Product not found",
+      });
+      return;
+    }
+
+    // Delete the product
+    await prisma.product.delete({
+      where: { id: productId },
+    });
+
+    res.status(Status.Success).json({
+      statusMessage: StatusMessages[Status.Success],
+      message: "Product deleted successfully",
+    });
+    return;
+
   } catch (error) {
     errorMessage("error message", res, error);
   }
