@@ -1,10 +1,10 @@
 import prisma from "@oms/db/prisma";
 import { Request, Response } from "express";
-import { Cart_reqBody } from "@oms/types/cart.validator";
 import { Status, StatusMessages } from "../statusCode/response";
 import { errorMessage } from "../utils/ApiError";
-import { Cart } from "@oms/types/cart.type";
-import { protected_reqBody } from "../../../../packages/types/src/validators/user.validator";
+
+import { Cart_reqBody } from "@oms/types/cart.validator";
+import { protected_reqBody } from "@oms/types/user.validator";
 
 // ! Get all carts
 // @SouZe-San
@@ -26,25 +26,20 @@ export const getCart = async (req: Request, res: Response) => {
     const { user } = req_validation.data;
 
     // Fetching cart of the user
-    const cart = await prisma.cart.findUnique({
+    const cartProducts = await prisma.cartProduct.findMany({
       where: {
         userId: user.userId,
       },
       include: {
-        cartProducts: true,
+        product: true,
       },
     });
-
-    // Check if carts are not found (it never actually happens)
-    if (!cart) {
-      throw new Error("It's Developer's Thought, *_~ ");
-    }
 
     // Send response
     res.status(Status.Success).json({
       statusMessage: StatusMessages[Status.Success],
       message: "Successfully fetched all carts",
-      cart,
+      cartProducts,
     });
   } catch (error) {
     errorMessage("Error From getting all Carts: ", res, error);
@@ -69,11 +64,11 @@ const deleteCartProduct = async (cartProductId: string) => {
 };
 
 // Delete cartProducts that are linked to this cart
-const deleteCartProducts = async (cartId: string) => {
+const deleteCartProducts = async (userId: string) => {
   try {
     const cartProducts = await prisma.cartProduct.deleteMany({
       where: {
-        cartId: cartId,
+        userId,
       },
     });
 
@@ -123,17 +118,13 @@ export const updateCart = async (req: Request, res: Response) => {
     const { products, user } = req_validation.data;
 
     // Find the  carts - if cart not found will get an error
-    const cart: Cart = await prisma.cart.findUniqueOrThrow({
+
+    // old and new products
+    const previousProducts = await prisma.cartProduct.findMany({
       where: {
         userId: user.userId,
       },
-      include: {
-        cartProducts: true,
-      },
     });
-
-    // old and new products
-    const previousProducts = cart.cartProducts;
     const upComingProducts = products;
 
     // 1. Find the products that are already in the cart
@@ -158,18 +149,12 @@ export const updateCart = async (req: Request, res: Response) => {
 
     // 4. Add the products that are not in the cart
     if (notInCart.length > 0) {
-      await prisma.cart.update({
-        where: {
-          id: cart.id,
-        },
-        data: {
-          cartProducts: {
-            create: notInCart.map((product) => ({
-              productId: product.productId,
-              quantity: product.quantity,
-            })),
-          },
-        },
+      await prisma.cartProduct.createMany({
+        data: notInCart.map((product) => ({
+          productId: product.productId,
+          quantity: product.quantity,
+          userId: user.userId,
+        })),
       });
     }
     // ---------------------------------------------------------------------------    //
@@ -210,13 +195,6 @@ export const deleteCart = async (cartId: string) => {
 
     // delete cartProducts that are linked to this cart
     await deleteCartProducts(cartId);
-
-    // delete the cart
-    await prisma.cart.delete({
-      where: {
-        id: cartId,
-      },
-    });
 
     // Send respons
   } catch (error) {

@@ -4,9 +4,3 @@ export interface CartProduct {
   productId: string;
   cartId: string | null;
 }
-
-export interface Cart {
-  id: string;
-  userId: string;
-  cartProducts: CartProduct[];
-}
