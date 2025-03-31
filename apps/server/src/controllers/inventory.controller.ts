@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { errorMessage } from "../utils/ApiError";
-import { createProductValidator } from "@oms/types/product.validator";
+import { createProductValidator, getProductsValidator } from "@oms/types/product.validator";
 import { Status, StatusMessages } from "../statusCode/response";
 import prisma from "@oms/db/prisma";
 
@@ -40,5 +40,53 @@ export const createProduct = async (req: Request, res: Response) => {
     return;
   } catch (error) {
     errorMessage("error message", res, error);
+  }
+};
+
+// ADMIN can see their products in inventory
+export const getProducts = async (req: Request, res: Response) => {
+  try {
+    const validator = getProductsValidator.safeParse(req.body);
+
+    //check if input is valid
+    if (!validator.success) {
+      res.status(Status.InvalidInput).json({
+        status: Status.InvalidInput,
+        statusMessage: StatusMessages[Status.InvalidInput],
+        message: validator.error.errors.map((err) => err.path + " " + err.message).join(", "),
+      });
+      return;
+    }
+
+    //get data from request body
+    const { adminId, skipCount, takeCount } = validator.data;
+
+    //get all products from the inventory
+    const products = await prisma.product.findMany({
+      where: { adminId },
+      skip: skipCount || 0,
+      take: takeCount || 10,
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        price: true,
+        createdAt: true,
+        updatedAt: true
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    // successful
+    res.status(Status.Success).json({
+      StatusMessages: StatusMessages[Status.Success],
+      message: "get products successfully",
+      products,
+    });
+    return;
+  } catch (error) {
+    errorMessage("Error while Showing All Products in inventory", res, error);
   }
 };

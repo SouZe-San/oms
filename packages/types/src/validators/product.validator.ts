@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+//Validate create product request
 export const createProductValidator = z.object({
   adminId: z.string().uuid().nonempty("User ID is required"),
   name: z.string().nonempty("Product Name is required"),
@@ -13,6 +14,12 @@ export const createProductValidator = z.object({
   stock: z.number().int().positive("Stock must be positive value")
 });
 
+// Validate get products request by adminId
+export const getProductsValidator = z.object({
+  adminId: z.string().uuid().nonempty("User ID is required"),
+  skipCount: z.number().int().nonnegative("skipCount should be >= 0").default(0).optional(),
+  takeCount: z.number().int().positive("takeCount must be positive").default(10).optional(),
+})
 // ! CUSTOMER - PART
 
 export const getProduct_reqSchema = z.object({
