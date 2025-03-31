@@ -4,6 +4,7 @@ import cors from "cors";
 import checkRoutes from "./middleware/checkRoutes";
 import auth from "./routes/auth.routes";
 import customer from "./routes/customer.routes";
+import inventory from "./routes/inventory.routes";
 const app = express();
 
 //middlewares
@@ -14,6 +15,7 @@ app.use(checkRoutes);
 
 app.use("/api/auth", auth);
 app.use("/api/customer", customer);
+app.use("/api/inventory", inventory);
 
 // default route - health check
 app.get("/", (_req, res) => {
