@@ -30,9 +30,7 @@ async function main() {
           },
         ],
       },
-      carts: { create: {} },
     },
-    include: { carts: true },
   });
 
   // Create Customer with Cart
@@ -59,12 +57,8 @@ async function main() {
           },
         ],
       },
-      carts: { create: {} }, //create cart when user is created
     },
-    include: { carts: true },
   });
-
-  const cart = customer.carts;
 
   // Create Products (Admin Managed)
   const product1 = await prisma.product.create({
@@ -91,22 +85,19 @@ async function main() {
   //@description: add product temporary into cart, until we make a order
   await prisma.cartProduct.createMany({
     data: [
-      { productId: product1.id, quantity: 2, cartId: cart?.id },
-      { productId: product2.id, quantity: 1, cartId: cart?.id },
+      { productId: product1.id, quantity: 2, userId: customer.id },
+      { productId: product2.id, quantity: 1, userId: customer.id },
     ],
   });
 
   // Fetch all Cart Products
   const cartProducts = await prisma.cartProduct.findMany({
-    where: { cartId: cart?.id },
+    where: { userId: customer.id },
     include: { product: true },
   });
 
   // Calculate total amount
-  const totalAmount = cartProducts.reduce(
-    (sum, item) => sum + item.product.price * item.quantity,
-    0
-  );
+  const totalAmount = cartProducts.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
 
   // Create Order
   //@description: add all products from cart to order
@@ -115,6 +106,7 @@ async function main() {
       userId: customer.id,
       status: OrderStatus.CONFIRMED,
       totalAmount,
+      totalItems: cartProducts.length,
       orderProducts: {
         create: cartProducts.map((item) => ({
           productId: item.productId,
@@ -123,7 +115,7 @@ async function main() {
         })),
       },
     },
-    include: { orderProducts: true }
+    include: { orderProducts: true },
   });
 
   //update stock
@@ -137,11 +129,10 @@ async function main() {
     )
   );
 
-
   // Clear Cart
   //@description: remove products from cart after making order
   await prisma.cartProduct.deleteMany({
-    where: { cartId: cart?.id },
+    where: { userId: customer.id },
   });
 
   console.log("✅ Order placed and cart cleared successfully!");

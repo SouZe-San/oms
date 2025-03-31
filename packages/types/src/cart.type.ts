@@ -1,13 +1,12 @@
-export interface CartProducts {
+import { Product } from "./product.type";
+
+export interface CartProduct {
   id: string;
   quantity: number;
   productId: string;
-  cartId: string | null;
-  orderId: string | null;
+  userId: string;
 }
 
-export interface Carts {
-  id: string;
-  userId: string;
-  cartProducts: CartProducts[];
+export interface CartProductWithDetails extends CartProduct {
+  product: Product;
 }

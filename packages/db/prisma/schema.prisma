@@ -33,11 +33,9 @@ model User {
   // One-to-Many: A User can place multiple Orders
   orders Order[]
 
-  // One-to-one: A User can have multiple Carts
-  carts Cart?
-
   // One-to-Many: An Admin manages multiple Products
-  inventory Product[] @relation("AdminInventory")
+  inventory   Product[]     @relation("AdminInventory")
+  CartProduct CartProduct[]
 }
 
 // Address Table - Stores Addresses for Users
@@ -78,36 +76,26 @@ model Product {
 
 // CartProduct Table - Many-to-Many Relation Between Cart and Product
 model CartProduct {
-  id        String  @id @default(uuid())
+  id        String @id @default(uuid())
   productId String
   quantity  Int
-  cartId    String?
+  userId    String
 
   // Many-to-One: A CartProduct belongs to a Product
   product Product @relation(fields: [productId], references: [id])
-  cart    Cart?   @relation(fields: [cartId], references: [id])
-}
 
-// Cart Table - Represents a Shopping Cart (One Cart belongs to One Order)
-model Cart {
-  id     String @id @default(uuid())
-  userId String @unique
-
-  // One-to-Many: A Cart can contain multiple CartProduct entries
-  cartProducts CartProduct[]
-
-  // one-to-One: A Cart belongs to a User
+  //Many to one-to-One: A CartProduct belongs to a User
   user User @relation(fields: [userId], references: [id])
 }
 
 // Order Table - Stores Order Details (Linked to One Cart)
 model Order {
-  id          String      @id @default(uuid())
-  userId      String
-  status      OrderStatus @default(PENDING)
-  totalAmount Float
-  createdAt   DateTime    @default(now())
-
+  id            String         @id @default(uuid())
+  userId        String
+  status        OrderStatus    @default(PENDING)
+  totalAmount   Float
+  createdAt     DateTime       @default(now())
+  totalItems    Int
   //one-to-many: order can holds many orderProduct
   orderProducts OrderProduct[]
 

@@ -2,11 +2,28 @@ export type OrderStatus = "PENDING" | "CONFIRMED" | "SHIPPED" | "CANCELLED" | "D
 
 export type PaymentStatus = "PENDING" | "FAILED" | "COMPLETED";
 
+export type orderProduct = {
+  id: string;
+  orderId: string;
+  productId: string;
+  quantity: number;
+  price: number;
+};
+
 export interface Order {
-  id?: string;
+  id: string;
   userId: string;
   status: OrderStatus;
   totalAmount: number;
-  createdAt?: Date;
-  payment: "PENDING" | "FAILED" | "COMPLETED";
+  orderProducts: orderProduct[];
+  createdAt: Date;
+  payment?: Payment;
+}
+
+interface Payment {
+  id: string;
+  orderId: string;
+  amount: number;
+  status: PaymentStatus;
+  createdAt: Date;
 }
