@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { errorMessage } from "../utils/ApiError";
-import { createProductValidator, getProductsValidator } from "@oms/types/product.validator";
+import { createProductValidator, getProductsValidator, updateProductValidator } from "@oms/types/product.validator";
 import { Status, StatusMessages } from "../statusCode/response";
 import prisma from "@oms/db/prisma";
 
@@ -9,6 +9,7 @@ export const createProduct = async (req: Request, res: Response) => {
   try {
     const validator = createProductValidator.safeParse(req.body);
 
+    //check if input is valid
     if (!validator.success) {
       res.status(Status.InvalidInput).json({
         status: Status.InvalidInput,
@@ -18,6 +19,7 @@ export const createProduct = async (req: Request, res: Response) => {
       return;
     }
 
+    //get data from validator
     const { adminId, name, description, price, stock } = validator.data;
 
     //TODO -> need to find if the product is present
@@ -58,7 +60,7 @@ export const getProducts = async (req: Request, res: Response) => {
       return;
     }
 
-    //get data from request body
+    //get data from validator
     const { adminId, skipCount, takeCount } = validator.data;
 
     //get all products from the inventory
@@ -99,6 +101,59 @@ for example, reviews, detail descriptionetc
 export const getProduct = (req: Request, res: Response) => {
   try {
 
+  } catch (error) {
+    errorMessage("error message", res, error);
+  }
+};
+
+// ADMIN can update their product by id
+export const updateProduct = async (req: Request, res: Response) => {
+  try {
+    const validator = updateProductValidator.safeParse({
+      productId: req.params.id,
+      ...req.body
+    });
+
+    //check if input is valid
+    if (!validator.success) {
+      res.status(Status.InvalidInput).json({
+        status: Status.InvalidInput,
+        statusMessage: StatusMessages[Status.InvalidInput],
+        message: validator.error.errors.map((err) => err.path + " " + err.message).join(", "),
+      });
+      return;
+    }
+
+    //get data from validator
+    const { adminId, productId, updateName, updateDescription, updatePrice, updateStock } = validator.data;
+
+    // Prepare update data dynamically
+    const updateData: Record<string, any> = {};
+    if (updateName) updateData.name = updateName;
+    if (updateDescription) updateData.description = updateDescription;
+    if (updatePrice !== undefined) updateData.price = parseFloat(updatePrice.toFixed(2)); // Ensure price has 2 decimal places
+    if (updateStock !== undefined) updateData.stock = updateStock;
+
+    // If there's nothing to update, return early
+    if (Object.keys(updateData).length === 0) {
+      res.status(Status.NoContent).json({
+        statusMessage: StatusMessages[Status.NoContent],
+        message: "No valid fields to update",
+      });
+      return;
+    }
+
+    // Update only provided fields
+    const updatedProduct = await prisma.product.update({
+      where: { id: productId, adminId },
+      data: updateData,
+    });
+
+    res.status(Status.Success).json({
+      statusMessage: StatusMessages[Status.Success],
+      message: "Product updated successfully",
+      updatedProduct,
+    });
   } catch (error) {
     errorMessage("error message", res, error);
   }
