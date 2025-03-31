@@ -64,7 +64,7 @@ const deleteCartProduct = async (cartProductId: string) => {
 };
 
 // Delete cartProducts that are linked to this cart
-const deleteCartProducts = async (userId: string) => {
+export const deleteCartProducts = async (userId: string) => {
   try {
     const cartProducts = await prisma.cartProduct.deleteMany({
       where: {
