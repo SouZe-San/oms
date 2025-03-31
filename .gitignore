@@ -43,3 +43,4 @@ packages/*/node_modules
 packages/*/dist
 packages/*/build
 packages/db/generated
+packages/db/prisma/migrations
