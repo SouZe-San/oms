@@ -15,9 +15,9 @@ export interface Order {
   userId: string;
   status: OrderStatus;
   totalAmount: number;
-  orderProducts: orderProduct[];
+  orderProducts?: orderProduct[];
   createdAt: Date;
-  payment?: Payment;
+  payment?: Payment | null;
 }
 
 interface Payment {
