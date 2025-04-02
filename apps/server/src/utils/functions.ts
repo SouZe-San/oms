@@ -34,7 +34,7 @@ const stockUpdate = async (prisma: PrismaClient, cartProducts: CartProduct[] | C
 // @useCase: stock availability check
 // @desc: Check if order is possible or not
 const checkIfOrderPossible = async (cartProducts: CartProductWithDetails[]) => {
-  if (!cartProducts.length) throw new Error("Cart is empty");
+  if (cartProducts.length === 0) throw new Error("Cart is empty");
   if (cartProducts.some((item) => item.product.stock < item.quantity)) return false;
   return true;
 };

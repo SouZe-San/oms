@@ -10,7 +10,7 @@ import { getCart, updateCart } from "../controllers/cart.controller";
 import { getAllProducts, getSingleProduct } from "../controllers/customer.product.controller";
 
 // Import Order controllers
-import { createOrder } from "../controllers/order.controller";
+import { createOrder, deleteOrder, orderSingleItem, updateOrder } from "../controllers/order.controller";
 
 // Create route object
 const router = Router();
@@ -24,6 +24,11 @@ router.route("/cart").get(authenticate, getCart);
 router.route("/cart").put(authenticate, updateCart);
 
 //! Order Routes
+router.route("/orders").get(authenticate, getAllProducts);
+router.route("/order/:id").get(authenticate, getSingleProduct);
 router.route("/order").post(authenticate, createOrder);
+router.route("/order/single").post(authenticate, orderSingleItem);
+router.route("/order/:id").put(authenticate, updateOrder);
+router.route("/order/:id").delete(authenticate, deleteOrder);
 
 export default router;
