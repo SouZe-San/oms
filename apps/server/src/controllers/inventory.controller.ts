@@ -1,9 +1,15 @@
 import { Request, Response } from "express";
 import { errorMessage } from "../utils/ApiError";
-import { createProductValidator, deleteProductValidator, getProductsValidator, updateProductValidator } from "@oms/types/product.validator";
+import {
+  createProductValidator,
+  deleteProductValidator,
+  getProductsValidator,
+  updateProductValidator,
+} from "@oms/types/product.validator";
 import { Status, StatusMessages } from "../statusCode/response";
 import prisma from "@oms/db/prisma";
 
+// @alfaarghya
 // ADMIN can create a product in store
 export const createProduct = async (req: Request, res: Response) => {
   try {
@@ -22,23 +28,25 @@ export const createProduct = async (req: Request, res: Response) => {
     //get data from validator
     const { adminId, name, description, price, stock } = validator.data;
 
-    //TODO -> need to find if the product is present
+    //TODO -> need to find if the product is present -- NOT REQUIRED(@SouZe-San)
+    // ^ reason: we are creating a new product, so it will not be present in the inventory : if admin create it , it's responsible to maintain it
+    // We does't make name unique, so that admin can create multiple products with same name
 
     //create a product
-    const product = await prisma.product.create({
+    await prisma.product.create({
       data: {
         adminId,
         name,
         description,
         price,
-        stock
-      }
+        stock,
+      },
     });
 
     res.send(Status.Success).json({
       statusMessage: StatusMessages[Status.Success],
       message: "Product created successfully",
-    })
+    });
     return;
   } catch (error) {
     errorMessage("error message", res, error);
@@ -74,7 +82,7 @@ export const getProducts = async (req: Request, res: Response) => {
         description: true,
         price: true,
         createdAt: true,
-        updatedAt: true
+        updatedAt: true,
       },
       orderBy: {
         createdAt: "desc",
@@ -95,12 +103,16 @@ export const getProducts = async (req: Request, res: Response) => {
 
 /* TODO -> 
 need if we have additional data in db respect to the product
-for example, reviews, detail descriptionetc
+for example, reviews, detail description etc
+
+
+// @SouZe-San
+if wants to add review then add field in schema 
+and Description?  JUST add whatever in your head to add in the schema
 */
 // ADMIN can see their product by id
 export const getProduct = (req: Request, res: Response) => {
   try {
-
   } catch (error) {
     errorMessage("error message", res, error);
   }
@@ -111,7 +123,7 @@ export const updateProduct = async (req: Request, res: Response) => {
   try {
     const validator = updateProductValidator.safeParse({
       productId: req.params.id,
-      ...req.body
+      ...req.body,
     });
 
     //check if input is valid
@@ -165,7 +177,7 @@ export const deleteProduct = async (req: Request, res: Response) => {
   try {
     const validator = deleteProductValidator.safeParse({
       productId: req.params.id,
-      ...req.body
+      ...req.body,
     });
 
     //check if input is valid
@@ -181,7 +193,7 @@ export const deleteProduct = async (req: Request, res: Response) => {
     //get data from validator
     const { adminId, productId } = validator.data;
 
-    // Check if the product exists 
+    // Check if the product exists
     const product = await prisma.product.findUnique({
       where: { id: productId, adminId },
     });
@@ -204,7 +216,6 @@ export const deleteProduct = async (req: Request, res: Response) => {
       message: "Product deleted successfully",
     });
     return;
-
   } catch (error) {
     errorMessage("error message", res, error);
   }
