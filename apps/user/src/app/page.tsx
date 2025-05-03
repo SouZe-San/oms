@@ -14,7 +14,7 @@ const Home = () => {
 
       <div className="flex justify-center mt-16 gap-5 items-center">
         <TempoCount />
-        <CountButton className="border border-gray-300 px-4 py-2 rounded-md shadow-sm text-black font-medium hover:bg-green-100 focus:outline-none  transition cursor-pointer">
+        <CountButton className="">
           Upgrade
         </CountButton>
       </div>

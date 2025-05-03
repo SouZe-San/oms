@@ -3,20 +3,24 @@
   "version": "0.0.0",
   "private": true,
   "exports": {
-    "./button": "./src/button.tsx",
-    "./countButton": "./src/countButton.tsx",
-    "./card": "./src/card.tsx",
-    "./code": "./src/code.tsx"
+    "./styles.css": "./dist/index.css",
+    "./*": "./src/*.tsx"
   },
   "scripts": {
+    "dev": "tailwindcss -i ./src/styles/global.css -o ./dist/index.css --watch",
+    "build": "tailwindcss -i ./src/styles/global.css -o ./dist/index.css",
     "lint": "eslint . --max-warnings 0",
     "generate:component": "turbo gen react-component",
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
+    "@oms/store": "*",
     "@oms/types": "*",
+    "@tailwindcss/cli": "^4.1.5",
+    "@tailwindcss/postcss": "^4.1.5",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "tailwindcss": "^4.1.5"
   },
   "devDependencies": {
     "@oms/eslint-config": "*",
