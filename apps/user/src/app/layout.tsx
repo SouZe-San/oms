@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import '@oms/ui/styles.css';
+import Providers from "@oms/ui/providers/provider";
 
-import StoreProvider from "./StoreProvider";
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <StoreProvider> {children}</StoreProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
