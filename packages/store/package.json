@@ -6,13 +6,17 @@
   "exports": {
     "./UseStore": "./src/store.ts",
     "./hooks": "./src/hooks.ts",
-    "./counter": "./src/features/counterSlice.ts"
+    "./counter": "./src/features/counterSlice.ts",
+    "./signup": "./src/features/signupSlice.ts",
+    "./signin": "./src/features/signinSlice.ts",
+    "./auth": "./src/features/authSlice.ts"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.1",
     "react-redux": "^9.2.0"
   },
   "devDependencies": {
+    "@oms/types": "*",
     "@oms/eslint-config": "*",
     "@oms/typescript-config": "*",
     "typescript": "5.7.3"
