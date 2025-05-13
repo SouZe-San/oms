@@ -12,4 +12,7 @@ export interface User {
   createdAt: Date
 }
 
-export type Role = "ADMIN" | "CUSTOMER"
+export enum Role {
+  ADMIN = "ADMIN",
+  CUSTOMER = "CUSTOMER"
+}
