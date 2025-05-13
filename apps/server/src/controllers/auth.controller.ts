@@ -3,7 +3,6 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { SignInSchema, SignUpSchema } from "@oms/types/auth.validator";
 import prisma from "@oms/db/prisma";
-import { User } from "@oms/types/user.type";
 import { Status, StatusMessages } from "../statusCode/response";
 import { COOKIE_OPTIONS } from "../utils/cookieOptions";
 
@@ -43,24 +42,9 @@ export const signupController = async (req: Request, res: Response) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     //create new user
-    let newUser: User;
-    if (role === "ADMIN") {
-      newUser = await prisma.user.create({
-        data: { firstName, lastName, email, primaryMobile, dob, role, password: hashedPassword },
-      });
-    } else {
-      //role will be CUSTOMER
-      newUser = await prisma.user.create({
-        data: {
-          firstName,
-          lastName,
-          email,
-          primaryMobile,
-          dob: new Date(),
-          password: hashedPassword,
-        },
-      });
-    }
+    const newUser = await prisma.user.create({
+      data: { firstName, lastName, email, primaryMobile, dob: new Date(dob), role, password: hashedPassword },
+    });
 
     const JWT_SECRET = process.env.JWT_SECRET!;
     //Generate JWT token
@@ -76,6 +60,9 @@ export const signupController = async (req: Request, res: Response) => {
       status: Status.Success,
       statusMessage: StatusMessages[Status.Success],
       message: "Account created successfully",
+      user: {
+        firstName: newUser.firstName
+      }
     });
     return;
   } catch (error) {
@@ -107,11 +94,11 @@ export const signinController = async (req: Request, res: Response) => {
   }
 
   try {
-    const { email, primaryMobile, password } = validation.data;
+    const { email, primaryMobile, password, role } = validation.data;
 
     //get user from db
-    const user: User = await prisma.user.findFirstOrThrow({
-      where: { OR: [{ email }, { primaryMobile }] },
+    const user = await prisma.user.findFirst({
+      where: { OR: [{ email }, { primaryMobile }], role },
     });
 
     if (!user) {
@@ -137,7 +124,6 @@ export const signinController = async (req: Request, res: Response) => {
     }
 
     const JWT_SECRET = process.env.JWT_SECRET!;
-    console.log("New User:", JWT_SECRET);
     //Generate JWT token
     const token = jwt.sign({ userId: user.id, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: "7d" });
 
@@ -149,6 +135,9 @@ export const signinController = async (req: Request, res: Response) => {
       status: Status.Success,
       statusMessage: StatusMessages[Status.Success],
       message: "Signed in successfully",
+      user: {
+        firstName: user.firstName
+      }
     });
     return;
   } catch (error) {
