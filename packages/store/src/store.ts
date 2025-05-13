@@ -2,7 +2,6 @@ import { configureStore } from '@reduxjs/toolkit';
 import type { EnhancedStore } from '@reduxjs/toolkit';
 
 // Import slices
-import counterReducer from './features/counterSlice';
 import signupReducer from './features/signupSlice';
 import signinReducer from './features/signinSlice';
 import authReducer from './features/authSlice';
@@ -10,7 +9,6 @@ import authReducer from './features/authSlice';
 export function makeStore(): EnhancedStore {
   return configureStore({
     reducer: {
-      counter: counterReducer,
       signup: signupReducer,
       signin: signinReducer,
       auth: authReducer,
