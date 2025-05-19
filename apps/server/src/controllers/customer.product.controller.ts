@@ -41,9 +41,17 @@ export const getAllProducts = async (req: Request, res: Response) => {
       },
     });
 
+    // trimmed description to 10 words
+    const cleanedData = products.map((product) => ({
+      ...product,
+      description: product.description
+        ? product?.description.split(" ").slice(0, 10).join(" ") + " ..."
+        : product.description,
+    }));
+
     res.status(Status.Success).json({
       StatusMessages: StatusMessages[Status.Success],
-      products,
+      products: cleanedData,
     });
   } catch (error) {
     errorMessage("Error Comes while Showing All Products to Customer : \n", res, error);
@@ -87,5 +95,82 @@ export const getSingleProduct = async (req: Request, res: Response) => {
     });
   } catch (error) {
     errorMessage("Error Comes while Showing Single Product to Customer : \n", res, error);
+  }
+};
+
+// ! Show All Products by Name
+// @SouZe-San
+// @route GET /api/customer/products/:name
+// @access Public
+
+export const getAllProductsByName = async (req: Request, res: Response) => {
+  try {
+    // Validate the request body
+    const req_validation = await getProduct_reqSchema.safeParseAsync(req.body);
+    const productName = req.params.name;
+
+    if (!productName) {
+      res.status(Status.Forbidden).json({
+        StatusMessages: StatusMessages[Status.Forbidden],
+        message: "Product name is required",
+      });
+      return;
+    }
+
+    if (!req_validation.success) {
+      res.status(Status.Forbidden).json({
+        StatusMessages: StatusMessages[Status.Forbidden],
+        message: req_validation.error.errors.map((err) => err.message).join(", "),
+      });
+      return;
+    }
+
+    // Get the skipCount and takeCount from the request body
+    const { skipCount, takeCount } = req_validation.data;
+
+    // Get all products from the database
+    const products = await prisma.product.findMany({
+      where: {
+        name: {
+          contains: req.params.name,
+        },
+      },
+      skip: skipCount || 0,
+      take: takeCount || 10,
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        price: true,
+        createdAt: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    if (products.length === 0) {
+      res.status(Status.NotFound).json({
+        StatusMessages: StatusMessages[Status.NotFound],
+        message: "No products found",
+        products,
+      });
+      return;
+    }
+
+    // trimmed description to 10 words
+    const cleanedData = products.map((product) => ({
+      ...product,
+      description: product.description
+        ? product?.description.split(" ").slice(0, 10).join(" ") + " ..."
+        : product.description,
+    }));
+
+    res.status(Status.Success).json({
+      StatusMessages: StatusMessages[Status.Success],
+      products: cleanedData,
+    });
+  } catch (error) {
+    errorMessage("Error Comes while Finding Product bases on NAME : \n", res, error);
   }
 };
