@@ -18,7 +18,7 @@ const router = Router();
 //! Product Routes - for customers
 router.get("/products", getAllProducts);
 router.get("/product/:id", getSingleProduct);
-
+router.get("/products/:name", getAllProducts);
 //! Carts Routes
 router.route("/cart").get(authenticate, getCart);
 router.route("/cart").put(authenticate, updateCart);
