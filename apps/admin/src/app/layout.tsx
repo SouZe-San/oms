@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import '@oms/ui/styles.css';
+import "@oms/ui/styles.css";
 import Providers from "@oms/ui/providers/provider";
 import Navbar from "@oms/ui/components/Navbar";
 import { Role } from "@oms/types/user.type";
@@ -27,12 +27,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Providers>
-        <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <Providers>
           <Navbar role={Role.ADMIN} />
           {children}
-        </body>
-      </Providers>
+        </Providers>
+      </body>
     </html>
   );
 }
