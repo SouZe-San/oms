@@ -14,13 +14,14 @@ header {
   background-blend-mode: overlay;
   background-color: rgba(85, 85, 85, 0.246);
   border-radius: 1rem;
-  border: 1px solid #ffffff2f;
+  border: 1px solid #ffffff1c;
 
   box-shadow: 2px 4px 6px 1px rgba(0, 0, 0, 0.4117647059);
 
   .logo {
     font-size: 1.1rem;
     font-weight: bolder;
+    color: white;
   }
 
   nav {
@@ -42,11 +43,11 @@ header {
         &::after {
           content: "";
           position: absolute;
-          bottom: 0;
+          bottom: -5px;
           left: 0;
           width: 0%;
           height: 1px;
-          background: white;
+          background: #aa6a85;
           transition: width 0.3s;
         }
 

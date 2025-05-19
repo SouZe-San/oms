@@ -38,7 +38,7 @@ const NavBar = () => {
           </>
         ) : (
           <Link href="/auth/signin">
-            <button className="">Log in</button>
+            <button className="">Log In</button>
           </Link>
         )}
       </div>
