@@ -1,9 +1,13 @@
+import HeroSection from "@oms/ui/components/home/hero-section/HeroSection";
+import NavBar from "@oms/ui/components/nav/NavBar";
 const Home = () => {
   return (
-    <div className="">
-      <h1 className="text-2xl bg-blue-400 text-center">User</h1>
-
-    </div>
+    <>
+      <NavBar />
+      <main>
+        <HeroSection />
+      </main>
+    </>
   );
 };
 

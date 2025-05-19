@@ -3,8 +3,8 @@ import localFont from "next/font/local";
 import "./globals.css";
 import "@oms/ui/styles.css";
 import Providers from "@oms/ui/providers/provider";
-import Navbar from "@oms/ui/components/Navbar";
-import { Role } from "@oms/types/user.type";
+// import Navbar from "@oms/ui/components/Navbar";
+// import { Role } from "@oms/types/user.type";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,7 +29,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <Providers>
-          <Navbar role={Role.CUSTOMER} />
+          {/* <Navbar role={Role.CUSTOMER} /> */}
           {children}
         </Providers>
       </body>

@@ -1,1 +1,14 @@
 @import "tailwindcss";
+
+:root {
+  --nav-hight: 8rem;
+  --bg-high-gradient: linear-gradient(45deg, rgb(253, 67, 105) 7%, rgb(253, 67, 160) 52%, rgb(255, 0, 227) 88%);
+}
+
+.pt-nav {
+  padding-top: calc(var(--nav-hight) + 2rem);
+}
+
+body {
+  background: #060105; /*0d0108*/
+}
