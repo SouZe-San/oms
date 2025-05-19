@@ -1,10 +1,13 @@
+import NavBar from "@oms/ui/components/nav/NavBar";
 
 const Home = () => {
   return (
-    <div>
-      <h1 className="text-2xl bg-red-400 text-center">Admin</h1>
-
-    </div>
+    <>
+      <NavBar />
+      <main className="pt-nav">
+        <h1 className="text-2xl bg-red-400 text-center">Admin</h1>
+      </main>
+    </>
   );
 };
 

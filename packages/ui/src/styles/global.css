@@ -1,1 +1,9 @@
 @import "tailwindcss";
+
+:root {
+  --nav-hight: 8rem;
+}
+
+.pt-nav {
+  padding-top: calc(var(--nav-hight) + 2rem);
+}
