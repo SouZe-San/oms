@@ -28,9 +28,17 @@ export const createProduct = async (req: Request, res: Response) => {
     //get data from validator
     const { adminId, name, description, price, stock } = validator.data;
 
-    //TODO -> need to find if the product is present -- NOT REQUIRED(@SouZe-San)
-    // ^ reason: we are creating a new product, so it will not be present in the inventory : if admin create it , it's responsible to maintain it
-    // We does't make name unique, so that admin can create multiple products with same name
+    //check if product is already exists
+    const product = await prisma.product.findFirst({
+      where: { adminId, name }
+    });
+    if (product) {
+      res.status(Status.Conflict).json({
+        statusMessage: StatusMessages[Status.Conflict],
+        message: "product already exists",
+      });
+      return;
+    }
 
     //create a product
     await prisma.product.create({
