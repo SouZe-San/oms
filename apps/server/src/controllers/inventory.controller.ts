@@ -56,33 +56,18 @@ export const createProduct = async (req: Request, res: Response) => {
 // ADMIN can see their products in inventory
 export const getProducts = async (req: Request, res: Response) => {
   try {
-    const validator = getProductsValidator.safeParse(req.body);
-
-    //check if input is valid
-    if (!validator.success) {
-      res.status(Status.InvalidInput).json({
-        status: Status.InvalidInput,
-        statusMessage: StatusMessages[Status.InvalidInput],
-        message: validator.error.errors.map((err) => err.path + " " + err.message).join(", "),
-      });
-      return;
-    }
-
-    //get data from validator
-    const { adminId, skipCount, takeCount } = validator.data;
+    const adminId = req.body.user.userId;
+    const skip = parseInt(req.query.skip as string) || 0;
+    const take = 10;
 
     //get all products from the inventory
     const products = await prisma.product.findMany({
       where: { adminId },
-      skip: skipCount || 0,
-      take: takeCount || 10,
+      skip: skip * take,
+      take,
       select: {
         id: true,
         name: true,
-        description: true,
-        price: true,
-        createdAt: true,
-        updatedAt: true,
       },
       orderBy: {
         createdAt: "desc",
