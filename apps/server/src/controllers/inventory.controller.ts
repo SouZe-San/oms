@@ -189,6 +189,60 @@ export const getProduct = async (req: Request, res: Response) => {
   }
 };
 
+//@alfaarghya
+//search product by name
+export const searchProduct = async (req: Request, res: Response) => {
+  try {
+    const { name } = req.query;
+    const adminId = req.body.user?.userId;
+
+    //check for the name in query
+    if (!name || typeof name !== "string") {
+      res.status(Status.InvalidInput).json({
+        statusMessage: StatusMessages[Status.InvalidInput],
+        message: "name is required as query string",
+      });
+      return;
+    }
+
+    //search product in admin inventory
+    const products = await prisma.product.findMany({
+      where: {
+        name: {
+          contains: name,
+          mode: "insensitive",
+        },
+        adminId,
+      },
+      select: {
+        id: true,
+        name: true,
+      },
+    });
+
+    //no product found
+    if (!products.length) {
+      res.status(Status.NoContent).json({
+        statusMessage: StatusMessages[Status.NoContent],
+        message: "No products found",
+        products,
+      });
+      return;
+    }
+
+    //product found successfully
+    res.status(Status.Success).json({
+      statusMessage: StatusMessages[Status.Success],
+      message: "Products found",
+      products,
+    });
+    return;
+  } catch (error) {
+    errorMessage("error in search", res, error);
+  }
+};
+
+
 // ADMIN can update their product by id
 export const updateProduct = async (req: Request, res: Response) => {
   try {
