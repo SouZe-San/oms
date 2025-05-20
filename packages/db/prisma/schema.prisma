@@ -50,7 +50,8 @@ model Address {
   zipCode String
 
   // Many-to-One: An Address belongs to a User
-  user User @relation(fields: [userId], references: [id])
+  user  User    @relation(fields: [userId], references: [id])
+  Order Order[]
 }
 
 // Product Table - Stores Product Details (Managed by Admins)
@@ -90,20 +91,23 @@ model CartProduct {
 
 // Order Table - Stores Order Details (Linked to One Cart)
 model Order {
-  id            String         @id @default(uuid())
-  userId        String
-  status        OrderStatus    @default(PENDING)
-  totalAmount   Float
-  createdAt     DateTime       @default(now())
-  totalItems    Int
+  id                String         @id @default(uuid())
+  userId            String
+  shippingAddressId String
+  status            OrderStatus    @default(PENDING)
+  totalAmount       Float
+  createdAt         DateTime       @default(now())
+  totalItems        Int
   //one-to-many: order can holds many orderProduct
-  orderProducts OrderProduct[]
+  orderProducts     OrderProduct[]
 
   // Many-to-One: An Order belongs to a User
   user User @relation(fields: [userId], references: [id])
 
   // One-to-One: An Order has a single Payment
   payment Payment?
+
+  shippingAddress Address @relation(fields: [shippingAddressId], references: [id])
 }
 
 // OrderProduct Table - Many-to-Many Relation Between order and Product

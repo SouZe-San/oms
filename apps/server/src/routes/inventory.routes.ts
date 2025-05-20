@@ -1,7 +1,7 @@
 import { Router } from "express";
 import authenticate from "../middleware/authenticate";
 import inventoryAccess from "../middleware/inventory";
-import { createProduct, deleteProduct, getProduct, getProducts, updateProduct } from "../controllers/inventory.controller";
+import { createProduct, deleteProduct, getProduct, getProducts, searchProduct, updateProduct } from "../controllers/inventory.controller";
 
 const router = Router();
 
@@ -13,6 +13,9 @@ router.get("/product", [authenticate, inventoryAccess], getProducts);
 
 //get item by id from admin inventory
 router.get("/product/:id", [authenticate, inventoryAccess], getProduct);
+
+//search product by name
+router.get("/product/search", [authenticate, inventoryAccess], searchProduct);
 
 //update item by id from admin inventory
 router.put("/product/:id", [authenticate, inventoryAccess], updateProduct);
