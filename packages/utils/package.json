@@ -8,7 +8,8 @@
     "check-types": "tsc --noEmit"
   },
   "exports": {
-    "./api": "./src/api.ts"
+    "./api": "./src/api.ts",
+    "./fonts": "./src/fonts.ts"
   },
   "devDependencies": {
     "@oms/eslint-config": "*",
