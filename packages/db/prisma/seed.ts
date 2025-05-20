@@ -33,7 +33,7 @@ async function main() {
     },
   });
 
-  // Create Customer with Cart
+  // Create Customer with Address
   const customer = await prisma.user.upsert({
     where: { email: "customer@example.com" },
     update: {},
@@ -58,9 +58,15 @@ async function main() {
         ],
       },
     },
+    include: {
+      addresses: true,
+    },
   });
 
-  // Create Products (Admin Managed)
+  // Get first address to use as shipping address
+  const shippingAddress = customer.addresses[0];
+
+  // Create Products
   const product1 = await prisma.product.create({
     data: {
       adminId: admin.id,
@@ -82,7 +88,6 @@ async function main() {
   });
 
   // Add products to cart
-  //@description: add product temporary into cart, until we make a order
   await prisma.cartProduct.createMany({
     data: [
       { productId: product1.id, quantity: 2, userId: customer.id },
@@ -90,47 +95,48 @@ async function main() {
     ],
   });
 
-  // Fetch all Cart Products
+  // Fetch cart products
   const cartProducts = await prisma.cartProduct.findMany({
     where: { userId: customer.id },
     include: { product: true },
   });
 
   // Calculate total amount
-  const totalAmount = cartProducts.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+  const totalAmount = cartProducts.reduce(
+    (sum, item) => sum + item.product.price * item.quantity,
+    0
+  );
 
-  // Create Order
-  //@description: add all products from cart to order
+  // Create Order with existing address
   const order = await prisma.order.create({
     data: {
       userId: customer.id,
       status: OrderStatus.CONFIRMED,
       totalAmount,
       totalItems: cartProducts.length,
+      shippingAddressId: shippingAddress.id,
       orderProducts: {
         create: cartProducts.map((item) => ({
           productId: item.productId,
           quantity: item.quantity,
-          price: item.product.price, // Store price at order time
+          price: item.product.price,
         })),
       },
     },
     include: { orderProducts: true },
   });
 
-  //update stock
-  //@description: update stock price when we order items
+  // Update product stock
   await Promise.all(
     order.orderProducts.map((item) =>
       prisma.product.update({
         where: { id: item.productId },
-        data: { stock: { decrement: item.quantity } }, // Decrease stock
+        data: { stock: { decrement: item.quantity } },
       })
     )
   );
 
-  // Clear Cart
-  //@description: remove products from cart after making order
+  // Clear cart
   await prisma.cartProduct.deleteMany({
     where: { userId: customer.id },
   });
