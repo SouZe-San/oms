@@ -1,4 +1,12 @@
 @import "tailwindcss";
+/* @font-face {
+  font-family: "GalleryModern";
+  src: url("../assets/fonts/GalleryModern.woff") format("woff");
+}
+@font-face {
+  font-family: "NeueMachina";
+  src: url("../assets/fonts/NeueMachina-Regular.woff") format("woff");
+} */
 
 :root {
   --nav-hight: 8rem;
@@ -11,4 +19,9 @@
 
 body {
   background: #060105; /*0d0108*/
+  color: #fff;
+}
+.home-section {
+  padding-right: 4rem;
+  padding-left: 4rem;
 }
