@@ -1,5 +1,22 @@
 @import "tailwindcss";
+@font-face {
+  font-family: "GalleryModern";
+  src: url("../fonts/GalleryModern.woff") format("woff");
+}
 
+@font-face {
+  font-family: "NeueMachina";
+  src: url("../fonts/NeueMachina-Regular.woff") format("woff");
+}
+
+.font-gallery {
+  font-family: "GalleryModern", sans-serif;
+  font-style: normal;
+}
+.font-neue {
+  font-family: "NeueMachina", sans-serif;
+  font-style: normal;
+}
 /* :root {
   --background: #ffffff;
   --foreground: #171717;
