@@ -50,3 +50,8 @@ a {
     display: unset;
   }
 } */
+
+.font-open {
+  font-family: "Open Sans", "Open Sans Fallback";
+  font-style: normal;
+}

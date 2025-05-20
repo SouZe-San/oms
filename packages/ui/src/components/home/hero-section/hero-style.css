@@ -47,12 +47,14 @@
 }
 
 .hero-img-section {
-  width: 80%;
-  background: #91919114;
-  background: linear-gradient(45deg, rgba(255, 255, 255, 0.634), #d07777, #1c001a);
+  width: 85%;
   aspect-ratio: 4/3;
   border-radius: 10px;
-  backdrop-filter: blur(3rem) contrast(1.1) brightness(1.3);
+
+  /* If no Image then Enable this */
+  /* background: #91919114;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.634), #d07777, #1c001a); */
+  /* backdrop-filter: blur(3rem) contrast(1.1) brightness(1.3); */
 }
 
 .hero-section {
@@ -80,5 +82,23 @@
     width: 1px;
     aspect-ratio: 1;
     background: transparent;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-text {
+    font-size: 3.5rem;
+  }
+  .homeBtn {
+    padding: 5px 1rem;
+    font-size: 0.9rem;
+    svg {
+      width: 1.5rem;
+    }
+  }
+  .hero-section::after {
+    right: -10%;
+
+    top: 50%;
   }
 }
