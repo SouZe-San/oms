@@ -86,20 +86,98 @@ export const getProducts = async (req: Request, res: Response) => {
   }
 };
 
-/* TODO -> 
-need if we have additional data in db respect to the product
-for example, reviews, detail description etc
-
-
-// @SouZe-San
-if wants to add review then add field in schema 
-and Description?  JUST add whatever in your head to add in the schema
-*/
+//@alfaarghya
 // ADMIN can see their product by id
-export const getProduct = (req: Request, res: Response) => {
+export const getProduct = async (req: Request, res: Response) => {
   try {
+    const adminId = req.body.user.userId;
+    const productId = req.params.id;
+
+    //productId is not present
+    if (!productId) {
+      res.status(Status.InvalidInput).json({
+        statusMessage: StatusMessages[Status.InvalidInput],
+        message: "Product id is not present",
+      });
+      return;
+    }
+
+    const product = await prisma.product.findUnique({
+      where: { id: productId, adminId },
+      include: {
+        OrderProduct: {
+          include: {
+            order: {
+              include: {
+                payment: true,
+                user: {
+                  include: {
+                    addresses: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+
+    //no product found
+    if (!product) {
+      res.status(Status.NotFound).json({
+        statusMessage: StatusMessages[Status.NotFound],
+        message: "product not found",
+      });
+      return;
+    }
+
+    //mapping the data
+    const result = {
+      product: {
+        id: product.id,
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        stock: product.stock,
+        createdAt: product.createdAt,
+        updatedAt: product.updatedAt,
+      },
+      orders: product.OrderProduct.map((op) => ({
+        orderId: op.order.id,
+        quantity: op.quantity,
+        price: op.price,
+        date: op.order.createdAt,
+        status: op.order.status,
+        payment: op.order.payment?.status ?? "PENDING",
+        address: (() => {
+          const addr =
+            op.order.user.addresses.find((a) => a.type === "CURRENT") ??
+            op.order.user.addresses.find((a) => a.type === "PERMANENT");
+
+          return addr
+            ? {
+              street: addr.street,
+              city: addr.city,
+              state: addr.state,
+              country: addr.country,
+              zipCode: addr.zipCode,
+              type: addr.type,
+            }
+            : null;
+        })(),
+      })),
+    };
+
+    //response
+    res.status(Status.Success).json({
+      statusMessage: StatusMessages[Status.Success],
+      message: "product successfully found",
+      product: result.product,
+      orders: result.orders
+    })
+    return
   } catch (error) {
-    errorMessage("error message", res, error);
+    errorMessage("error while fetching product details from inventory", res, error);
   }
 };
 
