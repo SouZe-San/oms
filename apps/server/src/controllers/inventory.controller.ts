@@ -3,7 +3,6 @@ import { errorMessage } from "../utils/ApiError";
 import {
   createProductValidator,
   deleteProductValidator,
-  getProductsValidator,
   updateProductValidator,
 } from "@oms/types/product.validator";
 import { Status, StatusMessages } from "../statusCode/response";
@@ -118,11 +117,7 @@ export const getProduct = async (req: Request, res: Response) => {
             order: {
               include: {
                 payment: true,
-                user: {
-                  include: {
-                    addresses: true,
-                  },
-                },
+                shippingAddress: true,
               },
             },
           },
@@ -157,22 +152,16 @@ export const getProduct = async (req: Request, res: Response) => {
         date: op.order.createdAt,
         status: op.order.status,
         payment: op.order.payment?.status ?? "PENDING",
-        address: (() => {
-          const addr =
-            op.order.user.addresses.find((a) => a.type === "CURRENT") ??
-            op.order.user.addresses.find((a) => a.type === "PERMANENT");
-
-          return addr
-            ? {
-              street: addr.street,
-              city: addr.city,
-              state: addr.state,
-              country: addr.country,
-              zipCode: addr.zipCode,
-              type: addr.type,
-            }
-            : null;
-        })(),
+        address: op.order.shippingAddress
+          ? {
+            street: op.order.shippingAddress.street,
+            city: op.order.shippingAddress.city,
+            state: op.order.shippingAddress.state,
+            country: op.order.shippingAddress.country,
+            zipCode: op.order.shippingAddress.zipCode,
+            type: op.order.shippingAddress.type,
+          }
+          : null,
       })),
     };
 
