@@ -8,12 +8,12 @@ const HeroSection = () => {
   return (
     <section className="pt-nav w-screen home-section h-screen flex max-lg:flex-col max-lg:gap-8 relative hero-section">
       <aside className="flex flex-col items-start justify-center h-full ">
-        <h1 className="2xl:text-[6rem] text-4xl font-bold text-left hero-text font-sans">
+        <h1 className="2xl:text-[6rem] text-4xl font-bold text-left hero-text font-sans ">
           {/* Grow Smarter,Sell Faster.Power Up with ShopFlow */}
           Manage with <br /> Control, <br />
           Shop with Confidence
         </h1>
-        <p className="mt-4 text-lg text-left">
+        <p className="mt-4 text-lg text-left font-neue text-white/70">
           From product management to checkout, streamline every step of your order process.
         </p>
         <div>
