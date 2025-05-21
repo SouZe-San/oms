@@ -5,6 +5,8 @@ import type { EnhancedStore } from '@reduxjs/toolkit';
 import signupReducer from './features/signupSlice';
 import signinReducer from './features/signinSlice';
 import authReducer from './features/authSlice';
+import productReducer from './features/productSlice';
+import inventorySearchReducer from './features/inventorySearchSlice';
 
 export function makeStore(): EnhancedStore {
   return configureStore({
@@ -12,6 +14,8 @@ export function makeStore(): EnhancedStore {
       signup: signupReducer,
       signin: signinReducer,
       auth: authReducer,
+      product: productReducer,
+      inventorySearch: inventorySearchReducer,
     },
   });
 }

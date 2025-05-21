@@ -9,7 +9,9 @@
     "./counter": "./src/features/counterSlice.ts",
     "./signup": "./src/features/signupSlice.ts",
     "./signin": "./src/features/signinSlice.ts",
-    "./auth": "./src/features/authSlice.ts"
+    "./auth": "./src/features/authSlice.ts",
+    "./product": "./src/features/productSlice.ts",
+    "./inventorySearch": "./src/features/inventorySearchSlice.ts"
   },
   "dependencies": {
     "@oms/utils": "*",
