@@ -1,0 +1,13 @@
+import Sidebar from "@oms/ui/components/admin/Sidebar";
+import { ReactNode } from "react";
+
+export default function ChatLayout({ children }: { children: ReactNode }) {
+  return (
+    <div className="flex w-full h-screen">
+      <Sidebar />
+      <main className="flex-1 bg-white overflow-y-auto">
+        {children}
+      </main>
+    </div>
+  );
+}
