@@ -22,6 +22,8 @@ body {
   color: #fff;
 }
 .home-section {
+  backdrop-filter: blur(4rem);
+  width: 100vw;
   padding-right: 4rem;
   padding-left: 4rem;
 }
