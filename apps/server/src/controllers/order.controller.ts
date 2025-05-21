@@ -40,6 +40,15 @@ export const createOrder = async (req: Request, res: Response) => {
       },
     });
 
+    const dbUser = await prisma.user.findUniqueOrThrow({
+      where: {
+        id: user.userId,
+      },
+      include: {
+        addresses: true,
+      },
+    });
+
     // ------------------ 1. Before order check if order is possible -----------------
 
     const isOrderPossible = await checkIfOrderPossible(cartProducts);
@@ -55,7 +64,7 @@ export const createOrder = async (req: Request, res: Response) => {
     // ---------------------------------2. Order Process---------------------------------
 
     // calculate total amount of order
-    const totalAmount = calculateTotalAmount(cartProducts);
+    const totalAmount: number = calculateTotalAmount(cartProducts);
     const totalItems = calculateTotalItems(cartProducts);
 
     //   Create order in database
@@ -65,6 +74,7 @@ export const createOrder = async (req: Request, res: Response) => {
         status: "PENDING",
         totalAmount,
         totalItems,
+        shippingAddressId: dbUser.addresses[0]!.id,
         orderProducts: {
           create: cartProducts.map((item) => ({
             productId: item.productId,
@@ -124,6 +134,16 @@ export const orderSingleItem = async (req: Request, res: Response) => {
       },
     });
 
+    // need user address id
+    const dbUser = await prisma.user.findUniqueOrThrow({
+      where: {
+        id: user.userId,
+      },
+      include: {
+        addresses: true,
+      },
+    });
+
     // check if product is in stock
     if (product.stock < quantity) {
       res.status(Status.NoContent).json({
@@ -141,6 +161,7 @@ export const orderSingleItem = async (req: Request, res: Response) => {
         userId: user.userId,
         status: "PENDING",
         totalAmount,
+        shippingAddressId: dbUser.addresses[0]!.id,
         totalItems: quantity,
         orderProducts: {
           create: [
@@ -357,7 +378,7 @@ export const getAllOrders = async (req: Request, res: Response) => {
       return;
     }
     const { user } = validation.data;
-    const orders: Order[] = await prisma.order.findMany({
+    const orders = await prisma.order.findMany({
       where: {
         userId: user.userId,
       },
@@ -397,6 +418,7 @@ export const getOrder = async (req: Request, res: Response) => {
       include: {
         payment: true,
         orderProducts: true,
+        shippingAddress: true,
       },
     });
 
