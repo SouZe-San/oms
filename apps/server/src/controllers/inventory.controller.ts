@@ -50,7 +50,7 @@ export const createProduct = async (req: Request, res: Response) => {
       },
     });
 
-    res.send(Status.Success).json({
+    res.status(Status.Success).json({
       statusMessage: StatusMessages[Status.Success],
       message: "Product created successfully",
     });
