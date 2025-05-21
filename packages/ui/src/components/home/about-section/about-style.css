@@ -25,20 +25,16 @@
   box-shadow: 0px 39px 63px -37px #ff0b94c7;
 
   transform-style: preserve-3d;
-  /* transform: rotateX(70deg) translateY(-60%); */
-  /* transform: translateY(view(block 0% -60%, block 80% 0%)); */
-
-  animation-timeline: view(block 100% 20%);
-
-  animation-name: grow;
-  animation-fill-mode: both;
-  animation-duration: 1ms; /* Firefox requires this to apply the animation */
-  animation-timing-function: linear;
+  transform: scale(1.1);
 }
 @supports (animation-timeline: view()) {
-  /* .about-img {
-    transform: translateY(view(block -20% -60%, block 30% 0%));
-  } */
+  .about-img {
+    animation-timeline: view(block 100% 20%);
+    animation-name: grow;
+    animation-fill-mode: both;
+    animation-duration: 1ms; /* Firefox requires this to apply the animation */
+    animation-timing-function: linear;
+  }
 }
 
 @keyframes grow {
