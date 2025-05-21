@@ -107,6 +107,9 @@ async function main() {
     0
   );
 
+  if (!shippingAddress) {
+    throw new Error("Customer has no address to use for shipping.");
+  }
   // Create Order with existing address
   const order = await prisma.order.create({
     data: {
