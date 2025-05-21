@@ -14,6 +14,7 @@ export const createProductValidator = z.object({
     .transform((value) => parseFloat(value.toFixed(2))), // Ensures 2 decimal places
   stock: z.number().int().positive("Stock must be positive value"),
 });
+export type CreateProductInput = z.infer<typeof createProductValidator>;
 
 // Validate get products request by adminId
 export const getProductsValidator = z.object({
