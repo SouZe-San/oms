@@ -64,14 +64,14 @@ export const createProduct = async (req: Request, res: Response) => {
 export const getProducts = async (req: Request, res: Response) => {
   try {
     const adminId = req.body.user.userId;
-    const skip = parseInt(req.query.skip as string) || 0;
-    const take = 10;
+    // const skip = parseInt(req.query.skip as string) || 0;
+    // const take = 10;
 
     //get all products from the inventory
     const products = await prisma.product.findMany({
       where: { adminId },
-      skip: skip * take,
-      take,
+      // skip: skip * take,
+      // take,
       select: {
         id: true,
         name: true,
