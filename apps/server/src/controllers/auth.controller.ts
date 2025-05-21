@@ -96,6 +96,16 @@ export const signinController = async (req: Request, res: Response) => {
   try {
     const { email, primaryMobile, password, role } = validation.data;
 
+    //need either email or mobile no to signin
+    if (!email && !primaryMobile) {
+      res.status(Status.NotFound).json({
+        status: Status.NotFound,
+        statusMessage: StatusMessages[Status.NotFound],
+        message: "Please put email or mobile no for signin",
+      });
+      return;
+    }
+
     //get user from db
     const user = await prisma.user.findFirst({
       where: { OR: [{ email }, { primaryMobile }], role },
