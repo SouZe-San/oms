@@ -12,6 +12,7 @@
     "./auth": "./src/features/authSlice.ts"
   },
   "dependencies": {
+    "@oms/utils": "*",
     "@reduxjs/toolkit": "^2.5.1",
     "react-redux": "^9.2.0"
   },
