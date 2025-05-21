@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <>
       <NavBar />
-      <main className="">
+      <main>
         <HeroSection />
         <AboutSection />
       </main>
