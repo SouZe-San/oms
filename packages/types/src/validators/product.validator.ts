@@ -3,7 +3,6 @@ import { z } from "zod";
 // @alfaarghya
 //Validate create product request
 export const createProductValidator = z.object({
-  adminId: z.string().uuid().nonempty("User ID is required"),
   name: z.string().nonempty("Product Name is required"),
   description: z.string().optional(),
   price: z
@@ -25,7 +24,6 @@ export const getProductsValidator = z.object({
 
 //Validate update product request by adminId & productId
 export const updateProductValidator = z.object({
-  adminId: z.string().uuid().nonempty("User ID is required"),
   productId: z.string().uuid().nonempty("Product ID is required"),
   updateName: z.string().optional(),
   updateDescription: z.string().optional(),

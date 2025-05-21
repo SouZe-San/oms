@@ -25,7 +25,8 @@ export const createProduct = async (req: Request, res: Response) => {
     }
 
     //get data from validator
-    const { adminId, name, description, price, stock } = validator.data;
+    const { name, description, price, stock } = validator.data;
+    const adminId = req.body.adminId
 
     //check if product is already exists
     const product = await prisma.product.findFirst({
@@ -251,7 +252,8 @@ export const updateProduct = async (req: Request, res: Response) => {
     }
 
     //get data from validator
-    const { adminId, productId, updateName, updateDescription, updatePrice, updateStock } = validator.data;
+    const { productId, updateName, updateDescription, updatePrice, updateStock } = validator.data;
+    const adminId = req.body.adminId
 
     // Prepare update data dynamically
     const updateData: Record<string, any> = {};
