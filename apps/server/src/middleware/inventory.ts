@@ -9,11 +9,21 @@ const inventoryAccess = async (req: Request, res: Response, next: NextFunction) 
   try {
     //role -> to validate user type
     const role: string = req.body.user.role;
+    const userId: string = req.body.user.userId;
+
+    if (!userId || !role) {
+      res.status(Status.Forbidden).json({
+        statusMessage: StatusMessages[Status.Forbidden],
+        message: "userId and role required",
+        role,
+        userId,
+      });
+      return;
+    }
 
     //when it's ADMIN only process to next
     if (role === "ADMIN") {
-      const userId = req.body.user.id;
-      const admin = await prisma.user.findUniqueOrThrow({
+      const admin = await prisma.user.findUnique({
         where: { id: userId },
       });
 
