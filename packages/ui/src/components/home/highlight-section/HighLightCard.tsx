@@ -15,7 +15,7 @@ const HighLightCard = ({ iconBgColor, iconSrc }: { iconBgColor: string; iconSrc:
           </p>
         </div>
         <div className="flex justify-between pr-3 items-center">
-          <div className={`card-icon bg-[${iconBgColor}] `}>
+          <div className={`card-icon ${iconBgColor}`}>
             <Image src={iconSrc} alt="rabbit" className="w-8 text-white" />
           </div>
           <div className="arrow"> -- </div>

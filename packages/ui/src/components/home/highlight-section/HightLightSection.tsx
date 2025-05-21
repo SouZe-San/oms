@@ -7,7 +7,7 @@ import command from "../../../assets/icons/home/command.svg";
 import baggage from "../../../assets/icons/home/baggage.svg";
 
 const HightLightSection = () => {
-  const colorArray: string[] = ["#9e56bf", "#f7b721", "#24ff24"];
+  const colorArray: string[] = ["bg-[#9e56bf]", "bg-[#f7b721]", "bg-[#24ff24]"];
   return (
     <section className="home-section h-screen flex flex-col justify-center items-center gap-24" id="highlights">
       <h1 className=" md:text-[5rem] font-semibold text-4xl text-center">

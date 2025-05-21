@@ -25,7 +25,7 @@ section#highlights {
 }
 
 article {
-  width: 22%; /* increase if more content */
+  width: 22rem; /* increase if more content */
   aspect-ratio: 4/3;
   position: relative;
   .inner-part {
