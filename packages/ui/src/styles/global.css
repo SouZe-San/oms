@@ -17,11 +17,17 @@
   padding-top: calc(var(--nav-hight) + 2rem);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: #060105; /*0d0108*/
   color: #fff;
 }
 .home-section {
+  backdrop-filter: blur(4rem);
+  width: 100vw;
   padding-right: 4rem;
   padding-left: 4rem;
 }
