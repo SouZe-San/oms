@@ -8,7 +8,7 @@ const ServiceCard = ({
 
   extraClass = "",
   imgSrc,
-  imgDivClass = "img-div",
+  imgDivClass = "",
 }: {
   cardNumber: number;
 
@@ -17,7 +17,7 @@ const ServiceCard = ({
   imgDivClass?: string;
 }) => {
   return (
-    <div className={`relative service-card ${extraClass}`}>
+    <div className={`relative service-card ${extraClass} hover:shadow-lg`}>
       <div className="w-full card-bg">
         <Image
           src={bg}
@@ -36,14 +36,14 @@ const ServiceCard = ({
               <span className=" text-blue-500"> ]</span>
             </h3>
           </div>
-          <div className={imgDivClass}>
+          <div className={`${imgDivClass} img-div `}>
             <Image src={imgSrc} alt="card" style={{ objectFit: "cover" }} />
           </div>
         </div>
 
         <div className="down px-7">
           <h1 className="text-4xl mb-4">Card - Title in long </h1>
-          <h3 className="text-white/70">
+          <h3 className="text-white/60 ">
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempora, labore quaerat! Rem tempora quibusdam
             adipisci beatae ipsum sapiente at recusandael. Lorem ipsum dolor sit amet consectetur adipisicing elit.
             Esse, excepturi amet consectetur blanditiis perspiciatis minima dignissimos adipisci libero quod nemo!
