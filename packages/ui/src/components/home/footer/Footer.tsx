@@ -1,9 +1,15 @@
+import Image from "next/image";
+
+// social icons
 import x from "../../../assets/icons/home/x.svg";
 import discord from "../../../assets/icons/home/discord.svg";
 import wp from "../../../assets/icons/home/wp.svg";
 import mail from "../../../assets/icons/home/mail.svg";
-import Image from "next/image";
+
 const socials = [discord, wp, x];
+
+// logo
+import logo from "../../../assets/icons/logo/oms.svg";
 
 // style
 import "./style.css";
@@ -12,7 +18,7 @@ const Footer = () => {
     <>
       <div className="my-8 px-16 flex justify-between items-center">
         <div className="logo">
-          <span>OMS</span>
+          <Image src={logo} alt="logo" className="w-32" />
         </div>
 
         <div>

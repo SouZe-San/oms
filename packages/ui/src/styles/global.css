@@ -17,6 +17,10 @@
   padding-top: calc(var(--nav-hight) + 2rem);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: #060105; /*0d0108*/
   color: #fff;
