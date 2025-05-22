@@ -1,8 +1,8 @@
+import ProductPage from "@oms/ui/pages/admin/Product";
+
 const Page = () => {
   return (
-    <div className="h-full flex items-center justify-center text-gray-500">
-      <p>it's the product</p>
-    </div>
+    <ProductPage />
   );
 };
 
