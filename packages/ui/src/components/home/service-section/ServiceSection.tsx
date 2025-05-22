@@ -14,19 +14,20 @@ const ServiceSection = () => {
       </h3>
       <h1 className="w-ful text-center text-7xl">What we&rsquo;r Actually Cooking</h1>
 
-      <section className="mt-24 flex max-sm:flex-col">
-        <aside className="flex-1 flex flex-col items-end max-sm:mb-6">
+      <section className="mt-24 flex max-md:flex-col">
+        <aside className="flex-1 flex flex-col items-end max-md:items-center max-md:mb-6 ">
           <div
             style={{
               width: "30rem",
               aspectRatio: "6/8",
             }}
           ></div>
-          <ServiceCard extraClass="-translate-y-16" imgSrc={order} imgDivClass="pt-8" />
+          <ServiceCard extraClass="-translate-y-16 md:block hidden" imgSrc={order} cardNumber={2} />
         </aside>
-        <aside className="flex-1 md:pl-6">
-          <ServiceCard imgSrc={scan} extraClass="pt-4" imgDivClass="-mt-12" />
-          <ServiceCard extraClass="mt-6" imgSrc={bills} />
+        <aside className="flex-1 flex flex-col md:pl-6 max-md:items-center">
+          <ServiceCard imgSrc={scan} cardNumber={1} />
+          <ServiceCard extraClass="md:hidden mt-6" imgSrc={order} cardNumber={2} />
+          <ServiceCard extraClass="mt-6" imgSrc={bills} cardNumber={3} />
         </aside>
       </section>
     </section>
