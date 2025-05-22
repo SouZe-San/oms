@@ -13,7 +13,7 @@ const HightLightSection = () => {
       <h1 className=" md:text-[5rem] font-semibold text-4xl text-center">
         Effortless Control, Max Sales <br /> With OMS
       </h1>
-      <div className="flex gap-8 w-full justify-center">
+      <div className="flex gap-8 w-full justify-center mx-md:flex-col">
         <HighLightCard iconBgColor={colorArray[0]!} iconSrc={baggage} />
         <HighLightCard iconBgColor={colorArray[1]!} iconSrc={rabbit} />
         <HighLightCard iconBgColor={colorArray[2]!} iconSrc={command} />
