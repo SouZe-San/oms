@@ -10,7 +10,7 @@ const NavBar = () => {
   return (
     <header className="flex items-center justify-between p-4 ">
       <div className="logo">
-        <span>LOGO</span>
+        <span>OMS</span>
       </div>
 
       <nav className="menu">
@@ -19,13 +19,13 @@ const NavBar = () => {
             <Link href="/">Home</Link>
           </li>
           <li>
-            <Link href="/#RewardsSection">service</Link>
+            <Link href="/#services">service</Link>
           </li>
           <li>
-            <Link href="/#TopicsSection">Pricing</Link>
+            <Link href="/#price">Pricing</Link>
           </li>
           <li>
-            <Link href="/#RulesSection">Contact</Link>
+            <Link href="/#contact">Contact</Link>
           </li>
         </ul>
       </nav>
@@ -38,7 +38,7 @@ const NavBar = () => {
           </>
         ) : (
           <Link href="/auth/signin">
-            <button className="">Log In</button>
+            <button>Log In</button>
           </Link>
         )}
       </div>
