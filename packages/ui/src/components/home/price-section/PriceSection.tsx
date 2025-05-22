@@ -4,7 +4,7 @@ const PriceSection = () => {
   return (
     <section className="under-section membership-section home-section" id="price">
       <div className="container">
-        <h2 className="section-title">Membership Plans</h2>
+        <h2 className="section-title">Subscription Plans</h2>
         <p className="section-subtitle">Choose the plan that fits your lifestyle and future goals</p>
 
         <div className="plans-container">

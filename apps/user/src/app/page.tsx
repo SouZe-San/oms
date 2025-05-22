@@ -4,6 +4,8 @@ import NavBar from "@oms/ui/components/nav/NavBar";
 import HightLightSection from "@oms/ui/components/home/highlight-section/HightLightSection";
 import ServiceSection from "@oms/ui/components/home/service-section/ServiceSection";
 import PriceSection from "@oms/ui/components/home/price-section/PriceSection";
+import Footer from "@oms/ui/components/home/footer/Footer";
+import ContactSection from "@oms/ui/components/home/contact-section/ContactSection";
 const Home = () => {
   return (
     <>
@@ -14,6 +16,8 @@ const Home = () => {
         <HightLightSection />
         <ServiceSection />
         <PriceSection />
+        <ContactSection />
+        <Footer />
       </main>
     </>
   );
