@@ -1,11 +1,16 @@
 import Image from "next/image";
+
+// pattern svg
 import circle from "../../../assets/images/pattern/circle.svg";
 import box01 from "../../../assets/images/pattern/box-box01.svg";
 import box02 from "../../../assets/images/pattern/box-box02.svg";
 import box03 from "../../../assets/images/pattern/box-box03.svg";
 
+// icon
 import discord from "../../../assets/icons/home/discord.svg";
+// style
 import "./style.css";
+
 const ContactSection = () => {
   return (
     <section id="contact" className="relative home-section h-screen w-screen flex justify-center items-center">
@@ -36,7 +41,7 @@ const ContactSection = () => {
 
         <button className="btn mt-8">
           Join Us In Discord
-          <Image src={discord} alt="discord" className="ml-2" />
+          <Image src={discord} alt="discord" className="ml-2 invert" />
         </button>
       </div>
     </section>

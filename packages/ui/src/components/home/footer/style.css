@@ -1,0 +1,34 @@
+.social-icon {
+  padding: 7px;
+  border: 1px solid rgba(103, 32, 67, 0.239);
+  border-radius: 50%;
+  background: #22151f;
+
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: #ffffff;
+    border: 1px solid #fafafa;
+    transform: scale(1.2);
+    img {
+      filter: invert(1);
+    }
+  }
+}
+
+.logo {
+  font-size: 3rem;
+  font-weight: bolder;
+  color: white;
+}
+
+code {
+  font-size: 1.2rem;
+  font-weight: bolder;
+  color: black;
+}
+
+hr {
+  color: rgba(212, 212, 212, 0.561);
+  margin: 0 3rem;
+}
