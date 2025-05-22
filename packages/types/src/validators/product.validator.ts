@@ -26,10 +26,10 @@ export const getProductsValidator = z.object({
 //Validate update product request by adminId & productId
 export const updateProductValidator = z.object({
   productId: z.string().uuid().nonempty("Product ID is required"),
-  updateName: z.string().optional(),
-  updateDescription: z.string().optional(),
-  updateStock: z.number().int().positive("Stock must be positive value").optional(),
-  updatePrice: z
+  name: z.string().optional(),
+  description: z.string().optional(),
+  stock: z.number().int().positive("Stock must be positive value").optional(),
+  price: z
     .number()
     .min(0.01, "Price must be greater than 0")
     .refine((value) => /^\d+(\.\d{1,2})?$/.test(value.toFixed(2)), {

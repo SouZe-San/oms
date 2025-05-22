@@ -252,15 +252,15 @@ export const updateProduct = async (req: Request, res: Response) => {
     }
 
     //get data from validator
-    const { productId, updateName, updateDescription, updatePrice, updateStock } = validator.data;
+    const { productId, name, description, price, stock } = validator.data;
     const adminId = req.body.adminId
 
     // Prepare update data dynamically
     const updateData: Record<string, any> = {};
-    if (updateName) updateData.name = updateName;
-    if (updateDescription) updateData.description = updateDescription;
-    if (updatePrice !== undefined) updateData.price = parseFloat(updatePrice.toFixed(2)); // Ensure price has 2 decimal places
-    if (updateStock !== undefined) updateData.stock = updateStock;
+    if (name) updateData.name = name;
+    if (description) updateData.description = description;
+    if (price !== undefined) updateData.price = parseFloat(price.toFixed(2)); // Ensure price has 2 decimal places
+    if (stock !== undefined) updateData.stock = stock;
 
     // If there's nothing to update, return early
     if (Object.keys(updateData).length === 0) {
