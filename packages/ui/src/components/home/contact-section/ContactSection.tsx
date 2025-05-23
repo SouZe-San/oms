@@ -1,7 +1,6 @@
 import Image from "next/image";
 
 // pattern svg
-import circle from "../../../assets/images/pattern/circle.svg";
 import box01 from "../../../assets/images/pattern/box-box01.svg";
 import box02 from "../../../assets/images/pattern/box-box02.svg";
 import box03 from "../../../assets/images/pattern/box-box03.svg";
@@ -11,6 +10,9 @@ import discord from "../../../assets/icons/home/discord.svg";
 // style
 import "./style.css";
 
+// components
+import CirclePattern from "./CirclePattern";
+
 const ContactSection = () => {
   return (
     <section id="contact" className="relative home-section h-screen w-screen flex justify-center items-center">
@@ -19,7 +21,10 @@ const ContactSection = () => {
       <div className="bg-highlight absolute"></div>
 
       {/* circles */}
-      <Image src={circle} alt="circle" className="absolute bg-img" />
+      {/* <Image src={circle} alt="circle" className="absolute bg-img" /> */}
+
+      <CirclePattern />
+
       {/* top - left */}
       <Image src={box02} alt="box" className="absolute top-[10%] left-[10%]" />
       <Image src={box03} alt="box" className="absolute top-[25%] left-[3%]" />
