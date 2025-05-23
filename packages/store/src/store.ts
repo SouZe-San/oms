@@ -6,6 +6,7 @@ import signupReducer from './features/signupSlice';
 import signinReducer from './features/signinSlice';
 import authReducer from './features/authSlice';
 import productReducer from './features/productSlice';
+import productDetailsReducer from './features/productDetailsSlice';
 import inventorySearchReducer from './features/inventorySearchSlice';
 
 export function makeStore(): EnhancedStore {
@@ -15,6 +16,7 @@ export function makeStore(): EnhancedStore {
       signin: signinReducer,
       auth: authReducer,
       product: productReducer,
+      productDetails: productDetailsReducer,
       inventorySearch: inventorySearchReducer,
     },
   });

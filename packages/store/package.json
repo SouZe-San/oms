@@ -11,6 +11,7 @@
     "./signin": "./src/features/signinSlice.ts",
     "./auth": "./src/features/authSlice.ts",
     "./product": "./src/features/productSlice.ts",
+    "./productDetails": "./src/features/productDetailsSlice.ts",
     "./inventorySearch": "./src/features/inventorySearchSlice.ts"
   },
   "dependencies": {
