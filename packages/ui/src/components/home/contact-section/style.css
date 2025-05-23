@@ -83,7 +83,7 @@
 /* ANIMATION ---  */
 
 :root {
-  --animation-duration: 1.9;
+  --animation-duration: 2.2;
 }
 
 .wave-circles-container {
@@ -122,7 +122,7 @@
 @keyframes waveCircle1 {
   0%,
   100% {
-    transform: scale(0.9);
+    transform: scale(0.95);
   }
   50% {
     transform: scale(1.008);
