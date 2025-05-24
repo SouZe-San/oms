@@ -13,6 +13,9 @@ import fillCart from "../../assets/icons/customer/cart-fill.svg";
 import fillPackage from "../../assets/icons/customer/package-fill.svg";
 import { useAppSelector } from "@oms/store/hooks";
 
+import notification from "../../assets/icons/admin/notification-bell-line-svgrepo-com.svg";
+import notificationFill from "../../assets/icons/admin/notification-bell-new-svgrepo-com.svg";
+
 const DashboardNav = ({ role }: { role: Role }) => {
   const { user } = useAppSelector((state) => state.auth);
   console.log(user?.firstName);
@@ -44,6 +47,13 @@ const DashboardNav = ({ role }: { role: Role }) => {
               </Link>
             </li>
           </ul>
+        )}
+        {role === Role.ADMIN && (
+
+          <button className="px-5 cursor-pointer ">
+            <span className="absolute inline-flex h-4 w-4 animate-ping rounded-full bg-red-500 opacity-75"></span>
+            <Image src={notificationFill} alt="cart" width={24} height={24} className="" />
+          </button>
         )}
 
         <div className="auth_btns">
