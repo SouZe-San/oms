@@ -1,3 +1,5 @@
+'use client';
+
 import "./dash-nav-style.css";
 
 import Image from "next/image";
@@ -9,12 +11,12 @@ import LogoutButton from "../button/LogoutButton";
 
 import fillCart from "../../assets/icons/customer/cart-fill.svg";
 import fillPackage from "../../assets/icons/customer/package-fill.svg";
+import { useAppSelector } from "@oms/store/hooks";
 
-const user = {
-  firstName: "Souze",
-  lastName: "K",
-};
 const DashboardNav = ({ role }: { role: Role }) => {
+  const { user } = useAppSelector((state) => state.auth);
+  console.log(user?.firstName);
+
   return (
     <header className="flex items-center justify-between p-4 dash-nav">
       <div className="logo">
@@ -45,8 +47,8 @@ const DashboardNav = ({ role }: { role: Role }) => {
         )}
 
         <div className="auth_btns">
-          <span className="mr-8 text-3xl">
-            Hello, <span className="text-xl">{user?.firstName}</span>
+          <span className="mr-8">
+            Hello, <span>{user?.firstName}</span>
           </span>
           <LogoutButton />
         </div>
