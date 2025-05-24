@@ -1,5 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import type { EnhancedStore } from '@reduxjs/toolkit';
+import { persistReducer, persistStore } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 // Import slices
 import signupReducer from './features/signupSlice';
@@ -8,8 +10,7 @@ import authReducer from './features/authSlice';
 import productReducer from './features/productSlice';
 import productDetailsReducer from './features/productDetailsSlice';
 import inventorySearchReducer from './features/inventorySearchSlice';
-import { persistReducer, persistStore } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import stockNotificationReducer from './features/stockNotificationSlice';
 
 //@alfaarghya
 // Apply persistence only to auth slice (
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   product: productReducer,
   productDetails: productDetailsReducer,
   inventorySearch: inventorySearchReducer,
+  stockNotification: stockNotificationReducer,
 });
 
 export function makeStore(): { store: EnhancedStore; persistor: ReturnType<typeof persistStore> } {
