@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useAppDispatch, useAppSelector } from '@oms/store/hooks';
-import { signinStart, signinSuccess, signinFailure } from '@oms/store/signin';
-import { useEffect } from 'react';
-import { toast } from 'sonner';
-import { SignInInput, SignInSchema } from '@oms/types/auth.validator';
-import api from '@oms/utils/api';
-import { Role } from '@oms/types/user.type';
-import { setUser } from '@oms/store/auth';
-import { useRouter } from 'next/navigation';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useAppDispatch, useAppSelector } from "@oms/store/hooks";
+import { signinStart, signinSuccess, signinFailure } from "@oms/store/signin";
+import { useEffect } from "react";
+import { toast } from "sonner";
+import { SignInInput, SignInSchema } from "@oms/types/auth.validator";
+import api from "@oms/utils/api";
+import { Role } from "@oms/types/user.type";
+import { setUser } from "@oms/store/auth";
+import { useRouter } from "next/navigation";
 
 const SigninPage = ({ role }: { role: Role }) => {
   const router = useRouter();
@@ -31,17 +31,17 @@ const SigninPage = ({ role }: { role: Role }) => {
   const onSubmit = async (data: SignInInput) => {
     dispatch(signinStart());
     try {
-      const res = await api.post('/auth/signin', { ...data, role });
+      const res = await api.post("/auth/signin", { ...data, role });
 
       if (res.status === 200) {
         const user = res.data.user;
         dispatch(setUser(user));
         dispatch(signinSuccess());
-        toast.success('Signin successful!');
+        toast.success("Signin successful!");
         router.push("/");
       }
     } catch (err: any) {
-      const message = err?.response?.data?.message || 'Signin failed';
+      const message = err?.response?.data?.message || "Signin failed";
       dispatch(signinFailure(message));
       toast.error(message);
     }
@@ -52,12 +52,21 @@ const SigninPage = ({ role }: { role: Role }) => {
   }, [error]);
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 bg-white shadow-xl rounded-2xl">
-      <h1 className="text-2xl font-semibold text-center">Signin</h1>
-      <h3 className='text-center text-sm mb-6'>{role}</h3>
+    <div
+      className="min-w-sm mx-auto mt-10 p-6 shadow-xl rounded-2xl flex flex-col gap-5"
+      style={{
+        background: "#ffffff1c",
+      }}
+    >
+      <h1 className="text-2xl font-semibold text-center mb-4">Signin</h1>
+
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
-          <input {...register('email')} placeholder="Email" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <input
+            {...register("email")}
+            placeholder="Email"
+            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
           {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
         </div>
 
@@ -67,16 +76,21 @@ const SigninPage = ({ role }: { role: Role }) => {
         </div> */}
 
         <div>
-          <input {...register('password')} type="password" placeholder="Password" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <input
+            {...register("password")}
+            type="password"
+            placeholder="Password"
+            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
           {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
         </div>
 
         <button
           type="submit"
-          className="bg-blue-600 text-white py-2 w-full rounded-lg hover:bg-blue-700"
+          className="bg-blue-600 text-white py-2 w-full rounded-lg hover:bg-blue-700 high-btn-bg"
           disabled={isLoading}
         >
-          {isLoading ? 'Signing in...' : 'Sign In'}
+          {isLoading ? "Signing in..." : "Sign In"}
         </button>
       </form>
       <p className="text-sm text-center mt-4">

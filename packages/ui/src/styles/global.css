@@ -64,3 +64,10 @@ main.dashboard-section {
     background: transparent;
   }
 }
+
+.high-btn-bg {
+  background: var(--bg-high-gradient);
+  color: rgb(240, 240, 240);
+  font-weight: 700;
+  letter-spacing: 2px;
+}
