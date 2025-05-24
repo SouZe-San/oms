@@ -4,7 +4,7 @@ import { clearUser } from "@oms/store/auth";
 import { useAppDispatch } from "@oms/store/hooks";
 import api from "@oms/utils/api";
 import { toast } from "sonner";
-import "../nav/nav-style.css";
+
 const LogoutButton = () => {
   const dispatch = useAppDispatch();
 
