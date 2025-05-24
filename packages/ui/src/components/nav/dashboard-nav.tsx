@@ -4,21 +4,47 @@ import "./dash-nav-style.css";
 
 import Image from "next/image";
 import Link from "next/link";
-
-import logo from "../../assets/icons/logo/oms.svg";
+import { useEffect, useState } from "react";
+import { fetchLowStockProducts } from "@oms/store/stockNotification";
+import { useAppDispatch, useAppSelector } from "@oms/store/hooks";
 import { Role } from "@oms/types/user.type";
+
+import NotificationModal from "./NotificationModal";
 import LogoutButton from "../button/LogoutButton";
 
+import logo from "../../assets/icons/logo/oms.svg";
 import fillCart from "../../assets/icons/customer/cart-fill.svg";
 import fillPackage from "../../assets/icons/customer/package-fill.svg";
-import { useAppSelector } from "@oms/store/hooks";
-
-import notification from "../../assets/icons/admin/notification-bell-line-svgrepo-com.svg";
-import notificationFill from "../../assets/icons/admin/notification-bell-new-svgrepo-com.svg";
+import notification from "../../assets/icons/admin/notification.svg";
+import notificationAlert from "../../assets/icons/admin/alert-notification.svg";
 
 const DashboardNav = ({ role }: { role: Role }) => {
   const { user } = useAppSelector((state) => state.auth);
-  console.log(user?.firstName);
+
+  //@alfaarghya
+  /* handel notification for admin */
+  const dispatch = useAppDispatch();
+  const products = useAppSelector((state) => state.stockNotification.products);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [hasLowStock, setHasLowStock] = useState(false);
+
+  useEffect(() => {
+    (dispatch as any)(fetchLowStockProducts());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (products && products.length > 0) {
+      setHasLowStock(true);
+    } else {
+      setHasLowStock(false);
+    }
+  }, [products]);
+
+  const toggleModal = () => {
+    setIsModalOpen((prev) => !prev);
+  };
+  /*---- ---- */
 
   return (
     <header className="flex items-center justify-between p-4 dash-nav">
@@ -28,6 +54,9 @@ const DashboardNav = ({ role }: { role: Role }) => {
         </span>
       </div>
       <nav>
+
+        {/* @SouZe-San  */}
+        {/* handle Customer item */}
         {role === Role.CUSTOMER && (
           <ul>
             <li>
@@ -48,13 +77,38 @@ const DashboardNav = ({ role }: { role: Role }) => {
             </li>
           </ul>
         )}
-        {role === Role.ADMIN && (
 
-          <button className="px-5 cursor-pointer ">
-            <span className="absolute inline-flex h-4 w-4 animate-ping rounded-full bg-red-500 opacity-75"></span>
-            <Image src={notificationFill} alt="cart" width={24} height={24} className="" />
-          </button>
+        {/* @alfaarghya */}
+        {/* handle admin item */}
+        {role === Role.ADMIN && (
+          <div className="relative px-5">
+            <button onClick={toggleModal} className="relative cursor-pointer">
+              {hasLowStock ? (
+                <Image
+                  src={notificationAlert}
+                  alt="notifications"
+                  width={24}
+                  height={24}
+                />
+              ) : (
+                <Image
+                  src={notification}
+                  alt="notifications"
+                  width={24}
+                  height={24}
+                />
+              )}
+            </button>
+
+            {isModalOpen && (
+              <NotificationModal
+                onClose={toggleModal}
+                products={products}
+              />
+            )}
+          </div>
         )}
+
 
         <div className="auth_btns">
           <span className="mr-8">
