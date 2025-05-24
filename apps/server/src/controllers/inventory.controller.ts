@@ -64,7 +64,7 @@ export const createProduct = async (req: Request, res: Response) => {
 // ADMIN can see their products in inventory
 export const getProducts = async (req: Request, res: Response) => {
   try {
-    const adminId = req.body.user.userId;
+    const adminId = req.body.adminId;
     // const skip = parseInt(req.query.skip as string) || 0;
     // const take = 10;
 
@@ -336,3 +336,32 @@ export const deleteProduct = async (req: Request, res: Response) => {
     errorMessage("error message", res, error);
   }
 };
+
+export const getLowStockProducts = async (req: Request, res: Response) => {
+  try {
+    const adminId = req.body.adminId;
+
+    //get product with stock < 5
+    const products = await prisma.product.findMany({
+      where: {
+        adminId,
+        stock: { lt: 5 },
+      },
+      select: {
+        id: true,
+        name: true,
+        stock: true,
+      },
+    });
+
+    // successful
+    res.status(Status.Success).json({
+      StatusMessages: StatusMessages[Status.Success],
+      message: "get stocks successfully",
+      products,
+    });
+    return;
+  } catch (error) {
+    errorMessage("Error while showing stock", res, error);
+  }
+}
