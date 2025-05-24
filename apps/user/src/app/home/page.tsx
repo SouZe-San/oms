@@ -1,10 +1,6 @@
-import SearchSection from "@oms/ui/components/customer/search-section/SearchSection";
+import MainSection from "@oms/ui/pages/customer/home/Home";
 const page = () => {
-  return (
-    <section>
-      <SearchSection />
-    </section>
-  );
+  return <MainSection />;
 };
 
 export default page;
