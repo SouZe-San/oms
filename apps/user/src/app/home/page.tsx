@@ -1,7 +1,10 @@
-import React from "react";
-
+import SearchSection from "@oms/ui/components/customer/search-section/SearchSection";
 const page = () => {
-  return <section>THis is Main PAgfe all Product list will be here</section>;
+  return (
+    <section>
+      <SearchSection />
+    </section>
+  );
 };
 
 export default page;
