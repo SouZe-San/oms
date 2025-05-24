@@ -17,11 +17,12 @@
   "dependencies": {
     "@oms/utils": "*",
     "@reduxjs/toolkit": "^2.5.1",
-    "react-redux": "^9.2.0"
+    "react-redux": "^9.2.0",
+    "redux-persist": "^6.0.0"
   },
   "devDependencies": {
-    "@oms/types": "*",
     "@oms/eslint-config": "*",
+    "@oms/types": "*",
     "@oms/typescript-config": "*",
     "typescript": "5.7.3"
   }
