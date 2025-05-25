@@ -77,6 +77,7 @@ export const createOrder = async (req: Request, res: Response) => {
         shippingAddressId: dbUser.addresses[0]!.id,
         orderProducts: {
           create: cartProducts.map((item) => ({
+            name: item.name,
             productId: item.productId,
             quantity: item.quantity,
             price: item.product.price,
@@ -164,13 +165,7 @@ export const orderSingleItem = async (req: Request, res: Response) => {
         shippingAddressId: dbUser.addresses[0]!.id,
         totalItems: quantity,
         orderProducts: {
-          create: [
-            {
-              productId,
-              quantity,
-              price: product.price,
-            },
-          ],
+          create: [{ name: product.name, productId, quantity, price: product.price }],
         },
         payment: {
           create: {

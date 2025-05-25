@@ -79,6 +79,7 @@ model Product {
 model CartProduct {
   id        String @id @default(uuid())
   productId String
+  name     String
   quantity  Int
   userId    String
 
@@ -115,6 +116,7 @@ model OrderProduct {
   id        String @id @default(uuid())
   orderId   String
   productId String
+  name      String
   quantity  Int
   price     Float // Store product price at order time
 

@@ -98,6 +98,28 @@ const updateCartProduct = async (productId: string, quantity: number) => {
   }
 };
 
+const stockCheck = async (products: { productId: string; quantity: number }) => {
+  try {
+    // Check if the product exists and has enough stock
+    const product = await prisma.product.findUnique({
+      where: { id: products.productId },
+    });
+
+    if (!product) {
+      throw new Error(`Product with ID ${products.productId} does not exist.`);
+    }
+
+    if (product.stock < products.quantity) {
+      return false; // Not enough stock available
+    }
+
+    return true; // Stock is sufficient
+  } catch (error) {
+    console.error("Error while checking stock: ", error);
+    throw new Error("Error while checking stock");
+  }
+};
+
 // ! Add items in cart (Update Cart)
 // @SouZe-San
 // @description: Update cart
@@ -119,7 +141,8 @@ export const updateCart = async (req: Request, res: Response) => {
 
     // Find the  carts - if cart not found will get an error
 
-    // old and new products
+    // ---------------------------------------------------------------------------    //
+    //! old and new products
     const previousProducts = await prisma.cartProduct.findMany({
       where: {
         userId: user.userId,
@@ -127,17 +150,24 @@ export const updateCart = async (req: Request, res: Response) => {
     });
     const upComingProducts = products;
 
+    // ---------------------------------------------------------------------------    //
+
     // 1. Find the products that are already in the cart
     const alreadyInCart = previousProducts.filter((oldProduct) =>
       upComingProducts.some((newProduct) => newProduct.productId === oldProduct.productId)
     );
 
+    // ---------------------------------------------------------------------------    //
+
     // 2. Update the quantities of the products that are already in the cart
     if (alreadyInCart.length > 0) {
       alreadyInCart.forEach(async (oldProduct) => {
-        const newProduct = upComingProducts.find((product) => product.productId === oldProduct.productId);
-        if (newProduct) {
-          await updateCartProduct(oldProduct.id, newProduct.quantity);
+        // Check stock availability
+        if (await stockCheck({ productId: oldProduct.productId, quantity: oldProduct.quantity })) {
+          const newProduct = upComingProducts.find((product) => product.productId === oldProduct.productId);
+          if (newProduct) {
+            await updateCartProduct(oldProduct.id, newProduct.quantity);
+          }
         }
       });
     }
@@ -149,12 +179,15 @@ export const updateCart = async (req: Request, res: Response) => {
 
     // 4. Add the products that are not in the cart
     if (notInCart.length > 0) {
-      await prisma.cartProduct.createMany({
-        data: notInCart.map((product) => ({
-          productId: product.productId,
-          quantity: product.quantity,
-          userId: user.userId,
-        })),
+      notInCart.forEach(async (newProduct) => {
+        await prisma.cartProduct.createMany({
+          data: {
+            name: newProduct.name,
+            productId: newProduct.productId,
+            quantity: newProduct.quantity,
+            userId: user.userId,
+          },
+        });
       });
     }
     // ---------------------------------------------------------------------------    //
