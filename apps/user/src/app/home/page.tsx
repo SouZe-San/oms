@@ -1,7 +1,6 @@
-import React from "react";
-
+import MainSection from "@oms/ui/pages/customer/home/Home";
 const page = () => {
-  return <section>THis is Main PAgfe all Product list will be here</section>;
+  return <MainSection />;
 };
 
 export default page;

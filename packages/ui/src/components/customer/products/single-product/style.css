@@ -1,0 +1,41 @@
+.img-section {
+  .left-btn,
+  .right-btn {
+    color: rgba(148, 148, 148, 0.371);
+
+    &:hover {
+      color: black;
+    }
+  }
+}
+
+button.cart-btn {
+  padding: 10px 3rem;
+  border-radius: 7px;
+  cursor: pointer;
+  word-spacing: 5px;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease-in-out;
+  &::before {
+    content: "Add to Cart";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    padding: 10px 0;
+    text-align: center;
+    z-index: 1;
+    background: var(--bg-high-gradient);
+    transition: width 0.2s ease-in-out;
+  }
+
+  &:hover {
+    scale: 1.05;
+    &::before {
+      width: 0%;
+    }
+  }
+}

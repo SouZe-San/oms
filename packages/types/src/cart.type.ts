@@ -6,8 +6,11 @@ export interface CartProduct {
   name: string;
   productId: string;
   userId: string;
+  product?: Product;
 }
 
 export interface CartProductWithDetails extends CartProduct {
   product: Product;
 }
+
+export type Cart = CartProduct[];

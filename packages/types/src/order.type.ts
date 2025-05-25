@@ -17,9 +17,10 @@ export interface Order {
   status: OrderStatus;
   totalAmount: number;
   shippingAddressId: string;
+  totalItems?: number;
   shippingAddress?: AddressModel;
   orderProducts?: orderProduct[];
-  createdAt: Date;
+  createdAt: Date | string;
   payment?: Payment | null;
 }
 

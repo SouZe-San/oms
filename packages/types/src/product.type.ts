@@ -5,6 +5,6 @@ export interface Product {
   description: string | null;
   price: number;
   stock: number;
-  updatedAt: Date;
-  createdAt: Date;
+  updatedAt: Date | string;
+  createdAt: Date | string;
 }
