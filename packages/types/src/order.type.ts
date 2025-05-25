@@ -5,6 +5,7 @@ import { AddressModel } from "./user.type";
 export type orderProduct = {
   id: string;
   orderId: string;
+  name: string;
   productId: string;
   quantity: number;
   price: number;
