@@ -78,3 +78,43 @@
     }
   }
 }
+
+.product-list-section {
+  backdrop-filter: blur(2rem);
+  border-radius: 15px;
+
+  .under-border {
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(
+        98deg,
+        rgba(227, 227, 227, 0) 0%,
+        rgba(227, 227, 227, 0.24) 9%,
+        rgba(219, 219, 219, 0.24) 36%,
+        rgba(219, 219, 219, 0.3) 67%,
+        rgba(219, 219, 219, 0.2) 93%,
+        rgba(227, 227, 227, 0) 100%
+      );
+      border-radius: 1rem;
+    }
+  }
+
+  .quantity-box {
+    background: #5b5b5b1f;
+    /* border: 1px solid #cacaca26; */
+    border-radius: 5px;
+    font-size: 1.2rem;
+    /* box-shadow:
+      inset 4px -3px 4px #8e8c8c1c,
+      4px -3px 6px -2px #000000a1; */
+
+    text-shadow: 0 0 3px white;
+  }
+}
