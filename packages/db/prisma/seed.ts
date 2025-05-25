@@ -90,8 +90,8 @@ async function main() {
   // Add products to cart
   await prisma.cartProduct.createMany({
     data: [
-      { productId: product1.id, quantity: 2, userId: customer.id },
-      { productId: product2.id, quantity: 1, userId: customer.id },
+      { productId: product1.id, quantity: 2, userId: customer.id, name: product1.name },
+      { productId: product2.id, quantity: 1, userId: customer.id, name: product1.name },
     ],
   });
 
@@ -102,10 +102,7 @@ async function main() {
   });
 
   // Calculate total amount
-  const totalAmount = cartProducts.reduce(
-    (sum, item) => sum + item.product.price * item.quantity,
-    0
-  );
+  const totalAmount = cartProducts.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
 
   if (!shippingAddress) {
     throw new Error("Customer has no address to use for shipping.");
@@ -120,6 +117,7 @@ async function main() {
       shippingAddressId: shippingAddress.id,
       orderProducts: {
         create: cartProducts.map((item) => ({
+          name: item.product.name,
           productId: item.productId,
           quantity: item.quantity,
           price: item.product.price,

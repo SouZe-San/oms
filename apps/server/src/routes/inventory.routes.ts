@@ -1,7 +1,7 @@
 import { Router } from "express";
 import authenticate from "../middleware/authenticate";
 import inventoryAccess from "../middleware/inventory";
-import { createProduct, deleteProduct, getProduct, getProducts, searchProduct, updateProduct } from "../controllers/inventory.controller";
+import { createProduct, deleteProduct, getLowStockProducts, getProduct, getProducts, searchProduct, updateProduct } from "../controllers/inventory.controller";
 
 const router = Router();
 
@@ -10,6 +10,9 @@ router.post("/product", [authenticate, inventoryAccess], createProduct);
 
 //get items from admin inventory
 router.get("/product", [authenticate, inventoryAccess], getProducts);
+
+//get stock admin inventory
+router.get("/stock/low", [authenticate, inventoryAccess], getLowStockProducts);
 
 //get item by id from admin inventory
 router.get("/product/:id", [authenticate, inventoryAccess], getProduct);
