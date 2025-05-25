@@ -117,4 +117,10 @@
 
     text-shadow: 0 0 3px white;
   }
+
+  .btn {
+    padding: 7px 24px;
+    border-radius: 7px;
+    cursor: pointer;
+  }
 }

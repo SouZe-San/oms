@@ -6,7 +6,7 @@ const SingleOrder = ({ order }: { order: Order }) => {
   return (
     <div className="w-full max-w-6xl mx-auto   shadow-sm product-list-section">
       {/* Header */}
-      <div className="px-6 py-4 border-b border-gray-100 bg">
+      <div className="px-6 py-4 border-b border-gray-100 ">
         <h2 className="text-2xl font-semibold text-white-900">Order Items</h2>
         <p className="text-sm text-white-500 mt-1">Order ID: {order.id}</p>
       </div>
