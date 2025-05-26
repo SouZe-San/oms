@@ -6,12 +6,13 @@ import ServiceSection from "@oms/ui/components/home/service-section/ServiceSecti
 import PriceSection from "@oms/ui/components/home/price-section/PriceSection";
 import Footer from "@oms/ui/components/home/footer/Footer";
 import ContactSection from "@oms/ui/components/home/contact-section/ContactSection";
+import { Role } from "@oms/types/user.type";
 const Home = () => {
   return (
     <>
       <NavBar />
       <main>
-        <HeroSection />
+        <HeroSection role={Role.CUSTOMER} />
         <AboutSection />
         <HightLightSection />
         <ServiceSection />
