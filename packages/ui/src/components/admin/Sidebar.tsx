@@ -7,6 +7,9 @@ import { setSearchQuery } from "@oms/store/inventorySearch";
 import { useRouter } from "next/navigation";
 import CreateProductModal from "./CreateProductModal";
 
+import "../../styles/sidebar.css";
+import 'remixicon/fonts/remixicon.css';
+
 function useDebounce<T>(value: T, delay: number): T {
   const [debounced, setDebounced] = useState(value);
 
@@ -45,7 +48,7 @@ const Sidebar = () => {
   );
 
   return (
-    <aside className="w-72 bg-gray-900 text-white space-y-6 p-4 max-h-screen flex flex-col justify-around">
+    <aside className="w-72 bg-gray-900 text-white space-y-6 p-4 min-h-screen flex flex-col">
 
       <div className="">
         <h2 className="text-xl font-semibold mb-4">Inventory</h2>
@@ -61,7 +64,7 @@ const Sidebar = () => {
           />
 
           {/* product list */}
-          <div className=" overflow-y-scroll min-h-150 rounded-lg bg-gray-800">
+          <div className=" overflow-y-scroll min-h-120  rounded-lg bg-gray-800">
             {loading ? (
               <p className="text-gray-400 text-sm">Loading...</p>
             ) : filteredProducts.length > 0 ? (
@@ -87,9 +90,10 @@ const Sidebar = () => {
       {/* Create product button */}
       <button
         onClick={() => setOpenCreateModal(true)}
-        className="w-full bg-blue-600 hover:bg-blue-500 text-white px-3 py-2 rounded-lg cursor-pointer"
+        className="btn-create"
       >
         Create Product
+        <i className="ri-add-circle-fill ml-2"></i>
       </button>
       <CreateProductModal isOpen={openCreateModal} onClose={() => setOpenCreateModal(false)} />
 

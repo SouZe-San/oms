@@ -1,0 +1,27 @@
+.update-btn {
+  padding: 7px 1.5rem;
+  font-weight: 500;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  outline: none;
+  letter-spacing: 1px;
+  color: white;
+  transition: all 0.3s ease-in-out;
+  
+}
+
+.update-active-btn {
+  background: var(--bg-high-gradient);
+  color: rgb(240, 240, 240);
+  cursor: pointer;
+  &:hover {
+    color: black;
+    border-color: rgb(181, 97, 133);
+  }
+}
+
+.update-inactive-btn {
+  background-color: rgba(134, 133, 133, 0.493);
+  cursor: not-allowed;
+
+}

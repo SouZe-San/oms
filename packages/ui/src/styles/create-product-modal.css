@@ -1,0 +1,41 @@
+.create-btn {
+  background: var(--bg-high-gradient);
+  color: rgb(240, 240, 240);
+  padding: 7px 1.5rem;
+  font-weight: 500;
+  /* border-radius: 7px; */
+  cursor: pointer;
+
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out;
+  outline: none;
+  border: 2px solid transparent;
+  letter-spacing: 1px;
+  color: white;
+
+  &:hover {
+    color: black;
+    border-color: rgb(181, 97, 133);
+  }
+}
+
+.cancel-btn {
+  background: rgb(197, 197, 197);
+  color: rgb(240, 240, 240);
+  padding: 7px 1.5rem;
+  font-weight: 500;
+  /* border-radius: 7px; */
+  cursor: pointer;
+
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out;
+  outline: none;
+  border: 2px solid transparent;
+  letter-spacing: 1px;
+  color: white;
+
+  &:hover {
+    color: black;
+    background: rgb(165, 165, 165);
+  }
+}
