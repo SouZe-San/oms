@@ -13,6 +13,8 @@ export const createProductValidator = z.object({
     })
     .transform((value) => parseFloat(value.toFixed(2))), // Ensures 2 decimal places
   stock: z.number().int().positive("Stock must be positive value"),
+  // images: z.array(z.string().url("Image must be a valid URL")).optional().default([]),
+  images: z.array(z.object({ url: z.string().url() })),
 });
 export type CreateProductInput = z.infer<typeof createProductValidator>;
 

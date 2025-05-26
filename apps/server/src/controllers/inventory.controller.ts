@@ -25,7 +25,7 @@ export const createProduct = async (req: Request, res: Response) => {
     }
 
     //get data from validator
-    const { name, description, price, stock } = validator.data;
+    const { name, description, price, stock, images } = validator.data;
     const adminId = req.body.adminId
 
     //check if product is already exists
@@ -48,6 +48,7 @@ export const createProduct = async (req: Request, res: Response) => {
         description,
         price,
         stock,
+        images: images?.length ? { create: images.map((img: { url: string }) => ({ url: img.url })), } : undefined,
       },
     });
 
@@ -113,6 +114,7 @@ export const getProduct = async (req: Request, res: Response) => {
     const product = await prisma.product.findUnique({
       where: { id: productId, adminId },
       include: {
+        images: true,
         OrderProduct: {
           include: {
             order: {
@@ -145,6 +147,7 @@ export const getProduct = async (req: Request, res: Response) => {
         stock: product.stock,
         createdAt: product.createdAt,
         updatedAt: product.updatedAt,
+        images: product.images.map((img) => img.url),
       },
       orders: product.OrderProduct.map((op) => ({
         orderId: op.order.id,
