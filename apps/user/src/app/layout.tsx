@@ -3,8 +3,6 @@ import localFont from "next/font/local";
 import "./globals.css";
 import "@oms/ui/styles.css";
 import Providers from "@oms/ui/providers/provider";
-// import Navbar from "@oms/ui/components/Navbar";
-// import { Role } from "@oms/types/user.type";
 
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
@@ -16,7 +14,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "OMS",
+  title: "OMS - Shopping with OMS",
   description: "oms.com",
 };
 
@@ -28,10 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Providers>
-          {/* <Navbar role={Role.CUSTOMER} /> */}
-          {children}
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

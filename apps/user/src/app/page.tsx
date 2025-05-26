@@ -1,26 +1,16 @@
-import HeroSection from "@oms/ui/components/home/hero-section/HeroSection";
-import AboutSection from "@oms/ui/components/home/about-section/AboutSection";
-import NavBar from "@oms/ui/components/nav/NavBar";
-import HightLightSection from "@oms/ui/components/home/highlight-section/HightLightSection";
-import ServiceSection from "@oms/ui/components/home/service-section/ServiceSection";
-import PriceSection from "@oms/ui/components/home/price-section/PriceSection";
-import Footer from "@oms/ui/components/home/footer/Footer";
-import ContactSection from "@oms/ui/components/home/contact-section/ContactSection";
-const Home = () => {
+import MainSection from "@oms/ui/pages/customer/home/Home";
+import DashboardNav from "@oms/ui/components/nav/dashboard-nav";
+
+import { Role } from "@oms/types/user.type";
+const page = () => {
   return (
     <>
-      <NavBar />
-      <main>
-        <HeroSection />
-        <AboutSection />
-        <HightLightSection />
-        <ServiceSection />
-        <PriceSection />
-        <ContactSection />
-        <Footer />
+      <DashboardNav role={Role.CUSTOMER} />
+      <main className="flex-1 dashboard-section min-h-screen">
+        <MainSection />;
       </main>
     </>
   );
 };
 
-export default Home;
+export default page;

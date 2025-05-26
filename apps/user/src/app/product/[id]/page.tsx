@@ -2,10 +2,11 @@ import ImageSection from "@oms/ui/components/customer/products/single-product/im
 import ProductDetails from "@oms/ui/components/customer/products/single-product/product-details";
 import { getProductDetails } from "@oms/utils/api.customer";
 import { axiosErrorHandler } from "@oms/utils/handlers";
-const page = async ({ params }: { params: { id: string } }) => {
+const Page = async ({ params }: { params: { id: string } }) => {
   const fullDataFetch = async () => {
     try {
-      const { data } = await getProductDetails(params.id);
+      const { id } = await params;
+      const { data } = await getProductDetails(id);
       return data.product;
     } catch (error) {
       axiosErrorHandler(error, "Product Details Page - Fetching Product Details");
@@ -18,9 +19,9 @@ const page = async ({ params }: { params: { id: string } }) => {
   return (
     <section>
       <ImageSection />
-      <ProductDetails />
+      {product ? <ProductDetails product={product} /> : <div className="text-center text-white">Product not found</div>}
     </section>
   );
 };
 
-export default page;
+export default Page;
