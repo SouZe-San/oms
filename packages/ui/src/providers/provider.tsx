@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import { Toaster } from "sonner";
 
 import { makeStore, AppStore, AppPersistor } from "@oms/store/UseStore";
+import { PersistGate } from "redux-persist/integration/react";
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   const store = useRef<{ store: AppStore; persistor: AppPersistor }>(undefined);
@@ -15,7 +16,9 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
   }
 
   return <Provider store={store.current.store}>
-    {children}
+    <PersistGate loading={null} persistor={store.current.persistor}>
+      {children}
+    </PersistGate>
     <Toaster richColors position="top-center" />
   </Provider>;
 };
