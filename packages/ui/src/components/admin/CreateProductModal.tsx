@@ -1,6 +1,6 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
+import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import api from '@oms/utils/api';
 import { toast } from 'sonner';
@@ -16,9 +16,18 @@ const CreateProductModal = ({ isOpen, onClose }: Props) => {
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors, isSubmitting },
   } = useForm<CreateProductInput>({
-    resolver: zodResolver(createProductValidator),
+    resolver: zodResolver(createProductValidator) as any,
+    defaultValues: {
+      images: [],
+    },
+  });
+
+  const { fields, append, remove } = useFieldArray<CreateProductInput, 'images', 'id'>({
+    control,
+    name: 'images',
   });
 
   if (!isOpen) return null;
@@ -35,7 +44,7 @@ const CreateProductModal = ({ isOpen, onClose }: Props) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 text-black">
       <div className="bg-white p-6 rounded-lg w-full max-w-lg space-y-4">
         <h2 className="text-xl font-semibold">Create New Product</h2>
 
@@ -76,6 +85,39 @@ const CreateProductModal = ({ isOpen, onClose }: Props) => {
             />
             {errors.stock && <p className="text-red-600 text-sm">{errors.stock.message}</p>}
           </div>
+
+          {/* Image Fields */}
+          {fields.map((field, index) => (
+            <div key={field.id} className="flex gap-2 items-center">
+              <input
+                placeholder={index === 0 ? 'Main Image URL' : `Image URL ${index + 1}`}
+                {...register(`images.${index}.url`)}
+                className="w-full border p-2 rounded"
+              />
+              {index > 0 && (
+                <button
+                  type="button"
+                  onClick={() => remove(index)}
+                  className="text-red-500 hover:text-red-700"
+                >
+                  −
+                </button>
+              )}
+              {errors.images?.[index] && (
+                <p className="text-red-600 text-sm">{errors.images[index]?.message}</p>
+              )}
+            </div>
+          ))}
+
+          <button
+            type="button"
+            onClick={() => append({ url: '' })}
+            className="text-blue-600 hover:text-blue-800 text-sm"
+          >
+            + Add another image
+          </button>
+
+          <p className="text-xs text-gray-500 mt-1">First image is used as the main product image.</p>
 
           <div className="flex justify-between pt-2">
             <button
