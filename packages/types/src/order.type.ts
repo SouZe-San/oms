@@ -1,6 +1,7 @@
 export type OrderStatus = "PENDING" | "CONFIRMED" | "SHIPPED" | "CANCELLED" | "DELIVERED";
 
 export type PaymentStatus = "PENDING" | "FAILED" | "COMPLETED";
+
 import { AddressModel } from "./user.type";
 export type orderProduct = {
   id: string;
@@ -30,4 +31,17 @@ interface Payment {
   amount: number;
   status: PaymentStatus;
   createdAt: Date;
+}
+
+export enum PaymentENUM {
+  PENDING = "PENDING",
+  FAILED = "FAILED",
+  COMPLETED = "COMPLETED"
+}
+export enum OrderENUM {
+  PENDING = "PENDING",
+  CONFIRMED = "CONFIRMED",
+  SHIPPED = "SHIPPED",
+  CANCELLED = "CANCELLED",
+  DELIVERED = "DELIVERED"
 }
