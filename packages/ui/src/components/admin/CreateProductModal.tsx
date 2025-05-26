@@ -6,6 +6,9 @@ import api from '@oms/utils/api';
 import { toast } from 'sonner';
 import { CreateProductInput, createProductValidator } from '@oms/types/product.validator';
 
+import "../../styles/create-product-modal.css"
+import 'remixicon/fonts/remixicon.css'
+
 type Props = {
   isOpen: boolean;
   onClose: () => void;
@@ -44,7 +47,7 @@ const CreateProductModal = ({ isOpen, onClose }: Props) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 text-black">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 text-black">
       <div className="bg-white p-6 rounded-lg w-full max-w-lg space-y-4">
         <h2 className="text-xl font-semibold">Create New Product</h2>
 
@@ -100,7 +103,7 @@ const CreateProductModal = ({ isOpen, onClose }: Props) => {
                   onClick={() => remove(index)}
                   className="text-red-500 hover:text-red-700"
                 >
-                  −
+                  <i className="ri-close-circle-fill"></i>
                 </button>
               )}
               {errors.images?.[index] && (
@@ -112,9 +115,9 @@ const CreateProductModal = ({ isOpen, onClose }: Props) => {
           <button
             type="button"
             onClick={() => append({ url: '' })}
-            className="text-blue-600 hover:text-blue-800 text-sm"
+            className="text-blue-600 hover:text-blue-800 text-sm cursor-pointer"
           >
-            + Add another image
+            <i className="ri-add-circle-fill"></i> Add another image
           </button>
 
           <p className="text-xs text-gray-500 mt-1">First image is used as the main product image.</p>
@@ -126,16 +129,19 @@ const CreateProductModal = ({ isOpen, onClose }: Props) => {
                 onClose();
                 reset();
               }}
-              className="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400"
+              className="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400 cursor-pointer cancel-btn"
+            // className=""
             >
               Cancel
+              <i className="ri-close-circle-line"></i>
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+              className='create-btn'
             >
               {isSubmitting ? 'Creating...' : 'Create'}
+              <i className="ri-add-circle-line"></i>
             </button>
           </div>
         </form>

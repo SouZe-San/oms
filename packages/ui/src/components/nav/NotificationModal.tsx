@@ -1,4 +1,5 @@
 import { useRouter } from "next/navigation";
+import "./dash-nav-style.css"
 
 interface NotificationModalProps {
   products: { id: string; name: string; stock: number }[];
@@ -9,7 +10,7 @@ const NotificationModal = ({ products, onClose }: NotificationModalProps) => {
   const router = useRouter();
 
   return (
-    <div className="absolute right-0 mt-2 z-50 w-96 bg-white rounded-lg shadow-lg border border-gray-200 text-black">
+    <div className="absolute right-0 mt-2 z-50 w-96 bg-gray-200 rounded-lg shadow-xl border border-gray-300 text-black">
       <div className="p-4">
         <h2 className="text-lg font-semibold mb-3">Low Stock Alerts</h2>
         <ul className="space-y-2 max-h-60 overflow-y-auto text-sm flex flex-col">
@@ -30,9 +31,9 @@ const NotificationModal = ({ products, onClose }: NotificationModalProps) => {
         </ul>
         <button
           onClick={onClose}
-          className="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 text-sm"
+          className="close-btn mt-4 w-full"
         >
-          Close
+          Close <i className="ri-close-fill"></i>
         </button>
       </div>
     </div>

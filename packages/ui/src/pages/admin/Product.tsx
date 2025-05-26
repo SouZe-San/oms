@@ -13,6 +13,7 @@ import OrderList from '../../components/admin/OrderList';
 import UpdateProductModal from '../../components/admin/UpdateProductModal';
 
 import logo from "../../assets/icons/logo/oms.svg"
+import "../../styles/product-details.css"
 
 const ProductPage = () => {
   //take product id from params
@@ -97,8 +98,11 @@ const ProductPage = () => {
 
   return (
     <div className="p-6 space-y-6 text-black">
-      <button className={`border px-4 py-2 rounded font-semibold transition-colors ${hasChanges ? 'border-blue-600 bg-blue-600 text-white hover:bg-blue-700' : 'border-gray-400 bg-gray-200 text-gray-600 cursor-not-allowed'
-        }`}
+      <button
+        // className={`border px-4 py-2 rounded font-semibold transition-colors ${hasChanges ? 'border-blue-600 bg-blue-600 text-white hover:bg-blue-700' : 'border-gray-400 bg-gray-200 text-gray-600 cursor-not-allowed'
+        //   }`}
+        className={`update-btn ${hasChanges ? 'update-active-btn' : ' update-inactive-btn'
+          }`}
         disabled={!hasChanges}
         onClick={() => setShowConfirmModal(true)}>
         Update
