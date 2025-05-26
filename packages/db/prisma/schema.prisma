@@ -65,6 +65,9 @@ model Product {
   updatedAt   DateTime @updatedAt
   createdAt   DateTime @default(now())
 
+  //One-to-Many: A product can have many images
+  images ProductImage[]
+
   // Many-to-Many: A Product can belong to multiple Carts
   carts CartProduct[]
 
@@ -75,11 +78,20 @@ model Product {
   admin User @relation(fields: [adminId], references: [id], name: "AdminInventory")
 }
 
+model ProductImage {
+  id        String @id @default(uuid())
+  url       String
+  productId String
+
+  // Many-to-One: An image belongs to one product
+  product Product @relation(fields: [productId], references: [id])
+}
+
 // CartProduct Table - Many-to-Many Relation Between Cart and Product
 model CartProduct {
   id        String @id @default(uuid())
   productId String
-  name     String
+  name      String
   quantity  Int
   userId    String
 
