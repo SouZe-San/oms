@@ -7,7 +7,7 @@ import authenticate from "../middleware/authenticate";
 import { getCart, updateCart } from "../controllers/cart.controller";
 
 // import Product controllers
-import { getAllProducts, getSingleProduct } from "../controllers/customer.product.controller";
+import { getAllProducts, getSingleProduct } from "../controllers/product.controller";
 
 // Import Order controllers
 import {
@@ -25,7 +25,7 @@ const router = Router();
 //! Product Routes - for customers
 router.get("/products", getAllProducts);
 router.get("/product/:id", getSingleProduct);
-router.get("/products/:name", getAllProducts);
+router.get("/products/search/:name", getAllProducts);
 //! Carts Routes
 router.route("/cart").get(authenticate, getCart);
 router.route("/cart").put(authenticate, updateCart);

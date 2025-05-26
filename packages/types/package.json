@@ -14,7 +14,8 @@
     "./order.type": "./src/order.type.ts",
     "./product.type": "./src/product.type.ts",
     "./user.type": "./src/user.type.ts",
-    "./store.type": "./src/store/index.ts"
+    "./store.type": "./src/store/index.ts",
+    "./api.type": "./src/api/index.ts"
   },
   "dependencies": {
     "react": "^19.0.0",

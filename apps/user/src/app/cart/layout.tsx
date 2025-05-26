@@ -2,10 +2,10 @@ import DashboardNav from "@oms/ui/components/nav/dashboard-nav";
 import type { Metadata } from "next";
 import { Role } from "@oms/types/user.type";
 export const metadata: Metadata = {
-  title: "OMS - Shopping",
+  title: "OMS - Cart",
   description: "Shopping with OMS",
 };
-export default function HomeLayout({ children }: { children: React.ReactNode }) {
+export default function CartLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       {/* Nav */}

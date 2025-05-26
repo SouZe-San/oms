@@ -69,6 +69,7 @@ header.dash-nav {
             z-index: 1;
             background: transparent;
             backdrop-filter: invert(1);
+            -webkit-backdrop-filter: invert(1);
           }
 
           &:hover::before {

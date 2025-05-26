@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import "./dash-nav-style.css";
 
@@ -19,7 +19,7 @@ import notification from "../../assets/icons/admin/notification.svg";
 import notificationAlert from "../../assets/icons/admin/alert-notification.svg";
 
 const DashboardNav = ({ role }: { role: Role }) => {
-  const { user } = useAppSelector((state) => state.auth);
+  const { user, isAuthenticated } = useAppSelector((state) => state.auth);
 
   //@alfaarghya
   /* handel notification for admin */
@@ -54,13 +54,12 @@ const DashboardNav = ({ role }: { role: Role }) => {
         </span>
       </div>
       <nav>
-
         {/* @SouZe-San  */}
         {/* handle Customer item */}
         {role === Role.CUSTOMER && (
           <ul>
             <li>
-              <Link href="/home">
+              <Link href="/cart">
                 <button>
                   <span> Cart</span>
                   <Image src={fillCart} alt="cart" width={24} height={24} />
@@ -68,7 +67,7 @@ const DashboardNav = ({ role }: { role: Role }) => {
               </Link>
             </li>
             <li>
-              <Link href="/home">
+              <Link href="/order">
                 <button>
                   <span> order</span>
                   <Image src={fillPackage} alt="cart" width={24} height={24} />
@@ -84,37 +83,29 @@ const DashboardNav = ({ role }: { role: Role }) => {
           <div className="relative px-5">
             <button onClick={toggleModal} className="relative cursor-pointer">
               {hasLowStock ? (
-                <Image
-                  src={notificationAlert}
-                  alt="notifications"
-                  width={24}
-                  height={24}
-                />
+                <Image src={notificationAlert} alt="notifications" width={24} height={24} />
               ) : (
-                <Image
-                  src={notification}
-                  alt="notifications"
-                  width={24}
-                  height={24}
-                />
+                <Image src={notification} alt="notifications" width={24} height={24} />
               )}
             </button>
 
-            {isModalOpen && (
-              <NotificationModal
-                onClose={toggleModal}
-                products={products}
-              />
-            )}
+            {isModalOpen && <NotificationModal onClose={toggleModal} products={products} />}
           </div>
         )}
 
-
-        <div className="auth_btns">
-          <span className="mr-8">
-            Hello, <span>{user?.firstName}</span>
-          </span>
-          <LogoutButton />
+        <div className={`auth_btns ${isAuthenticated ? "" : "-ml-4"}`}>
+          {isAuthenticated ? (
+            <>
+              <span className="mr-8">
+                Hello, <span>{user?.firstName}</span>
+              </span>
+              <LogoutButton />
+            </>
+          ) : (
+            <Link href="/auth/signin">
+              <button>Log In</button>
+            </Link>
+          )}
         </div>
       </nav>
     </header>

@@ -6,29 +6,25 @@ import pending from "../../../assets/icons/order/order-pending.svg";
 import calender from "../../../assets/icons/random/calender.svg";
 import Link from "next/link";
 
+import { OrderResponse } from "@oms/types/api.type";
+import { OrderStatus } from "@oms/types/order.type";
+
 const statusIcon = {
-  pending: pending,
-  completed: done,
-  cancelled: cancelled,
+  PENDING: pending,
+  SHIPPED: pending,
+  CONFIRMED: done,
+  DELIVERED: done,
+  CANCELLED: cancelled,
 };
 
-const OrderItem = ({
-  order,
-}: {
-  order: {
-    id: number;
-    title: string;
-    status: string;
-    date: string;
-    price: string;
-    quantity: number;
-  };
-}) => {
-  const getTypeClass = (type: "pending" | "completed" | "cancelled") => {
+const OrderItem = ({ order, index }: { order: OrderResponse; index: number }) => {
+  const getTypeClass = (type: OrderStatus) => {
     switch (type) {
-      case "completed":
+      case "DELIVERED":
         return "success";
-      case "cancelled":
+      case "CONFIRMED":
+        return "success";
+      case "CANCELLED":
         return "cancelled";
       default:
         return "pending";
@@ -36,18 +32,20 @@ const OrderItem = ({
   };
 
   return (
-    <Link href={`/home/order/${order.id}`} className="no-underline">
+    <Link href={`/order/${order.id}`} className="no-underline">
       <div className="order-item flex px-4 py-8 justify-between items-center border rounded-xl">
         <div className=" flex items-center gap-6 font-neue">
           <p className="text-xl text-center flex items-end text-white/50">
-            <span className="text-4xl text-white/70">[</span> 0{order.id}{" "}
+            <span className="text-4xl text-white/70">[</span> 0{index + 1}{" "}
             <span className="text-4xl text-white/70">]</span>
           </p>
-          <h1 className="text-4xl ">Order Item {order.title}</h1>
+          <h1 className="text-4xl ">
+            ID - <span className="text-xl">{order.id}</span>
+          </h1>
         </div>
 
         <div className="grid grid-cols-4 gap-8 side-info">
-          <div className={`badge ${getTypeClass(order.status as "pending" | "completed" | "cancelled")}`}>
+          <div className={`badge ${getTypeClass(order.status)}`}>
             {" "}
             <Image
               src={statusIcon[order.status as keyof typeof statusIcon]}
@@ -60,13 +58,13 @@ const OrderItem = ({
             <h3>
               {" "}
               <Image src={calender} alt="icon" className="inline-block w-6 mr-2" />
-              <span>{order.date} </span>
+              <span>{new Date(order.createdAt).toLocaleDateString()} </span>
             </h3>
             <h3>
-              <span> &#x20B9;</span> {order.price}
+              <span> &#x20B9;</span> {order.totalAmount}
             </h3>
             <h3>
-              <span>Quantity :</span> {order.quantity}
+              <span>Quantity :</span> {order.totalItems}
             </h3>
           </div>
           <button className="high-btn-bg">View Details</button>

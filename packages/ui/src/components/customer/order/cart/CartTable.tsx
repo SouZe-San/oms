@@ -1,28 +1,61 @@
-import { Cart } from "@oms/types/cart.type";
+import { CartProduct } from "@oms/types/cart.type";
 import Image from "next/image";
 import trash from "../../../../assets/icons/random/delete.svg";
 import "../style.css";
+import { createOrder, updateCart } from "@oms/utils/api.customer";
+import { toast } from "sonner";
+import { CartUpdateBody } from "@oms/types/api.type";
+import { axiosErrorHandler } from "@oms/utils/handlers";
 const CartTable = ({
   cart,
   onUpdateQuantity,
   onRemoveItem,
+  totalAmount,
+  totalItems,
 }: {
-  cart: Cart;
+  cart: CartProduct[];
   onUpdateQuantity?: (itemId: string, newQuantity: number) => void;
   onRemoveItem?: (itemId: string) => void;
+  totalItems: number;
+  totalAmount: number;
 }) => {
   const handleQuantityChange = (itemId: string, change: number) => {
     const item = cart.find((item) => item.id === itemId);
     if (item && onUpdateQuantity) {
       const newQuantity = Math.max(1, Math.min(item?.product!.stock, item.quantity + change));
-      if (newQuantity !== item.quantity) {
-        onUpdateQuantity(itemId, newQuantity);
-      }
+      onUpdateQuantity(itemId, newQuantity);
+    }
+  };
+
+  const updateCartHandler = async () => {
+    try {
+      const cartBody: CartUpdateBody = {
+        products: cart.map((item) => ({
+          name: item.name,
+          productId: item.product!.id!,
+          quantity: item.quantity,
+        })),
+      };
+
+      await updateCart(cartBody);
+      toast.success("Cart updated successfully!");
+    } catch (error) {
+      axiosErrorHandler(error, "Update Cart");
+      toast.error("Failed to update cart. Please try again.");
+    }
+  };
+  const cartOrderHandler = async () => {
+    try {
+      await createOrder();
+      toast.success("Order successfully!");
+    } catch (error) {
+      axiosErrorHandler(error, "Update Cart");
+      toast.error("Failed to Order. Please try again.");
     }
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto shadow-sm product-list-section">
+    <div className="w-full max-w-6xl mx-auto shadow-sm product-list-section min-h-[60vh]">
       {/* Table */}
       <div className="overflow-hidden">
         <table className="w-full ">
@@ -97,19 +130,21 @@ const CartTable = ({
       <div className="border-t  px-6 py-4">
         <div className="flex justify-between items-center mb-4">
           <div className="font-medium text-md text-white-600">
-            Total Items: <span className="font-semibold text-lg">{cart.reduce((a, i) => a + i.quantity, 0)}</span>
+            Total Items: <span className="font-semibold text-lg">{totalItems}</span>
           </div>
           <div className="flex gap-2 items-center">
             <span className="font-medium text-md text-white-600">Total Amount:</span>
-            <div className="text-white-900 font-bold text-lg">
-              ${cart.reduce((total, item) => total + item.quantity * item.product!.price, 0)}
-            </div>
+            <div className="text-white-900 font-bold text-lg">${totalAmount.toFixed(2)}</div>
           </div>
         </div>
 
         <div className="flex gap-3 justify-end">
-          <button className="px-6 bg-white text-black  btn">Edit Address</button>
-          <button className="px-6 high-btn-bg btn">Order Now</button>
+          <button className="px-6 bg-white text-black  btn" onClick={updateCartHandler}>
+            Save Cart
+          </button>
+          <button className="px-6 high-btn-bg btn" onClick={cartOrderHandler}>
+            Order Now
+          </button>
         </div>
       </div>
     </div>
