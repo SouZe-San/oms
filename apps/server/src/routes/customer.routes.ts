@@ -7,7 +7,7 @@ import authenticate from "../middleware/authenticate";
 import { getCart, updateCart } from "../controllers/cart.controller";
 
 // import Product controllers
-import { getAllProducts, getSingleProduct } from "../controllers/customer.product.controller";
+import { getAllProducts, getSingleProduct } from "../controllers/product.controller";
 
 // Import Order controllers
 import {
