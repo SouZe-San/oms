@@ -8,7 +8,7 @@ const Home = async () => {
     console.log("Fetching Products...");
     try {
       const { data } = await getProducts();
-      console.log("Fetched Products:", data.products);
+
       return data.products as ProductsResponse[];
     } catch (error) {
       axiosErrorHandler(error, "Home Page - Fetching Products");
@@ -21,7 +21,12 @@ const Home = async () => {
   return (
     <section>
       <SearchSection />
-      <ProductContainer products={products} />
+
+      {products.length === 0 ? (
+        <p className="text-red-100/50 text-5xl font-black text-center">No Sponsors !! No Products</p>
+      ) : (
+        <ProductContainer products={products} />
+      )}
     </section>
   );
 };

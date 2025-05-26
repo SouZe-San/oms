@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export const axiosErrorHandler = (error: unknown, from: string) => {
+  console.log(`\n${from}\n`);
   if (axios.isAxiosError(error)) {
     if (error.response) {
       console.error("Error Data:", error.response.data);
@@ -9,6 +10,6 @@ export const axiosErrorHandler = (error: unknown, from: string) => {
       console.error("Error Message:", error.message);
     }
   } else {
-    console.error(`Unexpected Error ${from} :`, error);
+    console.error("Unexpected Error  :", error);
   }
 };

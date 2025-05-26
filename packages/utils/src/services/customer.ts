@@ -23,7 +23,7 @@ export const updateCart = async (cartBody: CartUpdateBody) => customerApi.put("c
 // Order Routes
 export const getAllOrders = async () => customerApi.get("/orders");
 export const getOrderDetails = async (id: string) => customerApi.get(`/order/${id}`);
-export const createOrder = async (orderData: { isOnlinePayment?: boolean }) => customerApi.post("/order", orderData);
+export const createOrder = async (isOnlinePayment: boolean = false) => customerApi.post("/order", { isOnlinePayment });
 export const updateOrder = async (id: string, orderData: { status: OrderStatus }) =>
   customerApi.put(`/order/${id}`, orderData);
 

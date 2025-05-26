@@ -11,6 +11,7 @@ import api from "@oms/utils/api";
 import { Role } from "@oms/types/user.type";
 import { setUser } from "@oms/store/auth";
 import { useRouter } from "next/navigation";
+import { axiosErrorHandler } from "@oms/utils/handlers";
 
 const SigninPage = ({ role }: { role: Role }) => {
   const router = useRouter();
@@ -41,6 +42,7 @@ const SigninPage = ({ role }: { role: Role }) => {
         router.push("/");
       }
     } catch (err: any) {
+      axiosErrorHandler(err, "Signin Page - onSubmit");
       const message = err?.response?.data?.message || "Signin failed";
       dispatch(signinFailure(message));
       toast.error(message);

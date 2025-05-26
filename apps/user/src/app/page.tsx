@@ -7,7 +7,7 @@ const page = () => {
     <>
       <DashboardNav role={Role.CUSTOMER} />
       <main className="flex-1 dashboard-section min-h-screen">
-        <MainSection />;
+        <MainSection />
       </main>
     </>
   );

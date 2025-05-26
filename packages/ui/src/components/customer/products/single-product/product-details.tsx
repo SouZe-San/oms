@@ -1,10 +1,23 @@
+"use client";
 import "./style.css";
 
 import Image from "next/image";
 import cartIcon from "../../../../assets/icons/customer/cart-ouline.svg";
 import { Product } from "@oms/types/product.type";
 
+import { useState } from "react";
+import CartModal from "../CartModal";
+
 const ProductDetails = ({ product }: { product: Product }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const toggleModal = () => {
+    setIsModalOpen((prev) => !prev);
+  };
+  const addToCartHandler = async () => {
+    setIsModalOpen((prev) => !prev);
+  };
+
   return (
     <div className="pt-4 md:px-32 px-4">
       <div className="flex justify-between items-end">
@@ -26,11 +39,21 @@ const ProductDetails = ({ product }: { product: Product }) => {
       </div>
       <h4>{product.description}</h4>
       <div className="flex justify-between items-center mt-4">
-        <button className="high-btn-bg cart-btn">
+        <button className="high-btn-bg cart-btn" onClick={addToCartHandler}>
           Add to
           <Image src={cartIcon} alt="cart-icon" className="ml-4 inline-block" />
         </button>
       </div>
+      {isModalOpen && (
+        <CartModal
+          onClose={toggleModal}
+          product={{
+            id: product.id!,
+            name: product.name,
+            stock: product.stock || 0, // Ensure stock is defined
+          }}
+        />
+      )}
     </div>
   );
 };
