@@ -1,10 +1,11 @@
+import { Role } from "@oms/types/user.type";
 import "./hero-style.css";
 import img from "../../../assets/images/home/hero/hero3.png";
 import HomeButton from "../../button/HomeButton";
 
 import Image from "next/image";
 
-const HeroSection = () => {
+const HeroSection = ({ role }: { role: Role }) => {
   return (
     <section className="pt-nav w-screen home-section h-screen flex max-lg:flex-col max-lg:gap-8 relative hero-section">
       <aside className="flex flex-col items-start justify-center h-full ">
@@ -17,7 +18,12 @@ const HeroSection = () => {
           From product management to checkout, streamline every step of your order process.
         </p>
         <div>
-          <HomeButton href="/products" title="Shop Now" extraClass="mt-8" />
+          {role === Role.CUSTOMER &&
+            <HomeButton href="/home" title="Shop Now" extraClass="mt-8" />
+          }
+          {role === Role.ADMIN &&
+            <HomeButton href="/dashboard" title="Inventory" extraClass="mt-8" />
+          }
         </div>
       </aside>
       <aside className="flex items-center justify-center h-full flex-1">
