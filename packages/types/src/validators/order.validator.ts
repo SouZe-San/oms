@@ -4,7 +4,7 @@ import { userValidator } from "./user.validator";
 export const order_reqValidator = z.object({
   user: userValidator,
   id: z.string().uuid().nonempty("Product ID is required"),
-  status: z.enum(["CONFIRMED", "SHIPPED", "CANCELLED", "DELIVERED"]),
+  status: z.enum(["CONFIRMED", "SHIPPED", "CANCELLED", "DELIVERED", "PENDING"]),
 });
 
 export const createOrder_reqValidator = z.object({

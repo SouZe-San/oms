@@ -9,7 +9,8 @@
   },
   "exports": {
     "./api": "./src/api.ts",
-    "./fonts": "./src/fonts.ts"
+    "./api.customer": "./src/services/customer.ts",
+    "./handlers": "./src/handlers.ts"
   },
   "devDependencies": {
     "@oms/eslint-config": "*",
@@ -17,6 +18,7 @@
     "typescript": "5.7.3"
   },
   "dependencies": {
-    "axios": "^1.9.0"
+    "axios": "^1.9.0",
+    "@oms/types": "*"
   }
 }
