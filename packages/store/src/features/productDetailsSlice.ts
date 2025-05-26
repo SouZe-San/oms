@@ -27,6 +27,7 @@ interface Product {
   stock: number;
   createdAt: string;
   updatedAt: string;
+  images: string[];
 }
 
 interface ProductState {
@@ -49,7 +50,6 @@ export const fetchProductDetails = createAsyncThunk(
   async (productId: string, thunkAPI) => {
     try {
       const res = await api.get(`/inventory/product/${productId}`);
-      // console.log(res.data);
 
       return res.data;
     } catch (err: any) {
