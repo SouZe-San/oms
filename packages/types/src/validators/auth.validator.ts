@@ -10,6 +10,16 @@ export const SignUpSchema = z.object({
   primaryMobile: z.string().length(10, "must contain 10 char exactly").nonempty("password can't empty"),
   dob: z.string().date("Format: YYYY-MM-DD").nonempty("DOB can't empty"),
   role: z.enum(["ADMIN", "CUSTOMER"]),
+  address: z
+    .object({
+      type: z.enum(["PERMANENT", "CURRENT", "OTHER"]).default("PERMANENT"),
+      street: z.string(),
+      city: z.string(),
+      state: z.string(),
+      country: z.string(),
+      zipCode: z.string(),
+    })
+    .optional(),
 });
 export type SignUpInput = z.infer<typeof SignUpSchema>;
 

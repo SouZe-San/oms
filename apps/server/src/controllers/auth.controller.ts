@@ -26,7 +26,7 @@ export const signupController = async (req: Request, res: Response) => {
   }
 
   try {
-    const { firstName, lastName, email, password, primaryMobile, dob, role } = validation.data;
+    const { firstName, lastName, email, password, primaryMobile, dob, role, address } = validation.data;
 
     //check if email or primaryMobile already exists
     if (await prisma.user.findFirst({ where: { OR: [{ email }, { primaryMobile }] } })) {
@@ -43,7 +43,16 @@ export const signupController = async (req: Request, res: Response) => {
 
     //create new user
     const newUser = await prisma.user.create({
-      data: { firstName, lastName, email, primaryMobile, dob: new Date(dob), role, password: hashedPassword },
+      data: {
+        firstName,
+        lastName,
+        email,
+        primaryMobile,
+        dob: new Date(dob),
+        role, password:
+          hashedPassword,
+        addresses: address ? { create: { ...address, }, } : undefined
+      },
     });
 
     const JWT_SECRET = process.env.JWT_SECRET!;
