@@ -28,6 +28,7 @@ const ProductPage = () => {
     description: '',
     price: 0,
     stock: 0,
+    category: '',
   });
   const [hasChanges, setHasChanges] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -54,6 +55,7 @@ const ProductPage = () => {
         description: product.description || '',
         price: product.price,
         stock: product.stock,
+        category: product.category
       });
     }
   }, [product]);
@@ -99,8 +101,6 @@ const ProductPage = () => {
   return (
     <div className="p-6 space-y-6 text-black">
       <button
-        // className={`border px-4 py-2 rounded font-semibold transition-colors ${hasChanges ? 'border-blue-600 bg-blue-600 text-white hover:bg-blue-700' : 'border-gray-400 bg-gray-200 text-gray-600 cursor-not-allowed'
-        //   }`}
         className={`update-btn ${hasChanges ? 'update-active-btn' : ' update-inactive-btn'
           }`}
         disabled={!hasChanges}
@@ -133,7 +133,7 @@ const ProductPage = () => {
               type="textarea"
               onEnterBlur={true}
               inputClassName="border p-1 rounded w-full"
-              displayClassName="text-muted-foreground cursor-pointer"
+              displayClassName="text-muted-foreground cursor-pointer break-words"
               displayAs="p"
               renderDisplay={(val) => val || 'No description'}
             />
@@ -190,7 +190,14 @@ const ProductPage = () => {
               displayClassName="font-semibold cursor-pointer"
             />
           </div>
+
+          {/* Category */}
+          <div className='flex flex-col items-center'>
+            <h3>Category</h3>
+            <p className="font-semibold cursor-pointer">{editedProduct.category}</p>
+          </div>
         </div>
+
       </div>
 
       {/* Sales & Profit Chart */}
