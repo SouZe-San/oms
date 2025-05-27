@@ -25,7 +25,7 @@ export const createProduct = async (req: Request, res: Response) => {
     }
 
     //get data from validator
-    const { name, description, price, stock, images } = validator.data;
+    const { name, description, price, stock, images, category } = validator.data;
     const adminId = req.body.adminId
 
     //check if product is already exists
@@ -48,6 +48,7 @@ export const createProduct = async (req: Request, res: Response) => {
         description,
         price,
         stock,
+        category,
         images: images?.length ? { create: images.map((img: { url: string }) => ({ url: img.url })), } : undefined,
       },
     });
@@ -145,6 +146,7 @@ export const getProduct = async (req: Request, res: Response) => {
         description: product.description,
         price: product.price,
         stock: product.stock,
+        category: product.category,
         createdAt: product.createdAt,
         updatedAt: product.updatedAt,
         images: product.images.map((img) => img.url),
@@ -255,7 +257,7 @@ export const updateProduct = async (req: Request, res: Response) => {
     }
 
     //get data from validator
-    const { productId, name, description, price, stock } = validator.data;
+    const { productId, name, description, price, stock, category } = validator.data;
     const adminId = req.body.adminId
 
     // Prepare update data dynamically
@@ -264,6 +266,7 @@ export const updateProduct = async (req: Request, res: Response) => {
     if (description) updateData.description = description;
     if (price !== undefined) updateData.price = parseFloat(price.toFixed(2)); // Ensure price has 2 decimal places
     if (stock !== undefined) updateData.stock = stock;
+    if (category) updateData.category = category;
 
     // If there's nothing to update, return early
     if (Object.keys(updateData).length === 0) {
