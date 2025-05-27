@@ -13,6 +13,19 @@ type Props = {
   isOpen: boolean;
   onClose: () => void;
 };
+const CATEGORIES = [
+  "MOBILES",
+  "LAPTOPS",
+  "ELECTRONICS",
+  "APPLIANCES",
+  "FASHION",
+  "BEAUTY_PERSONAL_CARE",
+  "TOYS",
+  "SPORTS",
+  "BOOKS",
+  "MUSICAL_INSTRUMENTS",
+  "OTHERS"
+];
 
 const CreateProductModal = ({ isOpen, onClose }: Props) => {
   const {
@@ -87,6 +100,24 @@ const CreateProductModal = ({ isOpen, onClose }: Props) => {
               className="w-full border p-2 rounded"
             />
             {errors.stock && <p className="text-red-600 text-sm">{errors.stock.message}</p>}
+          </div>
+
+          <div>
+            <select
+              {...register('category')}
+              className="w-full border p-2 rounded bg-white"
+              defaultValue=""
+            >
+              <option value="" disabled>Select Category</option>
+              {CATEGORIES.map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat.replace(/_/g, ' ')}
+                </option>
+              ))}
+            </select>
+            {errors.category && (
+              <p className="text-red-600 text-sm">{errors.category.message}</p>
+            )}
           </div>
 
           {/* Image Fields */}
