@@ -1,4 +1,4 @@
-import { PrismaClient, Role, AddressType, OrderStatus } from "@prisma/client";
+import { PrismaClient, Role, AddressType, OrderStatus, ProductCategory } from "@prisma/client";
 import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
@@ -74,6 +74,7 @@ async function main() {
       description: "High-performance laptop",
       price: 1200.5,
       stock: 10,
+      category: ProductCategory.LAPTOPS
     },
   });
 
@@ -84,6 +85,7 @@ async function main() {
       description: "Latest smartphone with best camera",
       price: 699.99,
       stock: 20,
+      category: ProductCategory.MOBILES
     },
   });
 

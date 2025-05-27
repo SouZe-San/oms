@@ -56,14 +56,15 @@ model Address {
 
 // Product Table - Stores Product Details (Managed by Admins)
 model Product {
-  id          String   @id @default(uuid())
+  id          String          @id @default(uuid())
   adminId     String
   name        String
   description String?
   price       Float
   stock       Int
-  updatedAt   DateTime @updatedAt
-  createdAt   DateTime @default(now())
+  category    ProductCategory
+  updatedAt   DateTime        @updatedAt
+  createdAt   DateTime        @default(now())
 
   //One-to-Many: A product can have many images
   images ProductImage[]
@@ -175,4 +176,19 @@ enum PaymentStatus {
   PENDING
   COMPLETED
   FAILED
+}
+
+// ProductCategory Enum - Predefined Categories
+enum ProductCategory {
+  MOBILES
+  LAPTOPS
+  ELECTRONICS
+  APPLIANCES
+  FASHION
+  BEAUTY_PERSONAL_CARE
+  TOYS
+  SPORTS
+  BOOKS
+  MUSICAL_INSTRUMENTS
+  OTHERS
 }
