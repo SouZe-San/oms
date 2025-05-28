@@ -5,6 +5,7 @@ import { SignInSchema, SignUpSchema } from "@oms/types/auth.validator";
 import prisma from "@oms/db/prisma";
 import { Status, StatusMessages } from "../statusCode/response";
 import { COOKIE_OPTIONS } from "../utils/cookieOptions";
+import { Role } from "@oms/types/user.type";
 
 // ! kindly recheck this before Production/Final Deployment
 
@@ -38,6 +39,15 @@ export const signupController = async (req: Request, res: Response) => {
       return;
     }
 
+    if (role === Role.CUSTOMER && address === undefined) {
+      res.status(Status.InvalidInput).json({
+        status: Status.InvalidInput,
+        statusMessage: StatusMessages[Status.InvalidInput],
+        message: "Customer needs address field",
+      });
+      return;
+    }
+
     //Hash Password
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -51,7 +61,7 @@ export const signupController = async (req: Request, res: Response) => {
         dob: new Date(dob),
         role, password:
           hashedPassword,
-        addresses: address ? { create: { ...address, }, } : undefined
+        addresses: address ? { create: { type: address.AddressType ? address.AddressType : "PERMANENT", ...address, }, } : undefined
       },
     });
 
