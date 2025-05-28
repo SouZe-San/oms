@@ -121,7 +121,12 @@ const SignUp = ({ role }: { role: Role }) => {
                 {...register("primaryMobile")}
                 error={errors.primaryMobile}
               />
-
+<Input
+                type="date"
+                placeholder="Date of Birth (YYYY-MM-DD)"
+                {...register("dob")}
+                error={errors.dob}
+              />
               <Input type="password" placeholder="Password" {...register("password")} error={errors.password} />
 
               <button
