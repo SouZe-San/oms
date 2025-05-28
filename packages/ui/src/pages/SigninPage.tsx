@@ -12,6 +12,7 @@ import { Role } from "@oms/types/user.type";
 import { setUser } from "@oms/store/auth";
 import { useRouter } from "next/navigation";
 import { axiosErrorHandler, errorMessageHandler } from "@oms/utils/handlers";
+import Input from "../components/auth/Input";
 
 const SigninPage = ({ role }: { role: Role }) => {
   const router = useRouter();
@@ -63,30 +64,8 @@ const SigninPage = ({ role }: { role: Role }) => {
       <h1 className="text-2xl font-semibold text-center mb-4">Signin</h1>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div>
-          <input
-            {...register("email")}
-            placeholder="Email"
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
-        </div>
-
-        {/* <div>
-          <input {...register('primaryMobile')} placeholder="Mobile (optional)" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
-          {errors.primaryMobile && <p className="text-red-500 text-sm">{errors.primaryMobile.message}</p>}
-        </div> */}
-
-        <div>
-          <input
-            {...register("password")}
-            type="password"
-            placeholder="Password"
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
-        </div>
-
+        <Input type="email" placeholder="Email,  eg:@gmail.com" {...register("email")} error={errors.email} />
+        <Input type="password" placeholder="Password" {...register("password")} error={errors.password} />
         <button
           type="submit"
           className="bg-blue-600 text-white py-2 w-full rounded-lg hover:bg-blue-700 high-btn-bg"

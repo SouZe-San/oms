@@ -12,6 +12,7 @@ import { Role } from "@oms/types/user.type";
 import { setUser } from "@oms/store/auth";
 import { useRouter } from "next/navigation";
 import { axiosErrorHandler, errorMessageHandler } from "@oms/utils/handlers";
+import Input from "../components/auth/Input";
 
 const SignupPage = ({ role }: { role: Role }) => {
   const router = useRouter();
@@ -63,63 +64,14 @@ const SignupPage = ({ role }: { role: Role }) => {
     >
       <h1 className="text-2xl font-semibold mb-6 text-center">Signup</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div>
-          <input
-            {...register("firstName")}
-            placeholder="First Name"
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          {errors.firstName && <p className="text-red-500 text-sm">{errors.firstName.message}</p>}
-        </div>
-
-        <div>
-          <input
-            {...register("lastName")}
-            placeholder="Last Name"
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          {errors.lastName && <p className="text-red-500 text-sm">{errors.lastName.message}</p>}
-        </div>
-
-        <div>
-          <input
-            {...register("email")}
-            placeholder="Email"
-            type="email"
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
-        </div>
-
-        <div>
-          <input
-            {...register("password")}
-            placeholder="Password"
-            type="password"
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
-        </div>
-
-        <div>
-          <input
-            {...register("primaryMobile")}
-            placeholder="Mobile Number"
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          {errors.primaryMobile && <p className="text-red-500 text-sm">{errors.primaryMobile.message}</p>}
-        </div>
-
-        <div>
-          <input
-            {...register("dob")}
-            type="date"
-            placeholder="Date of Birth (YYYY-MM-DD)"
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          {errors.dob && <p className="text-red-500 text-sm">{errors.dob.message}</p>}
-        </div>
-
+        <Input type="text" placeholder="First Name" {...register("firstName")} error={errors.firstName} />
+        <Input type="text" placeholder="Last Name" {...register("lastName")} error={errors.lastName} />
+        <Input type="email" placeholder="Email,  eg:@gmail.com" {...register("email")} error={errors.email} />
+        <Input type="tel" placeholder="Phone number" {...register("primaryMobile")} error={errors.primaryMobile}
+        />
+        <Input type="date" placeholder="Date of Birth (YYYY-MM-DD)" {...register("dob")} error={errors.dob}
+        />
+        <Input type="password" placeholder="Password" {...register("password")} error={errors.password} />
         <button
           type="submit"
           className="bg-blue-600 text-white py-2 w-full rounded-lg hover:bg-blue-700 high-btn-bg"
