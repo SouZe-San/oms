@@ -12,7 +12,7 @@ export const SignUpSchema = z.object({
   role: z.enum(["ADMIN", "CUSTOMER"]),
   address: z
     .object({
-      type: z.enum(["PERMANENT", "CURRENT", "OTHER"]).default("PERMANENT"),
+      AddressType: z.enum(["PERMANENT", "CURRENT", "OTHER"]).default("PERMANENT").optional(),
       street: z.string(),
       city: z.string(),
       state: z.string(),
