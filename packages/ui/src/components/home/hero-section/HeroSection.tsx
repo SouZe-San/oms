@@ -18,12 +18,8 @@ const HeroSection = ({ role }: { role: Role }) => {
           From product management to checkout, streamline every step of your order process.
         </p>
         <div>
-          {role === Role.CUSTOMER &&
-            <HomeButton href="/home" title="Shop Now" extraClass="mt-8" />
-          }
-          {role === Role.ADMIN &&
-            <HomeButton href="/dashboard" title="Inventory" extraClass="mt-8" />
-          }
+          {role === Role.CUSTOMER && <HomeButton href="/" title="Shop Now" extraClass="mt-8" />}
+          {role === Role.ADMIN && <HomeButton href="/dashboard" title="Inventory" extraClass="mt-8" />}
         </div>
       </aside>
       <aside className="flex items-center justify-center h-full flex-1">
