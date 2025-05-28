@@ -3,9 +3,9 @@ header.dash-nav {
   height: 5rem;
   position: fixed;
   top: 0;
-  left: 0%;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 200;
-  /* transform: translateX(-50%); */
   padding: 0 8rem;
   display: flex;
   justify-content: space-between;
@@ -13,7 +13,7 @@ header.dash-nav {
   backdrop-filter: blur(32px);
   background-blend-mode: overlay;
   background-color: rgba(85, 85, 85, 0.246);
-
+  border-radius: 0;
   border-bottom: 1px solid #ffffff1c;
 
   box-shadow: 2px 4px 6px 1px rgba(0, 0, 0, 0.198);
@@ -107,7 +107,6 @@ header.dash-nav {
     }
   }
 }
-
 
 /* @alfaarghya */
 .close-btn {

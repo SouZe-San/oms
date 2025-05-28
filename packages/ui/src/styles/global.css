@@ -1,12 +1,4 @@
 @import "tailwindcss";
-/* @font-face {
-  font-family: "GalleryModern";
-  src: url("../assets/fonts/GalleryModern.woff") format("woff");
-}
-@font-face {
-  font-family: "NeueMachina";
-  src: url("../assets/fonts/NeueMachina-Regular.woff") format("woff");
-} */
 
 :root {
   --nav-hight: 8rem;
@@ -70,4 +62,19 @@ main.dashboard-section {
   color: rgb(240, 240, 240);
   font-weight: 700;
   letter-spacing: 2px;
+}
+
+.fade-in {
+  animation: fade-in 0.3s ease-in-out;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
