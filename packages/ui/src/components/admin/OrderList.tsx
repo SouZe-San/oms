@@ -102,7 +102,7 @@ const OrderList = ({ orders }: { orders: OrderProps[] }) => {
               </tr>
             </thead>
             <tbody className="text-center">
-              {orders.map((order: { orderId: string, quantity: number, price: number, date: string, status: string, payment: string, address: any }) => (
+              {filteredOrders.map((order: { orderId: string, quantity: number, price: number, date: string, status: string, payment: string, address: any }) => (
                 <tr key={order.orderId} className="border-t">
                   <td className="px-4 py-4 border border-gray-400">{order.orderId}</td>
                   <td className="px-4 py-4 border border-gray-400">{order.quantity}</td>
