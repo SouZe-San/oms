@@ -58,7 +58,7 @@ export async function appleAdmin(password: string) {
       price: 249900.00,
       stock: 5,
       category: ProductCategory.LAPTOPS,
-      image: ["https://i.pinimg.com/736x/31/54/eb/3154ebbfedadc0a03966ed8a07e7f695.jpg",],
+      image: ["https://i.pinimg.com/736x/31/54/eb/3154ebbfedadc0a03966ed8a07e7f695.jpg", "https://i.pinimg.com/736x/bb/64/6c/bb646cb7f3f3da6d4e47cd2ddfa1739d.jpg"],
     },
     {
       name: "iPad Pro M4 (12.9-inch)",

@@ -28,7 +28,7 @@ export async function fashionAdmin(password: string) {
       stock: 25,
       category: ProductCategory.FASHION,
       image: [
-        "https://i.pinimg.com/736x/3b/5d/93/3b5d935e4e52bfe8098e231e30a52586.jpg",
+        "https://i.pinimg.com/736x/3b/5d/93/3b5d935e4e52bfe8098e231e30a52586.jpg", "https://i.pinimg.com/736x/bb/64/6c/bb646cb7f3f3da6d4e47cd2ddfa1739d.jpg",
       ],
     },
     {
@@ -38,7 +38,7 @@ export async function fashionAdmin(password: string) {
       stock: 20,
       category: ProductCategory.FASHION,
       image: [
-        "https://i.pinimg.com/736x/14/a2/d1/14a2d1b11fd94f82b135567bc40af307.jpg",
+        "https://i.pinimg.com/736x/14/a2/d1/14a2d1b11fd94f82b135567bc40af307.jpg", "https://i.pinimg.com/736x/bb/64/6c/bb646cb7f3f3da6d4e47cd2ddfa1739d.jpg",
       ],
     },
     {
@@ -48,7 +48,7 @@ export async function fashionAdmin(password: string) {
       stock: 30,
       category: ProductCategory.FASHION,
       image: [
-        "https://i.pinimg.com/736x/cc/6e/60/cc6e6061443e5b0667ebed0fd50db7cd.jpg",
+        "https://i.pinimg.com/736x/cc/6e/60/cc6e6061443e5b0667ebed0fd50db7cd.jpg", "https://i.pinimg.com/736x/bb/64/6c/bb646cb7f3f3da6d4e47cd2ddfa1739d.jpg",
       ],
     },
     {
@@ -58,7 +58,7 @@ export async function fashionAdmin(password: string) {
       stock: 10,
       category: ProductCategory.FASHION,
       image: [
-        "https://i.pinimg.com/736x/a6/b2/b3/a6b2b3b840ff10bababf5912dc682dc5.jpg",
+        "https://i.pinimg.com/736x/a6/b2/b3/a6b2b3b840ff10bababf5912dc682dc5.jpg", "https://i.pinimg.com/736x/bb/64/6c/bb646cb7f3f3da6d4e47cd2ddfa1739d.jpg",
       ],
     },
     {
@@ -68,7 +68,7 @@ export async function fashionAdmin(password: string) {
       stock: 14,
       category: ProductCategory.FASHION,
       image: [
-        "https://i.pinimg.com/736x/b0/6f/c7/b06fc75af00784e2175ecb30fd8dfca4.jpg",
+        "https://i.pinimg.com/736x/b0/6f/c7/b06fc75af00784e2175ecb30fd8dfca4.jpg", "https://i.pinimg.com/736x/bb/64/6c/bb646cb7f3f3da6d4e47cd2ddfa1739d.jpg",
       ],
     },
     {
@@ -78,7 +78,7 @@ export async function fashionAdmin(password: string) {
       stock: 35,
       category: ProductCategory.FASHION,
       image: [
-        "https://i.pinimg.com/736x/f6/25/66/f62566f6b8712796ee3a182f345c3aca.jpg",
+        "https://i.pinimg.com/736x/f6/25/66/f62566f6b8712796ee3a182f345c3aca.jpg", "https://i.pinimg.com/736x/bb/64/6c/bb646cb7f3f3da6d4e47cd2ddfa1739d.jpg",
       ],
     },
   ];

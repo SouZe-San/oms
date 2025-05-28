@@ -27,7 +27,7 @@ export async function sportsAdmin(password: string) {
       stock: 12,
       category: ProductCategory.SPORTS,
       image: [
-        "https://i.pinimg.com/736x/e9/4d/b0/e94db0baa0a24803c67774501d9800b1.jpg",
+        "https://i.pinimg.com/736x/e9/4d/b0/e94db0baa0a24803c67774501d9800b1.jpg", "https://i.pinimg.com/736x/bb/64/6c/bb646cb7f3f3da6d4e47cd2ddfa1739d.jpg"
       ],
     },
     {
@@ -37,7 +37,7 @@ export async function sportsAdmin(password: string) {
       stock: 20,
       category: ProductCategory.SPORTS,
       image: [
-        "https://i.pinimg.com/736x/79/37/36/793736c012e40d408b5ef14a1db755f1.jpg",
+        "https://i.pinimg.com/736x/79/37/36/793736c012e40d408b5ef14a1db755f1.jpg", "https://i.pinimg.com/736x/bb/64/6c/bb646cb7f3f3da6d4e47cd2ddfa1739d.jpg"
       ],
     },
   ];

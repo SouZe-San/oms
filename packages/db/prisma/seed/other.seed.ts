@@ -27,7 +27,7 @@ export async function otherAdmin(password: string) {
       stock: 8,
       category: ProductCategory.OTHERS,
       image: [
-        "https://i.pinimg.com/736x/cf/ae/17/cfae175bafd7f6167c53e541cdcdd3e5.jpg",
+        "https://i.pinimg.com/736x/cf/ae/17/cfae175bafd7f6167c53e541cdcdd3e5.jpg", "https://i.pinimg.com/736x/bb/64/6c/bb646cb7f3f3da6d4e47cd2ddfa1739d.jpg",
       ],
     },
     {
@@ -37,7 +37,7 @@ export async function otherAdmin(password: string) {
       stock: 18,
       category: ProductCategory.OTHERS,
       image: [
-        "https://i.pinimg.com/736x/8a/30/65/8a3065cf4d0e4696064d96a2eef41261.jpg",
+        "https://i.pinimg.com/736x/8a/30/65/8a3065cf4d0e4696064d96a2eef41261.jpg", "https://i.pinimg.com/736x/bb/64/6c/bb646cb7f3f3da6d4e47cd2ddfa1739d.jpg",
       ],
     },
   ];

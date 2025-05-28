@@ -27,7 +27,7 @@ export async function asusAdmin(password: string) {
       stock: 15,
       category: ProductCategory.LAPTOPS,
       image: [
-        "https://i.pinimg.com/736x/bc/5d/d3/bc5dd32c4b0baf80897f37de983e128c.jpg",
+        "https://i.pinimg.com/736x/bc/5d/d3/bc5dd32c4b0baf80897f37de983e128c.jpg", "https://i.pinimg.com/736x/bb/64/6c/bb646cb7f3f3da6d4e47cd2ddfa1739d.jpg"
       ],
     },
     {
@@ -37,7 +37,7 @@ export async function asusAdmin(password: string) {
       stock: 10,
       category: ProductCategory.LAPTOPS,
       image: [
-        "https://i.pinimg.com/736x/6d/ce/74/6dce7442791a3525afd2b1c3989e6a27.jpg"
+        "https://i.pinimg.com/736x/6d/ce/74/6dce7442791a3525afd2b1c3989e6a27.jpg", "https://i.pinimg.com/736x/bb/64/6c/bb646cb7f3f3da6d4e47cd2ddfa1739d.jpg"
       ],
     },
     {
@@ -47,7 +47,7 @@ export async function asusAdmin(password: string) {
       stock: 12,
       category: ProductCategory.LAPTOPS,
       image: [
-        "https://i.pinimg.com/736x/1d/9f/5b/1d9f5b20d2c0161ea720a254aeb980ec.jpg"
+        "https://i.pinimg.com/736x/1d/9f/5b/1d9f5b20d2c0161ea720a254aeb980ec.jpg", "https://i.pinimg.com/736x/bb/64/6c/bb646cb7f3f3da6d4e47cd2ddfa1739d.jpg"
       ],
     },
     {
@@ -57,7 +57,7 @@ export async function asusAdmin(password: string) {
       stock: 20,
       category: ProductCategory.LAPTOPS,
       image: [
-        "https://i.pinimg.com/736x/10/80/e6/1080e6bf6bd88f09829beb30577a66e1.jpg"
+        "https://i.pinimg.com/736x/10/80/e6/1080e6bf6bd88f09829beb30577a66e1.jpg", "https://i.pinimg.com/736x/bb/64/6c/bb646cb7f3f3da6d4e47cd2ddfa1739d.jpg"
       ],
     },
   ]

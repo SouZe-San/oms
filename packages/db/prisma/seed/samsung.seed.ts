@@ -37,7 +37,7 @@ export async function samsungAdmin(password: string) {
       stock: 8,
       category: ProductCategory.LAPTOPS,
       image: [
-        "https://i.pinimg.com/736x/64/cc/b2/64ccb22a365d60f018c87495cdcf126b.jpg"
+        "https://i.pinimg.com/736x/64/cc/b2/64ccb22a365d60f018c87495cdcf126b.jpg", "https://i.pinimg.com/736x/bb/64/6c/bb646cb7f3f3da6d4e47cd2ddfa1739d.jpg"
       ],
     },
     {
@@ -47,7 +47,7 @@ export async function samsungAdmin(password: string) {
       stock: 12,
       category: ProductCategory.ELECTRONICS,
       image: [
-        "https://i.pinimg.com/736x/57/44/08/574408f2409e0d5a268ad17c7a0bdda9.jpg"
+        "https://i.pinimg.com/736x/57/44/08/574408f2409e0d5a268ad17c7a0bdda9.jpg", "https://i.pinimg.com/736x/bb/64/6c/bb646cb7f3f3da6d4e47cd2ddfa1739d.jpg"
       ],
     },
     {
@@ -57,7 +57,7 @@ export async function samsungAdmin(password: string) {
       stock: 35,
       category: ProductCategory.MOBILES,
       image: [
-        "https://i.pinimg.com/736x/50/e2/f6/50e2f6c1efab2fcb46252e6bd1d7ca2a.jpg",
+        "https://i.pinimg.com/736x/50/e2/f6/50e2f6c1efab2fcb46252e6bd1d7ca2a.jpg", "https://i.pinimg.com/736x/bb/64/6c/bb646cb7f3f3da6d4e47cd2ddfa1739d.jpg"
       ],
     },
     {
@@ -100,7 +100,7 @@ export async function samsungAdmin(password: string) {
       stock: 15,
       category: ProductCategory.ELECTRONICS,
       image: [
-        "https://i.pinimg.com/736x/ad/8b/de/ad8bdecb490a26692d6f25024bee0eb3.jpg"
+        "https://i.pinimg.com/736x/ad/8b/de/ad8bdecb490a26692d6f25024bee0eb3.jpg", "https://i.pinimg.com/736x/bb/64/6c/bb646cb7f3f3da6d4e47cd2ddfa1739d.jpg"
       ],
     },
     {
@@ -110,7 +110,7 @@ export async function samsungAdmin(password: string) {
       stock: 8,
       category: ProductCategory.ELECTRONICS,
       image: [
-        "https://i.pinimg.com/736x/93/6b/19/936b19383e4983cf4dac7b9f780b721e.jpg"
+        "https://i.pinimg.com/736x/93/6b/19/936b19383e4983cf4dac7b9f780b721e.jpg", "https://i.pinimg.com/736x/bb/64/6c/bb646cb7f3f3da6d4e47cd2ddfa1739d.jpg"
       ],
     },
     {
@@ -120,7 +120,7 @@ export async function samsungAdmin(password: string) {
       stock: 12,
       category: ProductCategory.ELECTRONICS,
       image: [
-        "https://i.pinimg.com/736x/93/2e/4c/932e4c4f3ef3c0e635c92ace929f0492.jpg"
+        "https://i.pinimg.com/736x/93/2e/4c/932e4c4f3ef3c0e635c92ace929f0492.jpg", "https://i.pinimg.com/736x/bb/64/6c/bb646cb7f3f3da6d4e47cd2ddfa1739d.jpg"
       ],
     },
     {
@@ -130,7 +130,7 @@ export async function samsungAdmin(password: string) {
       stock: 20,
       category: ProductCategory.ELECTRONICS,
       image: [
-        "https://i.pinimg.com/736x/64/00/ff/6400ff1926812c071e4ed871dadbcbe7.jpg"
+        "https://i.pinimg.com/736x/64/00/ff/6400ff1926812c071e4ed871dadbcbe7.jpg", "https://i.pinimg.com/736x/bb/64/6c/bb646cb7f3f3da6d4e47cd2ddfa1739d.jpg"
       ],
     },
   ];

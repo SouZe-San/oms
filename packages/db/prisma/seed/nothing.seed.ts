@@ -37,7 +37,7 @@ export async function nothingAdmin(password: string) {
       stock: 25,
       category: ProductCategory.MOBILES,
       image: [
-        "https://i.pinimg.com/736x/a9/46/0a/a9460a713d67078905681ff963685ee8.jpg"
+        "https://i.pinimg.com/736x/a9/46/0a/a9460a713d67078905681ff963685ee8.jpg", "https://i.pinimg.com/736x/bb/64/6c/bb646cb7f3f3da6d4e47cd2ddfa1739d.jpg"
       ],
     },
     {

@@ -27,7 +27,7 @@ export async function toysAdmin(password: string) {
       stock: 10,
       category: ProductCategory.TOYS,
       image: [
-        "https://i.pinimg.com/736x/5b/cf/c4/5bcfc49f1cc913c52b5d62bca17b93d1.jpg",
+        "https://i.pinimg.com/736x/5b/cf/c4/5bcfc49f1cc913c52b5d62bca17b93d1.jpg", "https://i.pinimg.com/736x/bb/64/6c/bb646cb7f3f3da6d4e47cd2ddfa1739d.jpg"
       ],
     },
     {
@@ -37,7 +37,7 @@ export async function toysAdmin(password: string) {
       stock: 15,
       category: ProductCategory.TOYS,
       image: [
-        "https://i.pinimg.com/736x/54/82/a3/5482a3366a93ce90522f5390913f968d.jpg",
+        "https://i.pinimg.com/736x/54/82/a3/5482a3366a93ce90522f5390913f968d.jpg", "https://i.pinimg.com/736x/bb/64/6c/bb646cb7f3f3da6d4e47cd2ddfa1739d.jpg"
       ],
     },
   ];
