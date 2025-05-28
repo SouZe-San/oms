@@ -61,7 +61,16 @@ export const signupController = async (req: Request, res: Response) => {
         dob: new Date(dob),
         role, password:
           hashedPassword,
-        addresses: address ? { create: { type: address.AddressType ? address.AddressType : "PERMANENT", ...address, }, } : undefined
+        addresses: address ? {
+          create: {
+            type: address.AddressType ? address.AddressType : "PERMANENT",
+            street: address.street,
+            city: address.city,
+            state: address.state,
+            country: address.country,
+            zipCode: address.zipCode
+          },
+        } : undefined
       },
     });
 
