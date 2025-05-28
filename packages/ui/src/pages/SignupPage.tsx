@@ -11,11 +11,12 @@ import { toast } from "sonner";
 import { Role } from "@oms/types/user.type";
 import { setUser } from "@oms/store/auth";
 import { useRouter } from "next/navigation";
+import { axiosErrorHandler, errorMessageHandler } from "@oms/utils/handlers";
 
 const SignupPage = ({ role }: { role: Role }) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { isLoading, error, success } = useAppSelector((state) => state.signup);
+  const { isLoading, error } = useAppSelector((state) => state.signup);
 
   const {
     register,
@@ -41,8 +42,9 @@ const SignupPage = ({ role }: { role: Role }) => {
         router.push("/");
         reset();
       }
-    } catch (err: any) {
-      const message = err?.response?.data?.message || "Something went wrong";
+    } catch (err: unknown) {
+      axiosErrorHandler(err, "Signup Page (ADMIN) - onSubmit");
+      const message = errorMessageHandler(err);
       dispatch(signupFailure(message));
       toast.error(message);
     }

@@ -60,7 +60,7 @@ const SignUp = ({ role }: { role: Role }) => {
         reset();
       }
     } catch (err: unknown) {
-      axiosErrorHandler(err, "SignUp Page - onSubmit");
+      axiosErrorHandler(err, "SignUp Page (CUSTOMER) - onSubmit");
       const message = errorMessageHandler(err);
       dispatch(signupFailure(message));
       toast.error(message);
