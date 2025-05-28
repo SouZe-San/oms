@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 export async function nothingAdmin(password: string) {
   const admin = await prisma.user.upsert({
-    where: { email: "admin.oms@nothing.tech" },
+    where: { email: "admin.oms@nothing.com" },
     update: {},
     create: {
       firstName: "Nothing",
