@@ -108,7 +108,7 @@ const CartTable = ({
                     </button>
                   </div>
                 </td>
-                <td className="py-4 px-6 text-right  font-medium  ">${item.product!.price.toFixed(2)}</td>
+                <td className="py-4 px-6 text-right  font-medium  ">&#x20B9; {item.product!.price.toFixed(2)}</td>
                 <td className="py-4 px-4 text-center">
                   {onRemoveItem && (
                     <button
@@ -134,7 +134,7 @@ const CartTable = ({
           </div>
           <div className="flex gap-2 items-center">
             <span className="font-medium text-md text-white-600">Total Amount:</span>
-            <div className="text-white-900 font-bold text-lg">${totalAmount.toFixed(2)}</div>
+            <div className="text-white-900 font-bold text-lg">&#x20B9; {totalAmount.toFixed(2)}</div>
           </div>
         </div>
 

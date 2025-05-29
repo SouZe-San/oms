@@ -4,10 +4,11 @@ import "./dash-nav-style.css";
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { Dispatch, useEffect, useState } from "react";
 import { fetchLowStockProducts } from "@oms/store/stockNotification";
 import { useAppDispatch, useAppSelector } from "@oms/store/hooks";
 import { Role } from "@oms/types/user.type";
+import { AppDispatch } from "@oms/store/UseStore";
 
 import NotificationModal from "./NotificationModal";
 import LogoutButton from "../button/LogoutButton";
@@ -50,7 +51,9 @@ const DashboardNav = ({ role }: { role: Role }) => {
     <header className="flex items-center justify-between p-4 dash-nav">
       <div className="logo">
         <span>
-          <Image src={logo} alt="logo" />
+          <Link href="/">
+            <Image src={logo} alt="logo" />
+          </Link>
         </span>
       </div>
       <nav>

@@ -2,17 +2,21 @@
 
 import { useState, useEffect } from "react";
 
-import img1 from "../../../../assets/images/temp/macbook3.png";
-import img2 from "../../../../assets/images/temp/001.jpg";
-import img3 from "../../../../assets/images/temp/002.jpg";
-import img4 from "../../../../assets/images/temp/bicu.jpg";
+import replaceImage from "../../../../assets/icons/logo/oms.svg";
 
 import Image from "next/image";
 
-const images = [img1, img2, img3, img4, img1];
 import "./style.css";
 
-const ImageSection = () => {
+const ImageSection = ({
+  images,
+}: {
+  images: {
+    id: string;
+    productId: string;
+    url: string;
+  }[];
+}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 1024);
 
@@ -52,10 +56,13 @@ const ImageSection = () => {
           {images.map((image, index) => (
             <div key={index.toString()} className={`flex-none w-full ${isLargeScreen ? "lg:w-1/2" : ""} p-2`}>
               <Image
-                src={image}
+                src={image.url || replaceImage}
+                width={200}
+                height={100}
                 alt={`Slide ${index + 1}`}
                 className="w-full h-[400px] object-cover rounded-lg"
                 loading="lazy"
+                blurDataURL={image.url || replaceImage}
               />
             </div>
           ))}
@@ -64,8 +71,9 @@ const ImageSection = () => {
       {/* Navigation Buttons */}
       <button
         onClick={prevSlide}
-        className="absolute -left-[5%] top-1/2 -translate-y-1/2  hover:bg-white/50  p-3 rounded-lg shadow-lg transition-all duration-200 left-btn"
+        className="absolute -left-[5%] top-1/2 -translate-y-1/2  hover:bg-white/50  p-3 rounded-lg shadow-lg transition-all duration-200 left-btn disabled:cursor-not-allowed disabled:hover:bg-white/10"
         aria-label="Previous slide "
+        disabled={currentIndex === 0 && images.length <= imagesPerSlide}
       >
         <svg width="20" height="42" viewBox="0 0 20 42" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -76,8 +84,9 @@ const ImageSection = () => {
       </button>
       <button
         onClick={nextSlide}
-        className="absolute -right-[5%] top-1/2 -translate-y-1/2  hover:bg-white/50   p-3 rounded-lg shadow-lg transition-all duration-200 right-btn"
+        className="absolute -right-[5%] top-1/2 -translate-y-1/2  hover:bg-white/50   p-3 rounded-lg shadow-lg transition-all duration-200 right-btn disabled:cursor-not-allowed disabled:hover:bg-white/10"
         aria-label="Next slide"
+        disabled={currentIndex + imagesPerSlide >= images.length && images.length <= imagesPerSlide}
       >
         <svg width="20" height="42" viewBox="0 0 20 42" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path

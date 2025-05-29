@@ -3,6 +3,7 @@ import Image from "next/image";
 import done from "../../../assets/icons/order/order-done.svg";
 import cancelled from "../../../assets/icons/order/order-cancel.svg";
 import pending from "../../../assets/icons/order/order-pending.svg";
+import confirmed from "../../../assets/icons/order/order-complete.svg";
 import calender from "../../../assets/icons/random/calender.svg";
 import Link from "next/link";
 
@@ -10,9 +11,8 @@ import { OrderResponse } from "@oms/types/api.type";
 import { OrderStatus } from "@oms/types/order.type";
 
 const statusIcon = {
-  PENDING: pending,
   SHIPPED: pending,
-  CONFIRMED: done,
+  CONFIRMED: confirmed,
   DELIVERED: done,
   CANCELLED: cancelled,
 };
@@ -23,7 +23,7 @@ const OrderItem = ({ order, index }: { order: OrderResponse; index: number }) =>
       case "DELIVERED":
         return "success";
       case "CONFIRMED":
-        return "success";
+        return "confirmed";
       case "CANCELLED":
         return "cancelled";
       default:
@@ -31,16 +31,18 @@ const OrderItem = ({ order, index }: { order: OrderResponse; index: number }) =>
     }
   };
 
+  const VISUAL_ID = order.id.split("-").slice(0, 2).join("-");
+
   return (
     <Link href={`/order/${order.id}`} className="no-underline">
       <div className="order-item flex px-4 py-8 justify-between items-center border rounded-xl">
-        <div className=" flex items-center gap-6 font-neue">
+        <div className=" flex items-end gap-6 font-neue">
           <p className="text-xl text-center flex items-end text-white/50">
             <span className="text-4xl text-white/70">[</span> 0{index + 1}{" "}
             <span className="text-4xl text-white/70">]</span>
           </p>
-          <h1 className="text-4xl ">
-            ID - <span className="text-xl">{order.id}</span>
+          <h1 className="text-3xl">
+            ID - <span className="text-xl">{VISUAL_ID}</span>
           </h1>
         </div>
 

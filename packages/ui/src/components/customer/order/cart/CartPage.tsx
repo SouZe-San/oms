@@ -44,8 +44,12 @@ import CartTable from "./CartTable";
 const CartPage = ({ cartDetails }: { cartDetails: CartProduct[] }) => {
   const [cart, setCart] = useState<CartProduct[]>(cartDetails || []); // Initialize cart with provided details or empty array
 
-  const [totalItems, setTotalItems] = useState<number>(0);
-  const [totalAmount, setTotalAmount] = useState<number>(0);
+  const [totalItems, setTotalItems] = useState<number>(
+    cartDetails ? cartDetails.reduce((sum, it) => sum + it.quantity, 0) : 0
+  );
+  const [totalAmount, setTotalAmount] = useState<number>(
+    cartDetails ? cartDetails.reduce((sum, it) => sum + it.product!.price * it.quantity, 0) : 0
+  );
 
   const handleUpdateQuantity = (itemId: string, newQuantity: number) => {
     setCart((prevCart) => {
