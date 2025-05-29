@@ -6,7 +6,7 @@ export const CategoryEnum = z.enum([
   "ELECTRONICS",
   "APPLIANCES",
   "FASHION",
-  "BEAUTY_PERSONAL_CARE",
+  "BEAUTY",
   "TOYS",
   "SPORTS",
   "BOOKS",
