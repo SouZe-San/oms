@@ -10,6 +10,7 @@
     "./product.validator": "./src/validators/product.validator.ts",
     "./order.validator": "./src/validators/order.validator.ts",
     "./user.validator": "./src/validators/user.validator.ts",
+    "./manage.validator": "./src/validators/manage.validator.ts",
     "./cart.type": "./src/cart.type.ts",
     "./order.type": "./src/order.type.ts",
     "./product.type": "./src/product.type.ts",
