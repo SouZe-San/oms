@@ -62,6 +62,7 @@ const ImageSection = ({
                 alt={`Slide ${index + 1}`}
                 className="w-full h-[400px] object-cover rounded-lg"
                 loading="lazy"
+                blurDataURL={image.url || replaceImage}
               />
             </div>
           ))}

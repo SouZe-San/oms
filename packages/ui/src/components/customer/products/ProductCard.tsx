@@ -17,6 +17,8 @@ const ProductCard = ({ product }: { product: ProductsResponse }) => {
             width={250}
             height={150}
             className="object-cover rounded-lg"
+            loading="lazy"
+            blurDataURL={product.imageUrl || logo}
           />
         </div>
         <div className="product-details">
