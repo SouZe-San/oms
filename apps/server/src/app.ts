@@ -5,6 +5,7 @@ import checkRoutes from "./middleware/checkRoutes";
 import auth from "./routes/auth.routes";
 import customer from "./routes/customer.routes";
 import inventory from "./routes/inventory.routes";
+import manage from "./routes/manage.routes";
 const app = express();
 
 //middlewares
@@ -28,6 +29,7 @@ app.use(checkRoutes);
 app.use("/api/auth", auth);
 app.use("/api/customer", customer);
 app.use("/api/inventory", inventory);
+app.use("/api/manage", manage);
 
 // default route - health check
 app.get("/", (_req, res) => {
