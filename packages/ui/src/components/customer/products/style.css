@@ -3,7 +3,7 @@
   border-width: 2px;
   border-color: #ffffff30;
   background: #8281811f;
-
+  height: clamp(32rem, 32.5rem, 33rem);
   transition: all 0.3s ease-in-out;
 
   &:hover {
