@@ -17,7 +17,7 @@ export async function toysAdmin(password: string) {
       role: Role.ADMIN,
     }
   });
-  console.log("=> Fashion Admin ✅");
+  console.log("=> Toys Admin ✅");
 
   const products = [
     {
@@ -62,6 +62,6 @@ export async function toysAdmin(password: string) {
     )
   );
 
-  console.log("=> Fashion Products ✅");
+  console.log("=> Toys Products ✅");
 
 }
