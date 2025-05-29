@@ -49,6 +49,11 @@
       border-color: #55f790;
       background-color: #03c30d36;
     }
+    .confirmed {
+      color: #55b6f7;
+      border-color: #55bef7;
+      background-color: #0379c336;
+    }
 
     h3 {
       flex-grow: 1;

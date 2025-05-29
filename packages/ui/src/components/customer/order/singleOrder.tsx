@@ -48,7 +48,7 @@ const SingleOrder = ({ order }: { order: Order }) => {
                       {item.quantity}
                     </div>
                   </td>
-                  <td className="py-4 px-6 text-right text-white-900 font-medium">${item.price.toFixed(2)}</td>
+                  <td className="py-4 px-6 text-right text-white-900 font-medium">&#x20B9; {item.price.toFixed(2)}</td>
                 </tr>
               ))}
           </tbody>
@@ -66,15 +66,13 @@ const SingleOrder = ({ order }: { order: Order }) => {
             <span className="font-medium text-md text-white-600 mr-3">Status:</span>
             <div
               className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium mt-1 ${
-                order.status === "PENDING"
+                order.status === "SHIPPED"
                   ? "bg-yellow-100 text-yellow-800"
                   : order.status === "CONFIRMED"
                     ? "bg-blue-100 text-blue-800"
-                    : order.status === "SHIPPED"
-                      ? "bg-green-100 text-green-800"
-                      : order.status === "CANCELLED"
-                        ? "bg-red-100 text-red-800"
-                        : "bg-gray-100 text-white-800"
+                    : order.status === "CANCELLED"
+                      ? "bg-red-100 text-red-800"
+                      : "bg-green-200 text-green-800"
               }`}
             >
               {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
@@ -86,12 +84,10 @@ const SingleOrder = ({ order }: { order: Order }) => {
               <div
                 className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium mt-1 ${
                   order.payment.status === "PENDING"
-                    ? "bg-yellow-100 text-yellow-800"
+                    ? "bg-yellow-200 text-yellow-800"
                     : order.payment.status === "FAILED"
-                      ? "bg-red-100 text-red-800"
-                      : order.payment.status === "COMPLETED"
-                        ? "bg-green-100 text-green-800"
-                        : "bg-gray-100 text-white-800"
+                      ? "bg-red-200 text-red-800"
+                      : "bg-green-200 text-green-800"
                 }`}
               >
                 {order.payment.status}
@@ -110,7 +106,7 @@ const SingleOrder = ({ order }: { order: Order }) => {
           </div>
           <div className="flex gap-2 items-center">
             <span className="font-medium text-md text-white-600">Total Amount:</span>
-            <div className="text-white-900 font-bold text-lg">${order.totalAmount.toFixed(2)}</div>
+            <div className="text-white-900 font-bold text-lg">&#x20B9; {order.totalAmount.toFixed(2)}</div>
           </div>
         </div>
       </div>
