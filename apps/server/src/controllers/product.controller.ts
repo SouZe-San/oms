@@ -24,11 +24,11 @@ export const getAllProducts = async (req: Request, res: Response) => {
     }
 
     // Get the skipCount and takeCount from the request body
-    const { skipCount, takeCount } = req_validation.data;
+    const { skipPage, takeCount = 10 } = req_validation.data;
 
     // Get all products from the database
     const products = await prisma.product.findMany({
-      skip: skipCount || 0,
+      skip: (skipPage || 0) * takeCount,
       take: takeCount || 10,
       select: {
         id: true,
@@ -145,7 +145,7 @@ export const getAllProductsByName = async (req: Request, res: Response) => {
     }
 
     // Get the skipCount and takeCount from the request body
-    const { skipCount, takeCount } = req_validation.data;
+    const { skipPage, takeCount = 10 } = req_validation.data;
 
     // Get all products from the database
     const products = await prisma.product.findMany({
@@ -154,7 +154,7 @@ export const getAllProductsByName = async (req: Request, res: Response) => {
           contains: req.params.name,
         },
       },
-      skip: skipCount || 0,
+      skip: (skipPage || 0) * takeCount,
       take: takeCount || 10,
       select: {
         id: true,
