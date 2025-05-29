@@ -18,7 +18,7 @@ export type ProductCategory =
   | "FASHION"
   | "APPLIANCES"
   | "BOOKS"
-  | "BEAUTY_PERSONAL_CARE"
+  | "BEAUTY"
   | "SPORTS"
   | "TOYS"
   | "MUSICAL_INSTRUMENTS"

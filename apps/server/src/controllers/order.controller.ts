@@ -71,7 +71,7 @@ export const createOrder = async (req: Request, res: Response) => {
     await prisma.order.create({
       data: {
         userId: user.userId,
-        status: "PENDING",
+        status: "CONFIRMED",
         totalAmount,
         totalItems,
         shippingAddressId: dbUser.addresses[0]!.id,
@@ -160,7 +160,7 @@ export const orderSingleItem = async (req: Request, res: Response) => {
     await prisma.order.create({
       data: {
         userId: user.userId,
-        status: "PENDING",
+        status: "CONFIRMED",
         totalAmount,
         shippingAddressId: dbUser.addresses[0]!.id,
         totalItems: quantity,

@@ -1,4 +1,4 @@
-export type OrderStatus = "PENDING" | "CONFIRMED" | "SHIPPED" | "CANCELLED" | "DELIVERED";
+export type OrderStatus = "CONFIRMED" | "SHIPPED" | "CANCELLED" | "DELIVERED";
 
 export type PaymentStatus = "PENDING" | "FAILED" | "COMPLETED";
 
@@ -36,12 +36,11 @@ interface Payment {
 export enum PaymentENUM {
   PENDING = "PENDING",
   FAILED = "FAILED",
-  COMPLETED = "COMPLETED"
+  COMPLETED = "COMPLETED",
 }
 export enum OrderENUM {
-  PENDING = "PENDING",
   CONFIRMED = "CONFIRMED",
   SHIPPED = "SHIPPED",
   CANCELLED = "CANCELLED",
-  DELIVERED = "DELIVERED"
+  DELIVERED = "DELIVERED",
 }
