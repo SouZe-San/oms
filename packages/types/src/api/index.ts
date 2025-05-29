@@ -1,4 +1,5 @@
 import { OrderStatus } from "../order.type";
+import { ProductCategory } from "../product.type";
 
 export interface CartUpdateBody {
   products: {
@@ -14,6 +15,8 @@ export interface ProductsResponse {
   description: string | null;
   price: number;
   createdAt: Date | string;
+  category: ProductCategory;
+  imageUrl: string | null | undefined;
 }
 
 export interface OrderResponse {

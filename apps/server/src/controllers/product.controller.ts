@@ -3,6 +3,7 @@ import { errorMessage } from "../utils/ApiError";
 import prisma from "@oms/db/prisma";
 import { getProduct_reqSchema } from "@oms/types/product.validator";
 import { Status, StatusMessages } from "../statusCode/response";
+import { ProductsResponse } from "@oms/types/api.type";
 // ^ This is the controller for the customer product routes.
 
 // ! Show All Products
@@ -33,6 +34,8 @@ export const getAllProducts = async (req: Request, res: Response) => {
         id: true,
         name: true,
         description: true,
+        images: true,
+        category: true,
         price: true,
         createdAt: true,
       },
@@ -42,15 +45,21 @@ export const getAllProducts = async (req: Request, res: Response) => {
     });
 
     // trimmed description to 10 words
-    const cleanedData = products.map((product) => ({
-      ...product,
+    const cleanedData: ProductsResponse[] = products.map((product) => ({
+      id: product.id,
+      name: product.name,
+      category: product.category,
+      price: product.price,
+      createdAt: product.createdAt,
       description: product.description
         ? product?.description.split(" ").slice(0, 10).join(" ") + " ..."
         : product.description,
+      imageUrl: product.images.length > 0 ? product.images[0]?.url : null,
     }));
 
     res.status(Status.Success).json({
       StatusMessages: StatusMessages[Status.Success],
+
       products: cleanedData,
     });
   } catch (error) {
@@ -76,6 +85,16 @@ export const getSingleProduct = async (req: Request, res: Response) => {
     const product = await prisma.product.findUnique({
       where: {
         id,
+      },
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        images: true,
+        category: true,
+        price: true,
+        stock: true,
+        createdAt: true,
       },
     });
 
@@ -143,6 +162,8 @@ export const getAllProductsByName = async (req: Request, res: Response) => {
         description: true,
         price: true,
         createdAt: true,
+        category: true,
+        images: true,
       },
       orderBy: {
         createdAt: "desc",
@@ -159,11 +180,16 @@ export const getAllProductsByName = async (req: Request, res: Response) => {
     }
 
     // trimmed description to 10 words
-    const cleanedData = products.map((product) => ({
-      ...product,
+    const cleanedData: ProductsResponse[] = products.map((product) => ({
+      id: product.id,
+      name: product.name,
+      category: product.category,
+      price: product.price,
+      createdAt: product.createdAt,
       description: product.description
         ? product?.description.split(" ").slice(0, 10).join(" ") + " ..."
         : product.description,
+      imageUrl: product.images.length > 0 ? product.images[0]?.url : null,
     }));
 
     res.status(Status.Success).json({
