@@ -60,3 +60,33 @@
     }
   }
 }
+
+.category-btn {
+  padding: 4px 20px;
+  border-radius: 25px;
+  color: rgba(255, 255, 255, 0.421);
+  border: 1px solid rgba(255, 255, 255, 0.184);
+  background: rgba(186, 185, 185, 0.178);
+  /* background: rgba(186, 185, 185, 0.207); */
+  cursor: pointer;
+  opacity: 1;
+  transition:
+    opacity 0.3s ease-in,
+    background 0.3s ease-in-out,
+    color 0.4s ease-in-out;
+}
+
+.category-btn:hover {
+  background: rgba(255, 255, 255, 0.243);
+  color: white;
+  opacity: 1;
+}
+.category-btn.active {
+  background: rgba(255, 255, 255, 0.903);
+  color: rgb(0, 0, 0);
+  opacity: 1;
+}
+
+.category-btn-section:hover .category-btn:not(:hover) {
+  opacity: 0.3;
+}

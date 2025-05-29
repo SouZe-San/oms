@@ -24,7 +24,7 @@ const SearchSection = ({ searchParam }: { searchParam?: string }) => {
         />
       </div>
       <Link href={`/product/search/${searchQuery}`}>
-        <button className="px-7 py-2 bg-white text-black rounded-xl flex items-center gap-2 text-xl font-semibold ">
+        <button className="px-7 py-2 bg-white text-black rounded-xl flex items-center gap-2 text-xl font-semibold hover:scale-110 transition-all ease-in-out cursor-pointer ">
           <Image src={search} alt="Search" width={24} height={24} />
           Search
         </button>
