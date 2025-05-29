@@ -108,7 +108,7 @@ model Order {
   id                String         @id @default(uuid())
   userId            String
   shippingAddressId String
-  status            OrderStatus    @default(PENDING)
+  status            OrderStatus    @default(CONFIRMED)
   totalAmount       Float
   createdAt         DateTime       @default(now())
   totalItems        Int
@@ -164,7 +164,6 @@ enum AddressType {
 
 // OrderStatus Enum - Defines Possible Order Statuses
 enum OrderStatus {
-  PENDING
   CONFIRMED
   SHIPPED
   DELIVERED

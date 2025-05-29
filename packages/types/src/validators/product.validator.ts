@@ -1,18 +1,21 @@
 import { z } from "zod";
 
-export const CategoryEnum = z.enum([
-  "MOBILES",
-  "LAPTOPS",
-  "ELECTRONICS",
-  "APPLIANCES",
-  "FASHION",
-  "BEAUTY",
-  "TOYS",
-  "SPORTS",
-  "BOOKS",
-  "MUSICAL_INSTRUMENTS",
-  "OTHERS"
-], { message: "Please select product category" });
+export const CategoryEnum = z.enum(
+  [
+    "MOBILES",
+    "LAPTOPS",
+    "ELECTRONICS",
+    "APPLIANCES",
+    "FASHION",
+    "BEAUTY",
+    "TOYS",
+    "SPORTS",
+    "BOOKS",
+    "MUSICAL_INSTRUMENTS",
+    "OTHERS",
+  ],
+  { message: "Please select product category" }
+);
 
 // @alfaarghya
 //Validate create product request
@@ -67,6 +70,6 @@ export const deleteProductValidator = z.object({
 // @SouZe-San
 // Validate get product request
 export const getProduct_reqSchema = z.object({
-  skipCount: z.number().int().nonnegative("skipCount should be >= 0").default(0).optional(),
+  skipPage: z.number().int().nonnegative("skipCount should be >= 0").default(0).optional(),
   takeCount: z.number().int().positive("takeCount must be positive").default(10).optional(),
 });
