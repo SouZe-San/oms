@@ -3,12 +3,12 @@ import "./style.css";
 
 import Image from "next/image";
 import cartIcon from "../../../../assets/icons/customer/cart-ouline.svg";
-import { Product } from "@oms/types/product.type";
 
 import { useState } from "react";
 import CartModal from "../CartModal";
+import { FullProduct } from "@oms/types/api.type";
 
-const ProductDetails = ({ product }: { product: Product }) => {
+const ProductDetails = ({ product }: { product: FullProduct }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleModal = () => {

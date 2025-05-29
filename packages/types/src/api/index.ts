@@ -19,6 +19,21 @@ export interface ProductsResponse {
   imageUrl: string | null | undefined;
 }
 
+export interface FullProduct {
+  name: string;
+  id: string;
+  description: string | null;
+  price: number;
+  stock: number;
+  category: ProductCategory;
+  createdAt: Date;
+  images: {
+    id: string;
+    productId: string;
+    url: string;
+  }[];
+}
+
 export interface OrderResponse {
   userId: string;
   status: OrderStatus;

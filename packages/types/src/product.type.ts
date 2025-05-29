@@ -4,7 +4,11 @@ export interface Product {
   name: string;
   description: string | null;
   category: ProductCategory;
-  images?: string[];
+  images?: {
+    id: string;
+    productId: string;
+    url: string;
+  }[];
   price: number;
   stock: number;
   updatedAt: Date | string;
