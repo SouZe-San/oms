@@ -13,7 +13,10 @@ import { ProductsResponse } from "@oms/types/api.type";
 export const getAllProducts = async (req: Request, res: Response) => {
   try {
     // Validate the request body
-    const req_validation = await getProduct_reqSchema.safeParseAsync(req.body);
+    const req_validation = await getProduct_reqSchema.safeParseAsync({
+      skipPage: parseInt(req.query.skip as string) || 0,
+      ...req.body,
+    });
 
     if (!req_validation.success) {
       res.status(Status.Forbidden).json({
@@ -81,6 +84,13 @@ export const getSingleProduct = async (req: Request, res: Response) => {
     // get the product id from the request params
     const { id } = req.params;
 
+    if (!id) {
+      res.status(Status.Forbidden).json({
+        StatusMessages: StatusMessages[Status.Forbidden],
+        message: "Product id is required",
+      });
+      return;
+    }
     // Get the product from the database
     const product = await prisma.product.findUnique({
       where: {
@@ -125,7 +135,10 @@ export const getSingleProduct = async (req: Request, res: Response) => {
 export const getAllProductsByName = async (req: Request, res: Response) => {
   try {
     // Validate the request body
-    const req_validation = await getProduct_reqSchema.safeParseAsync(req.body);
+    const req_validation = await getProduct_reqSchema.safeParseAsync({
+      skipPage: parseInt(req.query.skip as string) || 0,
+      ...req.body,
+    });
     const productName = req.params.name;
 
     if (!productName) {
@@ -145,17 +158,18 @@ export const getAllProductsByName = async (req: Request, res: Response) => {
     }
 
     // Get the skipCount and takeCount from the request body
-    const { skipPage, takeCount = 10 } = req_validation.data;
+    const { skipPage, takeCount = 20 } = req_validation.data;
 
     // Get all products from the database
     const products = await prisma.product.findMany({
       where: {
         name: {
-          contains: req.params.name,
+          contains: productName,
+          mode: "insensitive", // Case insensitive search
         },
       },
       skip: (skipPage || 0) * takeCount,
-      take: takeCount || 10,
+      take: takeCount,
       select: {
         id: true,
         name: true,

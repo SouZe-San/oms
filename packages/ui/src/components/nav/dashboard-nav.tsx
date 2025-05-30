@@ -4,11 +4,10 @@ import "./dash-nav-style.css";
 
 import Image from "next/image";
 import Link from "next/link";
-import { Dispatch, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchLowStockProducts } from "@oms/store/stockNotification";
 import { useAppDispatch, useAppSelector } from "@oms/store/hooks";
 import { Role } from "@oms/types/user.type";
-import { AppDispatch } from "@oms/store/UseStore";
 
 import NotificationModal from "./NotificationModal";
 import LogoutButton from "../button/LogoutButton";
