@@ -15,6 +15,9 @@ const customerApi = axios.create({
 export const getProducts = async () => customerApi.get("/products");
 export const getProductDetails = async (id: string) => customerApi.get(`/product/${id}`);
 export const searchProducts = async (name: string) => customerApi.get(`/products/search/${name}`);
+export const getMoreProducts = async (skipCount: number) => customerApi.get(`/products?skip=${skipCount}`);
+export const moreOfSearchedProducts = async (name: string, skip: number) =>
+  customerApi.get(`/products/search/${name}?skip=${skip}`);
 
 // Cart Routes
 export const getCartProducts = async () => customerApi.get("/cart");

@@ -4,11 +4,10 @@ import "./dash-nav-style.css";
 
 import Image from "next/image";
 import Link from "next/link";
-import { Dispatch, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchLowStockProducts } from "@oms/store/stockNotification";
 import { useAppDispatch, useAppSelector } from "@oms/store/hooks";
 import { Role } from "@oms/types/user.type";
-import { AppDispatch } from "@oms/store/UseStore";
 
 import NotificationModal from "./NotificationModal";
 import LogoutButton from "../button/LogoutButton";
@@ -31,8 +30,9 @@ const DashboardNav = ({ role }: { role: Role }) => {
   const [hasLowStock, setHasLowStock] = useState(false);
 
   useEffect(() => {
+    if (!isAuthenticated || role !== Role.ADMIN) return;
     (dispatch as any)(fetchLowStockProducts());
-  }, [dispatch]);
+  }, [dispatch, isAuthenticated, role]);
 
   useEffect(() => {
     if (products && products.length > 0) {
