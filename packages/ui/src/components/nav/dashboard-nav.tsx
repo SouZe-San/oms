@@ -30,8 +30,9 @@ const DashboardNav = ({ role }: { role: Role }) => {
   const [hasLowStock, setHasLowStock] = useState(false);
 
   useEffect(() => {
+    if (!isAuthenticated || role !== Role.ADMIN) return;
     (dispatch as any)(fetchLowStockProducts());
-  }, [dispatch]);
+  }, [dispatch, isAuthenticated, role]);
 
   useEffect(() => {
     if (products && products.length > 0) {
