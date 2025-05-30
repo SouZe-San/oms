@@ -46,8 +46,6 @@ function productReducer(
 
 const Home = () => {
   const [category, setCategory] = useState<ProductCategory | null>(null);
-  // const [nonFilteredProducts, setNONFilterProduct] = useState<ProductsResponse[]>([]);
-  // const [products, setProducts] = useState<ProductsResponse[]>([]);
   const [productCategories, setProductCategories] = useState<ProductCategory[]>([]);
 
   const [loading, setLoading] = useState<boolean>(false);
@@ -73,14 +71,13 @@ const Home = () => {
   useEffect(() => {
     (async () => {
       const products: ProductsResponse[] = await fetchProducts();
-      // setProducts(products);
+
       dispatch({ type: "SET_NON_FILTERED_PRODUCTS", payload: products });
-      // setNONFilterProduct(products);
+
+      //  get unique categories from products
       setProductCategories(() => [...new Set(products.map((product) => product.category))]);
     })();
   }, []);
-
-  // Get unique categories from products
 
   // Filter products based on selected category
   useEffect(() => {
@@ -88,12 +85,13 @@ const Home = () => {
     dispatch({ type: "FILTER_PRODUCTS", payload: category });
   }, [category]);
 
+  // Clear filter and reset to all products
   const filterClear = () => {
     setCategory(null);
-
     dispatch({ type: "FILTER_CLEAR" });
   };
 
+  // Fetch more products For next or previous page
   const moreProducts = async (skipCount: number) => {
     if (skipCount < 0) return;
     if (skipCount === currentProductPage) return;
