@@ -6,6 +6,7 @@ import { createOrder, updateCart } from "@oms/utils/api.customer";
 import { toast } from "sonner";
 import { CartUpdateBody } from "@oms/types/api.type";
 import { axiosErrorHandler } from "@oms/utils/handlers";
+import { useRouter } from "next/navigation";
 const CartTable = ({
   cart,
   onUpdateQuantity,
@@ -27,6 +28,8 @@ const CartTable = ({
     }
   };
 
+  const router = useRouter();
+
   const updateCartHandler = async () => {
     try {
       const cartBody: CartUpdateBody = {
@@ -47,7 +50,8 @@ const CartTable = ({
   const cartOrderHandler = async () => {
     try {
       await createOrder();
-      toast.success("Order successfully!");
+      toast.success("Ordered successfully!");
+      router.push("/");
     } catch (error) {
       axiosErrorHandler(error, "Update Cart");
       toast.error("Failed to Order. Please try again.");
