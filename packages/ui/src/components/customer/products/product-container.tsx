@@ -3,8 +3,8 @@ import { ProductsResponse } from "@oms/types/api.type";
 import "./style.css";
 const ProductContainer = ({ products }: { products: ProductsResponse[] }) => {
   return (
-    <div className="mb-6 pt-12 md:px-16">
-      <div className="flex gap-4  justify-start flex-wrap items-center">
+    <div className="mb-6 pt-12 md:px-16 px-4">
+      <div className="flex gap-4  md:justify-start justify-center flex-wrap items-center">
         {products.length > 0 ? (
           products.map((product: ProductsResponse, index: number) => (
             <ProductCard key={index.toString()} product={product} />

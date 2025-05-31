@@ -8,7 +8,7 @@ import { ProductsResponse } from "@oms/types/api.type";
 
 const ProductCard = ({ product }: { product: ProductsResponse }) => {
   return (
-    <div className="border px-4 pt-3 pb-6 product-card md:w-[23%] max-w-[25rem] 3xl:mr-0">
+    <div className="border px-4 pt-3 pb-6 product-card md:max-w-[25rem] md:w-[23%]  3xl:mr-0">
       <Link href={`/product/${product.id}`} className="flex flex-col justify-between h-full">
         <div className="product-img rounded-lg">
           <Image
