@@ -20,8 +20,8 @@ const ProductDetails = ({ product }: { product: FullProduct }) => {
 
   return (
     <div className="pt-4 md:px-32 px-4">
-      <div className="flex justify-between items-end">
-        <h1 className="text-6xl font-neue">{product.name}</h1>
+      <div className="flex justify-between md:items-end max-md:flex-col-reverse">
+        <h1 className="md:text-6xl text-4xl font-neue">{product.name}</h1>
 
         <h3 className="text-4xl font-roboto-flex font-bold ">
           <span

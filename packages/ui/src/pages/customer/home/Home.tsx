@@ -123,7 +123,7 @@ const Home = () => {
     <section>
       <SearchSection />
 
-      <div className="flex overflow-hidden justify-start items-center mt-4 mb-4 md:px-16">
+      <div className="flex overflow-hidden justify-start items-center mt-4 mb-4 md:px-16 px-8">
         <div
           className="flex overflow-x-auto gap-2 justify-start items-center scroll-auto snap-x category-btn-section"
           style={{
@@ -133,7 +133,7 @@ const Home = () => {
           }}
         >
           <button className="category-btn font-neue text-xl snap-start " onClick={filterClear}>
-            Clear x
+            Clear
           </button>
           {productCategories.length > 0 &&
             productCategories.map((categoryName, index) => (
@@ -143,7 +143,7 @@ const Home = () => {
       </div>
 
       {products.length === 0 ? (
-        <p className="text-red-100/50 text-5xl min-h-[50vh] flex items-center justify-center font-black font-gallery">
+        <p className="text-red-100/50 sm:text-5xl text-3xl min-h-[50vh] flex items-center justify-center font-black font-gallery">
           {currentProductPage === 0 ? "No Sponsors !! No Products" : "No More Products Found !!"}
         </p>
       ) : (

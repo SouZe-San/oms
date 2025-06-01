@@ -47,7 +47,7 @@ const ImageSection = ({
   };
 
   return (
-    <div className="relative max-w-7xl mx-auto px-4 py-8 img-section">
+    <div className="relative md:max-w-7xl sm:max-w-lg max-w-xs max-sm:max-h- mx-auto px-4 py-8 img-section">
       <div className="relative overflow-hidden rounded-lg">
         <div
           className="flex transition-transform duration-500 ease-out"
@@ -60,7 +60,7 @@ const ImageSection = ({
                 width={200}
                 height={100}
                 alt={`Slide ${index + 1}`}
-                className="w-full h-[400px] object-cover rounded-lg"
+                className="w-full h-[400px] sm:object-cover object-contain rounded-lg "
                 loading="lazy"
                 blurDataURL={image.url || replaceImage}
               />

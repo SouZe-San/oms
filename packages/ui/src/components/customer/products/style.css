@@ -90,3 +90,15 @@
 .category-btn-section:hover .category-btn:not(:hover) {
   opacity: 0.3;
 }
+
+@media screen and (width <= 768px) {
+  .product-card {
+    width: 45%;
+    height: clamp(27rem, 28rem, 30rem);
+  }
+}
+@media (width <= 640px) {
+  .product-card {
+    width: 94%;
+  }
+}

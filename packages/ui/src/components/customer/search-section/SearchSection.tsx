@@ -13,8 +13,8 @@ const SearchSection = ({ searchParam }: { searchParam?: string }) => {
   };
 
   return (
-    <section className="w-full my-12 flex justify-center gap-6 items-center">
-      <div className="md:w-[50%]  border border-white/30 rounded-full py-2 px-4">
+    <section className="w-full my-12 flex justify-center gap-6 items-center sm:flex-row flex-col max-sm:px-4">
+      <div className="md:w-[50%] max-sm:w-full  border border-white/30 rounded-full py-2 px-4">
         <input
           type="text"
           placeholder="Search for products..."
