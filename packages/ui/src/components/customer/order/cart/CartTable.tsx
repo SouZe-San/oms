@@ -58,7 +58,7 @@ const CartTable = ({
     <div className="w-full max-w-6xl mx-auto shadow-sm product-list-section min-h-[60vh]">
       {/* Table */}
       <div className="overflow-hidden">
-        <table className="w-full ">
+        <table className="w-full max-sm:hidden">
           <thead>
             <tr className="border-b border-gray-100 ">
               <th className="text-center py-4 px-6 font-medium text-white-600 text-sm uppercase tracking-wide">
@@ -117,6 +117,64 @@ const CartTable = ({
                     >
                       <Image src={trash} alt="Remove Item" width={14} height={14} className="inline-block mr-1" />
                       Remove
+                    </button>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <table className="w-full sm:hidden">
+          <thead>
+            <tr className="border-b border-gray-100/50 ">
+              <th className="text-left py-4 px-6 font-medium  text-sm uppercase tracking-wide  ">Product Details</th>
+
+              <th className="text-center py-4 px-4 font-medium  text-sm uppercase tracking-wide  "></th>
+            </tr>
+          </thead>
+          <tbody className="py-4">
+            {cart.map((item, index) => (
+              <tr
+                key={item.id}
+                className={`hover:bg-gray-25 transition-colors ${index === cart.length - 1 ? "" : "under-border"}`}
+              >
+                <td className="py-4 px-6 text-white text-md ">
+                  <span className="text-lg">{item.name}</span>
+                  <p className="text-xs text-white/70">
+                    Stoke : <span className="text-xs ">{item.product?.stock}</span>
+                  </p>
+                  <p className="text-xs text-white/70">
+                    Price : <span className="text-sm ">&#x20B9; {item.product!.price.toFixed(2)}</span>
+                  </p>
+                </td>
+
+                <td className="py-4 px-4 text-end">
+                  <div className="flex items-center justify-center gap-2">
+                    <button
+                      onClick={() => handleQuantityChange(item.id, -1)}
+                      disabled={item.quantity <= 1}
+                      className="h-8 w-8 p-0 bg-white  hover:bg-white/70 font-black text-black rounded-lg cursor-pointer"
+                    >
+                      {/* <Minus size={14} /> */} &#45;
+                    </button>
+                    <div className="w-12 h-8 flex items-center justify-center text-sm text-white-700 quantity-box">
+                      {item.quantity}
+                    </div>
+                    <button
+                      onClick={() => handleQuantityChange(item.id, 1)}
+                      disabled={item.quantity >= item.product!.stock}
+                      className="h-8 w-8 p-0 bg-white  hover:bg-white/70 text-black font-black rounded-lg cursor-pointer"
+                    >
+                      {/* <Plus size={14} />  */} +
+                    </button>
+                  </div>
+
+                  {onRemoveItem && (
+                    <button
+                      onClick={() => onRemoveItem(item.id)}
+                      className="h-8 px-3 text-xs border rounded-lg bg-red-600/20 border-transparent hover:border-red-500 hover:ed-400 hover:text-red-600 mt-4"
+                    >
+                      <Image src={trash} alt="Remove Item" width={14} height={14} className="inline-block mr-1" />
                     </button>
                   )}
                 </td>
