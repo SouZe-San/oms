@@ -96,11 +96,12 @@ const DashboardNav = ({ role }: { role: Role }) => {
           </div>
         )}
 
-        <div className={`auth_btns ${isAuthenticated ? "" : "-ml-4"}`}>
+        <div className={`auth_btns max-sm:flex max-sm:items-center  ${isAuthenticated ? "" : "sm:-ml-4"}`}>
           {isAuthenticated ? (
             <>
-              <span className="mr-8">
-                Hello, <span>{user?.firstName}</span>
+              <span className="sm:mr-8 mr-2 max-sm:text-sm">
+                <span className="sm:inline hidden"> Hello, </span>
+                <span className="inline">{user?.firstName}</span>
               </span>
               <LogoutButton />
             </>

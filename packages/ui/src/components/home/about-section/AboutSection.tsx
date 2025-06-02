@@ -3,7 +3,7 @@ import "./about-style.css";
 import Image from "next/image";
 const AboutSection = () => {
   return (
-    <section className="home-section flex flex-col items-center about-section relative pb-40">
+    <section className="flex flex-col items-center about-section relative pb-40">
       <div className="w-[75%] about-img">
         <Image src={img} alt="about" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
       </div>

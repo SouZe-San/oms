@@ -1,12 +1,18 @@
 "use client";
 import Link from "next/link";
 import "./nav-style.css";
-
+import "remixicon/fonts/remixicon.css";
 import { useAppSelector } from "@oms/store/hooks";
 import LogoutButton from "../button/LogoutButton";
+import { useState } from "react";
 
 const NavBar = () => {
   const { isAuthenticated, user } = useAppSelector((state) => state.auth);
+  const [isMobileNavOpen, setMobileNav] = useState(false);
+  const handleMenuToggle = () => {
+    setMobileNav((prev) => !prev);
+  };
+
   return (
     <header className="flex items-center justify-between p-4 ">
       <div className="logo">
@@ -22,7 +28,23 @@ const NavBar = () => {
         </Link>
       </div>
 
-      <nav className="menu">
+      <nav className="menu ">
+        <ul>
+          <li>
+            <Link href="/">Home</Link>
+          </li>
+          <li>
+            <Link href="/#services">service</Link>
+          </li>
+          <li>
+            <Link href="/#price">Pricing</Link>
+          </li>
+          <li>
+            <Link href="/#contact">Contact</Link>
+          </li>
+        </ul>
+      </nav>
+      <nav className={`mobile-nav ${isMobileNavOpen ? "active" : ""}`}>
         <ul>
           <li>
             <Link href="/">Home</Link>
@@ -42,7 +64,9 @@ const NavBar = () => {
       <div className="auth_btns">
         {isAuthenticated ? (
           <>
-            <span className="mr-2">Welcome, {user?.firstName}</span>
+            <span className="sm:mr-8 mr-2">
+              <span className="sm:inline hidden">Welcome,</span> {user?.firstName}
+            </span>
             <LogoutButton />
           </>
         ) : (
@@ -50,6 +74,9 @@ const NavBar = () => {
             <button>Log In</button>
           </Link>
         )}
+        <button className="sm:hidden flex menu-btn" onClick={handleMenuToggle}>
+          <i className={isMobileNavOpen ? "ri-close-line" : "ri-menu-2-line"}></i>
+        </button>
       </div>
     </header>
   );

@@ -4,6 +4,8 @@ import { clearUser } from "@oms/store/auth";
 import { useAppDispatch } from "@oms/store/hooks";
 import api from "@oms/utils/api";
 import { toast } from "sonner";
+import Image from "next/image";
+import logOut from "../../assets/icons/random/log-out.svg";
 
 const LogoutButton = () => {
   const dispatch = useAppDispatch();
@@ -20,8 +22,9 @@ const LogoutButton = () => {
   };
 
   return (
-    <button onClick={handleLogout} className="px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700">
-      Logout
+    <button onClick={handleLogout} className="px-4 py-2 rounded text-white">
+      <span className="max-sm:hidden">Logout</span>
+      <Image src={logOut} alt="logout" className="sm:hidden" width={16} height={16} />
     </button>
   );
 };

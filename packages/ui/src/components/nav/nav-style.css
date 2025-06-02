@@ -65,7 +65,12 @@ header {
     }
   }
 
+  nav.mobile-nav {
+    display: none;
+  }
   .auth_btns {
+    display: flex;
+    align-items: center;
     button {
       background: linear-gradient(45deg, rgb(253, 67, 105) 7%, rgb(253, 67, 160) 52%, rgb(255, 0, 227) 88%);
       color: rgb(240, 240, 240);
@@ -80,13 +85,62 @@ header {
         transform: scale(1.1);
       }
     }
+
+    button.menu-btn {
+      margin-left: 0.5rem;
+      background: white;
+      color: black;
+      padding: 3px 6px;
+      z-index: 300;
+    }
   }
 }
 
-@media (max-width: 460px) {
+@media (width<= 640px) {
   header {
-    width: 90%;
-    top: 5%;
-    padding: 16px 24px;
+    width: 75%;
+
+    left: 40%;
+    nav.menu {
+      display: none;
+    }
+    nav.mobile-nav {
+      transform: translateY(-120%);
+      transition: transform 0.3s ease-in-out;
+      width: 101vw;
+      height: 100vh;
+      background: #000000d6;
+
+      position: absolute;
+      top: -43px;
+      left: -13px;
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      -moz-backdrop-filter: blur(25px);
+
+      ul {
+        flex-direction: column;
+        li {
+          font-size: 2.1rem;
+        }
+      }
+    }
+
+    nav.mobile-nav.active {
+      transform: translateY(0%);
+    }
+    .auth_btns button {
+      padding: 6px 10px;
+    }
+  }
+}
+
+@supports (backdrop-filter: blur()) {
+  header nav.mobile-nav {
+    background-color: #000000c0;
+
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    -moz-backdrop-filter: blur(25px);
   }
 }
