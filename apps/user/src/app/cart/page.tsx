@@ -26,7 +26,7 @@ const Page = () => {
   }, []);
 
   return (
-    <section className="px-16 mt-12 py-8">
+    <section className="sm:px-16 px-3 mt-12 py-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold  mb-2">Shopping Cart</h1>
         <p className="text-white/70">Review and modify your cart items</p>

@@ -7,13 +7,13 @@ const SingleOrder = ({ order }: { order: Order }) => {
     <div className="w-full max-w-6xl mx-auto   shadow-sm product-list-section">
       {/* Header */}
       <div className="px-6 py-4 border-b border-gray-100 ">
-        <h2 className="text-2xl font-semibold text-white-900">Order Items</h2>
+        <h2 className="text-2xl font-semibold text-white-900 max-sm:hidden">Order Items</h2>
         <p className="text-sm text-white-500 mt-1">Order ID: {order.id}</p>
       </div>
 
       {/* Table */}
       <div className="mt-8">
-        <table className="w-full">
+        <table className="w-full max-sm:hidden">
           <thead>
             <tr className="border-b border-gray-100/50">
               <th className="text-center py-4 px-6 font-medium text-white-600 text-sm uppercase tracking-wide">
@@ -53,11 +53,45 @@ const SingleOrder = ({ order }: { order: Order }) => {
               ))}
           </tbody>
         </table>
+        <table className="w-full sm:hidden">
+          <thead>
+            <tr className="border-b border-gray-100/50">
+              <th className="text-left py-4 px-6 font-medium text-white-600 text-sm uppercase tracking-wide">
+                Product Details
+              </th>
+              <th className="text-center py-4 px-6 font-medium text-white-600 text-sm uppercase tracking-wide">
+                Quantity
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {order.orderProducts &&
+              order?.orderProducts.map((item, index) => (
+                <tr
+                  key={item.id}
+                  className={` transition-colors ${index === order.orderProducts!.length - 1 ? "" : "under-border"}`}
+                >
+                  <td className="py-4 px-6 text-white-900 text-md">
+                    {item.name}
+
+                    <p className="text-xs text-white/70">
+                      Price : <span className="text-sm ">&#x20B9; {item.price.toFixed(2)}</span>
+                    </p>
+                  </td>
+                  <td className="py-4 px-6 text-center">
+                    <div className="inline-flex items-center justify-center w-12 h-8  rounded text-sm text-white-700 quantity-box">
+                      {item.quantity}
+                    </div>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
       </div>
 
       {/* Footer */}
-      <div className="border-t border-gray-100  px-6 py-4">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-sm items-center">
+      <div className="border-t border-gray-100  sm:px-6 px-2 py-4">
+        <div className="grid grid-cols-2 md:grid-cols-5 sm:gap-4 gap-2 text-sm items-center">
           <div className="flex gap-2 items-center">
             <span className="font-medium text-md text-white-600">Created:</span>
             <div className="text-white-900 text-lg">{new Date(order.createdAt).toLocaleDateString()}</div>
@@ -106,7 +140,10 @@ const SingleOrder = ({ order }: { order: Order }) => {
           </div>
           <div className="flex gap-2 items-center">
             <span className="font-medium text-md text-white-600">Total Amount:</span>
-            <div className="text-white-900 font-bold text-lg">&#x20B9; {order.totalAmount.toFixed(2)}</div>
+            <div className="text-white-900 font-bold sm:text-lg text-[16px]">
+              {" "}
+              &#x20B9;{order.totalAmount.toFixed(2)}
+            </div>
           </div>
         </div>
       </div>
