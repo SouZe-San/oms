@@ -132,7 +132,7 @@ const Home = () => {
             WebkitOverflowScrolling: "touch",
           }}
         >
-          <button className="category-btn font-neue text-xl snap-start " onClick={filterClear}>
+          <button className="category-btn font-neue sm:text-xl text-xs snap-start " onClick={filterClear}>
             Clear
           </button>
           {productCategories.length > 0 &&

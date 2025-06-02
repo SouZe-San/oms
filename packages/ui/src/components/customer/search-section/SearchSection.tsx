@@ -13,7 +13,7 @@ const SearchSection = ({ searchParam }: { searchParam?: string }) => {
   };
 
   return (
-    <section className="w-full my-12 flex justify-center gap-6 items-center sm:flex-row flex-col max-sm:px-4">
+    <section className="w-full my-12 flex justify-center sm:gap-6 gap-2 sm:items-center sm:flex-row flex-col items-end max-sm:px-4">
       <div className="md:w-[50%] max-sm:w-full  border border-white/30 rounded-full py-2 px-4">
         <input
           type="text"
@@ -24,8 +24,8 @@ const SearchSection = ({ searchParam }: { searchParam?: string }) => {
         />
       </div>
       <Link href={`/product/search/${searchQuery}`}>
-        <button className="px-7 py-2 bg-white text-black rounded-xl flex items-center gap-2 text-xl font-semibold hover:scale-110 transition-all ease-in-out cursor-pointer ">
-          <Image src={search} alt="Search" width={24} height={24} />
+        <button className="sm:px-7 px-4 py-2 sm:bg-white bg-white/70 text-black rounded-xl flex items-center gap-2 sm:text-xl text-xs font-semibold hover:scale-110 transition-all ease-in-out cursor-pointer ">
+          <Image src={search} alt="Search" width={24} height={24} className="max-sm:w-4" />
           Search
         </button>
       </Link>
