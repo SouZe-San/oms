@@ -35,31 +35,31 @@ const OrderItem = ({ order, index }: { order: OrderResponse; index: number }) =>
 
   return (
     <Link href={`/order/${order.id}`} className="no-underline">
-      <div className="order-item flex px-4 py-8 justify-between items-center border rounded-xl">
+      <div className="order-item flex sm:flex-row flex-col sm:px-4 px-8 sm:py-8 py-4 justify-between sm:items-center items-start border rounded-xl">
         <div className=" flex items-end gap-6 font-neue">
-          <p className="text-xl text-center flex items-end text-white/50">
-            <span className="text-4xl text-white/70">[</span> 0{index + 1}{" "}
-            <span className="text-4xl text-white/70">]</span>
+          <p className="sm:text-xl text-sm text-center flex items-end text-white/50">
+            <span className="sm:text-4xl text-2xl text-white/70">[</span> 0{index + 1}{" "}
+            <span className="sm:text-4xl text-2xl text-white/70">]</span>
           </p>
-          <h1 className="text-3xl">
+          <h1 className="sm:text-3xl text-xl">
             ID - <span className="text-xl">{VISUAL_ID}</span>
           </h1>
         </div>
 
-        <div className="grid grid-cols-4 gap-8 side-info">
+        <div className="sm:grid flex flex-col items-start grid-cols-4 gap-4 side-info max-sm:mt-2">
           <div className={`badge ${getTypeClass(order.status)}`}>
             {" "}
             <Image
               src={statusIcon[order.status as keyof typeof statusIcon]}
               alt="icon"
-              className="inline-block w-8 mr-2"
+              className="inline-block sm:w-8 w-4 mr-2"
             />
             <span>{order.status}</span>
           </div>
-          <div className="flex gap-4 col-span-2 jus">
+          <div className="flex gap-4 col-span-2 ">
             <h3>
               {" "}
-              <Image src={calender} alt="icon" className="inline-block w-6 mr-2" />
+              <Image src={calender} alt="icon" className="inline-block sm:w-6 w-4 mr-2" />
               <span>{new Date(order.createdAt).toLocaleDateString()} </span>
             </h3>
             <h3>
@@ -69,7 +69,7 @@ const OrderItem = ({ order, index }: { order: OrderResponse; index: number }) =>
               <span>Quantity :</span> {order.totalItems}
             </h3>
           </div>
-          <button className="high-btn-bg">View Details</button>
+          <button className="high-btn-bg max-sm:hidden">View Details</button>
         </div>
       </div>
     </Link>

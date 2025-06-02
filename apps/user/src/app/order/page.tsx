@@ -61,11 +61,11 @@ const Page = () => {
   }, []);
 
   return (
-    <div className="px-16 mt-12 py-8 flex flex-col gap-8">
-      <h1 className="text-6xl font-medium mb-8 font-roboto-flex">Order List</h1>
+    <div className="sm:px-16 px-4 mt-12 py-8 flex flex-col gap-8">
+      <h1 className="sm:text-6xl text-4xl font-medium mb-8 font-roboto-flex">Order List</h1>
 
       {orders.length === 0 ? (
-        <p className="text-red-100/50 text-5xl font-black text-center font-neue">No Orders Found</p>
+        <p className="text-red-100/50 sm:text-5xl text-3xl font-black text-center font-neue">No Orders Found</p>
       ) : (
         orders.map((order: OrderResponse, index) => <OrderItem key={order.id} order={order} index={index} />)
       )}

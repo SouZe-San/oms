@@ -98,7 +98,7 @@ const Page = () => {
   }
 
   return (
-    <section className="px-16 mt-12 py-8">
+    <section className="sm:px-16 px-4 mt-12 py-8">
       <h1 className="text-3xl font-bold mb-8">Order Details</h1>
 
       {order === null ? (
