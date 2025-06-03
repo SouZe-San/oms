@@ -47,8 +47,15 @@ const ImageSection = ({
   };
 
   return (
-    <div className="relative md:max-w-7xl sm:max-w-lg max-w-xs max-sm:max-h- mx-auto px-4 py-8 img-section">
-      <div className="relative overflow-hidden rounded-lg">
+    <div className="relative md:max-w-7xl sm:max-w-lg max-w-md  mx-auto px-4 py-8 img-section">
+      <div
+        className="relative sm:overflow-hidden overflow-scroll rounded-lg"
+        style={{
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+          WebkitOverflowScrolling: "touch",
+        }}
+      >
         <div
           className="flex transition-transform duration-500 ease-out"
           style={{ transform: `translateX(-${(currentIndex / imagesPerSlide) * 100}%)` }}
@@ -60,7 +67,7 @@ const ImageSection = ({
                 width={200}
                 height={100}
                 alt={`Slide ${index + 1}`}
-                className="w-full h-[400px] sm:object-cover object-contain rounded-lg "
+                className="w-full h-[400px] sm:object-cover object-cover rounded-lg "
                 loading="lazy"
                 blurDataURL={image.url || replaceImage}
               />
@@ -71,7 +78,7 @@ const ImageSection = ({
       {/* Navigation Buttons */}
       <button
         onClick={prevSlide}
-        className="absolute -left-[5%] top-1/2 -translate-y-1/2  hover:bg-white/50  p-3 rounded-lg shadow-lg transition-all duration-200 left-btn disabled:cursor-not-allowed disabled:hover:bg-white/10"
+        className="absolute -left-[5%] top-1/2 -translate-y-1/2  hover:bg-white/50  p-3 rounded-lg shadow-lg transition-all duration-200 left-btn disabled:cursor-not-allowed disabled:hover:bg-white/10 max-sm:hidden"
         aria-label="Previous slide "
         disabled={currentIndex === 0 && images.length <= imagesPerSlide}
       >
@@ -84,7 +91,7 @@ const ImageSection = ({
       </button>
       <button
         onClick={nextSlide}
-        className="absolute -right-[5%] top-1/2 -translate-y-1/2  hover:bg-white/50   p-3 rounded-lg shadow-lg transition-all duration-200 right-btn disabled:cursor-not-allowed disabled:hover:bg-white/10"
+        className="absolute -right-[5%] top-1/2 -translate-y-1/2  hover:bg-white/50   p-3 rounded-lg shadow-lg transition-all duration-200 right-btn disabled:cursor-not-allowed disabled:hover:bg-white/10  max-sm:hidden"
         aria-label="Next slide"
         disabled={currentIndex + imagesPerSlide >= images.length && images.length <= imagesPerSlide}
       >

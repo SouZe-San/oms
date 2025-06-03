@@ -99,6 +99,6 @@
 }
 @media (width <= 640px) {
   .product-card {
-    width: 94%;
+    width: 85%;
   }
 }
