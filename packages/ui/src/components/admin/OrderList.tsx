@@ -1,19 +1,19 @@
-import { OrderENUM, PaymentENUM } from "@oms/types/order.type"
+import { OrderENUM, PaymentENUM } from "@oms/types/order.type";
 import { useMemo, useState } from "react";
 interface OrderProps {
-  orderId: string,
-  quantity: number,
-  price: number,
-  date: string,
-  status: string,
-  payment: string,
+  orderId: string;
+  quantity: number;
+  price: number;
+  date: string;
+  status: string;
+  payment: string;
   address: {
-    street: string,
-    city: string,
-    state: string,
-    country: string,
-    zip: string
-  }
+    street: string;
+    city: string;
+    state: string;
+    country: string;
+    zip: string;
+  };
 }
 
 const OrderList = ({ orders }: { orders: OrderProps[] }) => {
@@ -25,11 +25,11 @@ const OrderList = ({ orders }: { orders: OrderProps[] }) => {
     let filtered = [...orders];
 
     if (paymentFilter !== "ALL") {
-      filtered = filtered.filter(o => o.payment === paymentFilter);
+      filtered = filtered.filter((o) => o.payment === paymentFilter);
     }
 
     if (statusFilter !== "ALL") {
-      filtered = filtered.filter(o => o.status === statusFilter);
+      filtered = filtered.filter((o) => o.status === statusFilter);
     }
 
     filtered.sort((a, b) => {
@@ -47,100 +47,132 @@ const OrderList = ({ orders }: { orders: OrderProps[] }) => {
       {orders.length === 0 ? (
         <p className="text-muted-foreground text-sm">No orders yet.</p>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="min-w-full border-collapse border border-gray-400 text-sm ">
-            <thead className="bg-gray-100 text-center">
+        <div className="overflow-x-auto rounded-lg">
+          <table className="min-w-full border-collapse text-sm ">
+            <thead className="bg-white/25  text-white text-center">
               <tr>
-                <th className="px-4 py-4 border border-gray-400">Order ID</th>
-                <th className="px-4 py-4 border border-gray-400">Qty</th>
-                <th className="px-4 py-4 border border-gray-400">Price ₹</th>
+                <th className="px-4 py-4 border-r border-white/40">Order ID</th>
+                <th className="px-4 py-4 border-r border-white/40">Qty</th>
+                <th className="px-4 py-4 border-r border-white/40">Price ₹</th>
 
                 {/* Date Sorter */}
-                <th className="px-4 py-4 border border-gray-400">
-                  <div className="flex flex-col items-center justify-center gap-1">
-                    <span>Date</span>
+                <th className="px-4 py-4 border-r border-white/40">
+                  <div className="flex items-end justify-center gap-2">
+                    <span className="text-lg">Date</span>
                     <button
-                      className="text-xs underline hover:decoration-2 cursor-pointer"
-                      onClick={() =>
-                        setDateOrder(prev => (prev === "asc" ? "desc" : "asc"))
-                      }
+                      className="text-xs border border-white/30 text-white/50 rounded-full px-2 hover:decoration-2 cursor-pointer"
+                      onClick={() => setDateOrder((prev) => (prev === "asc" ? "desc" : "asc"))}
                     >
-                      {dateOrder === "asc" ? "Asce" : "Desc"}
+                      {dateOrder === "asc" ? (
+                        <>
+                          Asce <i className="ri-arrow-up-long-line"></i>
+                        </>
+                      ) : (
+                        <>
+                          Desc <i className="ri-arrow-down-long-line"></i>
+                        </>
+                      )}
                     </button>
                   </div>
                 </th>
 
                 {/* Status Filter */}
-                <th className="px-4 py-4 border border-gray-400">
+                <th className="px-4 py-4 border-r border-white/40">
                   <select
                     className="text-xs border rounded px-2 py-1"
                     value={statusFilter}
-                    onChange={e => setStatusFilter(e.target.value)}
+                    onChange={(e) => setStatusFilter(e.target.value)}
                   >
-                    <option value="ALL">Status</option>
-                    {Object.values(OrderENUM).map(status => (
-                      <option key={status} value={status}>{status}</option>
+                    <option value="ALL" className="bg-black/30">
+                      Status
+                    </option>
+                    {Object.values(OrderENUM).map((status) => (
+                      <option key={status} value={status} className="bg-black/30">
+                        {status}
+                      </option>
                     ))}
                   </select>
                 </th>
 
                 {/* Payment Filter */}
-                <th className="px-4 py-4 border border-gray-400">
+                <th className="px-4 py-4 border-r border-white/40">
                   <select
                     className="text-xs border rounded px-2 py-1"
                     value={paymentFilter}
-                    onChange={e => setPaymentFilter(e.target.value)}
+                    onChange={(e) => setPaymentFilter(e.target.value)}
                   >
-                    <option value="ALL">Payment</option>
-                    {Object.values(PaymentENUM).map(pay => (
-                      <option key={pay} value={pay}>{pay}</option>
+                    <option value="ALL" className="bg-black/30">
+                      Payment
+                    </option>
+                    {Object.values(PaymentENUM).map((pay) => (
+                      <option key={pay} value={pay} className="bg-black/30">
+                        {pay}
+                      </option>
                     ))}
                   </select>
                 </th>
 
-                <th className="px-4 py-4 border border-gray-400">Address</th>
+                <th className="px-4 py-4  border-white/40">Address</th>
               </tr>
             </thead>
-            <tbody className="text-center">
-              {filteredOrders.map((order: { orderId: string, quantity: number, price: number, date: string, status: string, payment: string, address: any }) => (
-                <tr key={order.orderId} className="border-t">
-                  <td className="px-4 py-4 border border-gray-400">{order.orderId}</td>
-                  <td className="px-4 py-4 border border-gray-400">{order.quantity}</td>
-                  <td className="px-4 py-4 border border-gray-400">{order.price.toFixed(2)}</td>
-                  <td className="px-4 py-4 border border-gray-400">{new Date(order.date).toLocaleDateString()}</td>
-                  <td className="px-4 py-4 border border-gray-400">
-                    {order.status === OrderENUM.CANCELLED && <span className=" p-2 rounded-2xl bg-red-400">{order.status}
-                    </span>}
-                    {order.status === OrderENUM.CONFIRMED && <span className=" p-2 rounded-2xl bg-green-400">{order.status}
-                    </span>}
-                    {order.status === OrderENUM.DELIVERED && <span className=" p-2 rounded-2xl bg-green-300">{order.status}
-                    </span>}
-                    {order.status === OrderENUM.PENDING && <span className=" p-2 rounded-2xl bg-orange-400">{order.status}
-                    </span>}
-                    {order.status === OrderENUM.SHIPPED && <span className=" p-2 rounded-2xl bg-blue-400">{order.status}
-                    </span>}
-                  </td>
-                  <td className="px-4 py-4 border border-gray-400">
-                    {order.payment === PaymentENUM.COMPLETED && <span className="p-1 rounded-2xl bg-green-400">{order.payment}
-                    </span>}
-                    {order.payment === PaymentENUM.PENDING && <span className=" p-2 rounded-2xl bg-orange-400">{order.payment}
-                    </span>}
-                    {order.payment === PaymentENUM.FAILED && <span className="p-1 rounded-2xl bg-red-400">{order.payment}
-                    </span>}
-                  </td>
-                  <td className="px-4 py-4 border border-gray-400">
-                    {order.address
-                      ? `${order.address.street}, ${order.address.city}`
-                      : 'N/A'}
-                  </td>
-                </tr>
-              ))}
+            <tbody className="text-center text-white">
+              {filteredOrders.map(
+                (order: {
+                  orderId: string;
+                  quantity: number;
+                  price: number;
+                  date: string;
+                  status: string;
+                  payment: string;
+                  address: any;
+                }) => (
+                  <tr
+                    key={order.orderId}
+                    className=" not-last:border-b not-last:border-white/40 hover:bg-white/10 bg-white/5 transition-colors"
+                  >
+                    <td className="py-4 border-r border-white/40 font-neue">{order.orderId}</td>
+                    <td className="px-4 py-4 border-r border-white/40 font-roboto-flex">{order.quantity}</td>
+                    <td className="px-4 py-4 border-r border-white/40 font-roboto-flex">{order.price.toFixed(2)}</td>
+                    <td className="px-4 py-4 border-r border-white/40 font-roboto-flex">
+                      {new Date(order.date).toLocaleDateString()}
+                    </td>
+                    <td className="  border-r border-white/40">
+                      {order.status === OrderENUM.CANCELLED && (
+                        <span className="py-2 px-6 rounded-2xl cancelled text-sm">{order.status}</span>
+                      )}
+                      {order.status === OrderENUM.CONFIRMED && (
+                        <span className="py-2 px-6 rounded-2xl confirmed text-sm">{order.status}</span>
+                      )}
+                      {order.status === OrderENUM.DELIVERED && (
+                        <span className="py-2 px-6 rounded-2xl success text-sm">{order.status}</span>
+                      )}
+                      {order.status === OrderENUM.SHIPPED && (
+                        <span className="py-2 px-6 rounded-2xl pending text-sm">{order.status}</span>
+                      )}
+                    </td>
+                    <td className="px-4 py-4 border-r border-white/40">
+                      {order.payment === PaymentENUM.COMPLETED && (
+                        <span className="py-2 px-6 rounded-2xl success">{order.payment}</span>
+                      )}
+                      {order.payment === PaymentENUM.PENDING && (
+                        <span className=" py-2 px-6 rounded-2xl pending">{order.payment}</span>
+                      )}
+                      {order.payment === PaymentENUM.FAILED && (
+                        <span className="py-2 px-6 rounded-2xl cancelled">{order.payment}</span>
+                      )}
+                    </td>
+                    <td className="px-4 py-4  border-white/40">
+                      {order.address ? `${order.address.street}, ${order.address.city}` : "N/A"}
+                    </td>
+                  </tr>
+                )
+              )}
             </tbody>
           </table>
         </div>
       )}
     </div>
-  )
+  );
 };
 
 export default OrderList;

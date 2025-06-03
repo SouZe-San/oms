@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-type EditableInputFieldType = 'text' | 'textarea' | 'number';
+type EditableInputFieldType = "text" | "textarea" | "number";
 
 interface EditableInputFieldProps {
   value: string | number;
@@ -13,21 +13,21 @@ interface EditableInputFieldProps {
   rows?: number; // for textarea
   autoFocus?: boolean;
   onEnterBlur?: boolean; // for textarea to optionally blur on Enter
-  displayAs?: 'h1' | 'p' | 'span' | 'div';
+  displayAs?: "h1" | "p" | "span" | "div";
 }
 
 const EditableInputField = ({
   value,
-  type = 'text',
+  type = "text",
   onChange,
   renderDisplay,
-  className = '',
-  inputClassName = 'border p-1 rounded w-full',
-  displayClassName = 'cursor-pointer',
+  className = "",
+  inputClassName = "border p-1 rounded w-full",
+  displayClassName = "cursor-pointer",
   rows = 3,
   autoFocus = false,
   onEnterBlur = true,
-  displayAs = 'p',
+  displayAs = "p",
 }: EditableInputFieldProps) => {
   const [editing, setEditing] = useState(false);
   const ref = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
@@ -41,8 +41,8 @@ const EditableInputField = ({
   const handleBlur = () => setEditing(false);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      if (type === 'textarea' && !onEnterBlur && !e.shiftKey) return;
+    if (e.key === "Enter") {
+      if (type === "textarea" && !onEnterBlur && !e.shiftKey) return;
       e.preventDefault();
       setEditing(false);
     }
@@ -53,7 +53,7 @@ const EditableInputField = ({
   return (
     <div className={className}>
       {editing ? (
-        type === 'textarea' ? (
+        type === "textarea" ? (
           <textarea
             ref={ref as React.RefObject<HTMLTextAreaElement>}
             value={value}
@@ -68,9 +68,7 @@ const EditableInputField = ({
             ref={ref as React.RefObject<HTMLInputElement>}
             type={type}
             value={value}
-            onChange={(e) =>
-              onChange(type === 'number' ? parseFloat(e.target.value) || 0 : e.target.value)
-            }
+            onChange={(e) => onChange(type === "number" ? parseFloat(e.target.value) || 0 : e.target.value)}
             onBlur={handleBlur}
             onKeyDown={handleKeyDown}
             className={inputClassName}
@@ -78,7 +76,7 @@ const EditableInputField = ({
         )
       ) : (
         <DisplayTag className={displayClassName} onDoubleClick={() => setEditing(true)}>
-          {renderDisplay ? renderDisplay(value) : value || 'No value'}
+          {renderDisplay ? renderDisplay(value) : value || "No value"}
         </DisplayTag>
       )}
     </div>
