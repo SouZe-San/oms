@@ -12,7 +12,7 @@
   border: 2px solid transparent;
   letter-spacing: 1px;
   color: white;
-
+  text-shadow: 1px 1px 2px #00000075;
   &:hover {
     color: black;
     border-color: rgb(181, 97, 133);
@@ -30,10 +30,10 @@
   border-radius: 10px;
   transition: all 0.3s ease-in-out;
   outline: none;
-  border: 2px solid transparent;
+  border: 1px solid #0000002e;
   letter-spacing: 1px;
   color: white;
-
+  text-shadow: 1px 1px 2px #00000075;
   &:hover {
     color: black;
     background: rgb(165, 165, 165);
