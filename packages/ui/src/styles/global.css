@@ -78,3 +78,11 @@ main.dashboard-section {
     transform: translateY(0);
   }
 }
+
+@media (width <= 640px) {
+  main.dashboard-section.product-list-section {
+    &::after {
+      top: 4% !important;
+    }
+  }
+}

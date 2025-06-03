@@ -6,7 +6,7 @@ const page = () => {
   return (
     <>
       <DashboardNav role={Role.CUSTOMER} />
-      <main className="flex-1 dashboard-section min-h-screen">
+      <main className="flex-1 dashboard-section min-h-screen product-list-section">
         <MainSection />
       </main>
     </>
