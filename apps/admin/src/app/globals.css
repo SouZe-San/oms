@@ -1,52 +1,80 @@
 @import "tailwindcss";
 
-/* :root {
-  --background: #ffffff;
-  --foreground: #171717;
+@font-face {
+  font-family: "NeueMachina";
+  src: url("../fonts/NeueMachina-Regular.woff") format("woff");
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@font-face {
+  font-family: "Robo-flex";
+  src: url("../fonts/RobotoFlex.ttf") format("truetype");
 }
 
-html,
-body {
-  max-width: 100vw;
+.font-neue {
+  font-family: "NeueMachina", sans-serif;
+  font-style: normal;
+}
+
+.font-roboto-flex {
+  font-family: "Robo-flex", sans-serif;
+  font-style: normal;
+}
+
+main.admin-dashboard {
+  position: relative;
+  /* backdrop-filter: blur(4rem); */
+  /* --webkit-backdrop-filter: blur(4rem);
+  --moz-backdrop-filter: blur(4rem);
+
+  padding-top: 5rem; */
+
   overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.imgDark {
-  display: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+  &::before,
+  &::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 0 0 40rem 8rem #ff0b94;
+    filter: contrast(1.3) brightness(1.2);
+    border-radius: 50%;
+    /* background: var(--bg-high-gradient);
+        opacity: 0.2; */
+    z-index: -1;
   }
 
-  .imgLight {
-    display: none;
+  &::after {
+    left: unset;
+    right: -2%;
+    box-shadow: 0 0 40rem 10rem #ff0b94;
+    top: 17%;
+    width: 1px;
+    aspect-ratio: 1;
+    background: transparent;
   }
-  .imgDark {
-    display: unset;
-  }
-} */
+}
+
+.pending {
+  color: #ffaa4f;
+  border-color: #fdb51b;
+  background-color: #d56c1030;
+  letter-spacing: 2px;
+}
+.cancelled {
+  color: #ff0000;
+  border-color: #ff0000;
+  background-color: #92030336;
+  letter-spacing: 2px;
+}
+.success {
+  color: #63f755;
+  border-color: #55f790;
+  background-color: #03c30d36;
+  letter-spacing: 2px;
+}
+.confirmed {
+  color: #55b6f7;
+  border-color: #55bef7;
+  background-color: #0379c336;
+  letter-spacing: 2px;
+}
