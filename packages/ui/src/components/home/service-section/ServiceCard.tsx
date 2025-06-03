@@ -9,12 +9,16 @@ const ServiceCard = ({
   extraClass = "",
   imgSrc,
   imgDivClass = "",
+  title,
+  description
 }: {
   cardNumber: number;
 
   extraClass?: string;
   imgSrc: string | StaticImport;
   imgDivClass?: string;
+  title: String,
+  description: String
 }) => {
   return (
     <div className={`relative service-card ${extraClass} hover:shadow-lg`}>
@@ -42,11 +46,9 @@ const ServiceCard = ({
         </div>
 
         <div className="down px-7">
-          <h1 className="text-4xl mb-4">Card - Title in long </h1>
+          <h1 className="text-4xl mb-4">{title} </h1>
           <h3 className="text-white/60 ">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempora, labore quaerat! Rem tempora quibusdam
-            adipisci beatae ipsum sapiente at recusandael. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Esse, excepturi amet consectetur blanditiis perspiciatis minima dignissimos adipisci libero quod nemo!
+            {description}
           </h3>
         </div>
       </div>

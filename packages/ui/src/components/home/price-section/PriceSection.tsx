@@ -16,10 +16,10 @@ const PriceSection = () => {
               </div>
             </div>
             <ul className="plan-features">
-              <li>Access You Know ? I No</li>
-              <li>Basic You Know ? I No</li>
-              <li> You Know ? I No</li>
-              <li> You Know ? I No</li>
+              <li>Weekly Assistance</li>
+              <li>Order shift within 2-3 days</li>
+              <li>Weekly report Generation</li>
+              <li>Weekly Filter in Graph Generation</li>
             </ul>
             <button className="plan-btn">Get Started</button>
           </div>
@@ -33,11 +33,10 @@ const PriceSection = () => {
               </div>
             </div>
             <ul className="plan-features">
-              <li>Unlimited Product view</li>
-              <li>All Features (Dream On)</li>
-              <li>Unlimited Adding in Cart</li>
-              <li> 10 Product add</li>
-              <li>Baki Janina</li>
+              <li>Monthly Assistance</li>
+              <li>Order shift within 3-5 days</li>
+              <li>Monthly report Generation</li>
+              <li>Monthly Filter in Graph Generation</li>
             </ul>
             <button className="plan-btn">Get Started</button>
           </div>
@@ -50,11 +49,10 @@ const PriceSection = () => {
               </div>
             </div>
             <ul className="plan-features">
-              <li>24/7 Help access</li>
-              <li>Advanced Notification</li>
-              <li>Unlimited Product Add</li>
-              <li>4 mile Dekhte pabo</li>
-              <li>Unlimited Quantity &_&</li>
+              <li>24/7 Assistance</li>
+              <li>Order shift within 1 Day</li>
+              <li>Daily report generation</li>
+              <li>Daily Filter in Graph</li>
             </ul>
             <button className="plan-btn">Get Started</button>
           </div>
