@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import api from '@oms/utils/api';
+import api from "@oms/utils/api";
 
 //fetch all products
 export const fetchProducts = createAsyncThunk("product/fetchAll", async () => {

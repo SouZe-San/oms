@@ -1,5 +1,5 @@
-import { SigninState } from '@oms/types/store.type';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { SigninState } from "@oms/types/store.type";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: SigninState = {
   isLoading: false,
@@ -8,7 +8,7 @@ const initialState: SigninState = {
 };
 
 const signinSlice = createSlice({
-  name: 'signin',
+  name: "signin",
   initialState,
   reducers: {
     signinStart(state) {

@@ -59,18 +59,20 @@ export const signupController = async (req: Request, res: Response) => {
         email,
         primaryMobile,
         dob: new Date(dob),
-        role, password:
-          hashedPassword,
-        addresses: address ? {
-          create: {
-            type: address.AddressType ? address.AddressType : "PERMANENT",
-            street: address.street,
-            city: address.city,
-            state: address.state,
-            country: address.country,
-            zipCode: address.zipCode
-          },
-        } : undefined
+        role,
+        password: hashedPassword,
+        addresses: address
+          ? {
+              create: {
+                type: address.AddressType ? address.AddressType : "PERMANENT",
+                street: address.street,
+                city: address.city,
+                state: address.state,
+                country: address.country,
+                zipCode: address.zipCode,
+              },
+            }
+          : undefined,
       },
     });
 
@@ -89,8 +91,8 @@ export const signupController = async (req: Request, res: Response) => {
       statusMessage: StatusMessages[Status.Success],
       message: "Account created successfully",
       user: {
-        firstName: newUser.firstName
-      }
+        firstName: newUser.firstName,
+      },
     });
     return;
   } catch (error) {
@@ -174,8 +176,8 @@ export const signinController = async (req: Request, res: Response) => {
       statusMessage: StatusMessages[Status.Success],
       message: "Signed in successfully",
       user: {
-        firstName: user.firstName
-      }
+        firstName: user.firstName,
+      },
     });
     return;
   } catch (error) {

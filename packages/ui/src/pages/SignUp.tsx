@@ -99,10 +99,11 @@ const SignUp = ({ role }: { role: Role }) => {
           <div className="relative">
             {/* Step 1: Personal Information */}
             <div
-              className={`p-8 transition-all duration-500 ease-in-out ${currentStep === 1
-                ? "translate-x-0 opacity-100"
-                : "-translate-x-full opacity-0 absolute top-0 left-0 w-full"
-                }`}
+              className={`p-8 transition-all duration-500 ease-in-out ${
+                currentStep === 1
+                  ? "translate-x-0 opacity-100"
+                  : "-translate-x-full opacity-0 absolute top-0 left-0 w-full"
+              }`}
             >
               <div className="text-center mb-8">
                 <h2 className="text-3xl font-bold  mb-2">Create Account</h2>
@@ -120,12 +121,7 @@ const SignUp = ({ role }: { role: Role }) => {
                 {...register("primaryMobile")}
                 error={errors.primaryMobile}
               />
-              <Input
-                type="date"
-                placeholder="Date of Birth (YYYY-MM-DD)"
-                {...register("dob")}
-                error={errors.dob}
-              />
+              <Input type="date" placeholder="Date of Birth (YYYY-MM-DD)" {...register("dob")} error={errors.dob} />
               <Input type="password" placeholder="Password" {...register("password")} error={errors.password} />
 
               <button
@@ -139,10 +135,11 @@ const SignUp = ({ role }: { role: Role }) => {
 
             {/* Step 2: Address Information */}
             <div
-              className={`p-8 transition-all duration-500 ease-in-out ${currentStep === 2
-                ? "translate-x-0 opacity-100"
-                : "translate-x-full opacity-0 absolute top-0 left-0 w-full"
-                }`}
+              className={`p-8 transition-all duration-500 ease-in-out ${
+                currentStep === 2
+                  ? "translate-x-0 opacity-100"
+                  : "translate-x-full opacity-0 absolute top-0 left-0 w-full"
+              }`}
             >
               <div className="text-center mb-8">
                 <h2 className="text-3xl font-bold mb-2">Address Information</h2>
@@ -163,8 +160,9 @@ const SignUp = ({ role }: { role: Role }) => {
                   <select
                     {...register("address.AddressType")}
                     defaultValue={"PERMANENT"}
-                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 ${errors.address?.type ? "border-red-500 bg-black/20" : "border-gray-300 hover:border-gray-400"
-                      }`}
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 ${
+                      errors.address?.type ? "border-red-500 bg-black/20" : "border-gray-300 hover:border-gray-400"
+                    }`}
                   >
                     <option value="PERMANENT" className="bg-white50 text-black">
                       Permanent

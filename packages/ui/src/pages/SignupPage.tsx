@@ -67,10 +67,8 @@ const SignupPage = ({ role }: { role: Role }) => {
         <Input type="text" placeholder="First Name" {...register("firstName")} error={errors.firstName} />
         <Input type="text" placeholder="Last Name" {...register("lastName")} error={errors.lastName} />
         <Input type="email" placeholder="Email,  eg:@gmail.com" {...register("email")} error={errors.email} />
-        <Input type="tel" placeholder="Phone number" {...register("primaryMobile")} error={errors.primaryMobile}
-        />
-        <Input type="date" placeholder="Date of Birth (YYYY-MM-DD)" {...register("dob")} error={errors.dob}
-        />
+        <Input type="tel" placeholder="Phone number" {...register("primaryMobile")} error={errors.primaryMobile} />
+        <Input type="date" placeholder="Date of Birth (YYYY-MM-DD)" {...register("dob")} error={errors.dob} />
         <Input type="password" placeholder="Password" {...register("password")} error={errors.password} />
         <button
           type="submit"

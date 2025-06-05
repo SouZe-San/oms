@@ -2,7 +2,7 @@ import { Role } from "@oms/types/user.type";
 import SigninPage from "@oms/ui/pages/SigninPage";
 
 const Page = () => {
-  return <SigninPage role={Role.CUSTOMER} />
-}
+  return <SigninPage role={Role.CUSTOMER} />;
+};
 
 export default Page;

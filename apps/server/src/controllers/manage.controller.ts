@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { errorMessage } from "../utils/ApiError";
 import { Status, StatusMessages } from "../statusCode/response";
-import { manageOrderStatus, managePaymentStatus } from "@oms/types/manage.validator"
+import { manageOrderStatus, managePaymentStatus } from "@oms/types/manage.validator";
 import prisma from "@oms/db/prisma";
 
 export const manageOrder = async (req: Request, res: Response) => {
@@ -40,13 +40,17 @@ export const manageOrder = async (req: Request, res: Response) => {
 
     // shipped the order
     if (order.status === manageOrderStatus.CONFIRMED) {
-      const updateOrder = await prisma.order.update({ where: { id: order.id }, data: { status: manageOrderStatus.SHIPPED }, include: { payment: true } });
+      const updateOrder = await prisma.order.update({
+        where: { id: order.id },
+        data: { status: manageOrderStatus.SHIPPED },
+        include: { payment: true },
+      });
 
       res.status(Status.Success).json({
         status: Status.Success,
         statusMessage: StatusMessages[Status.Success],
         message: "Order is shipped",
-        order: updateOrder
+        order: updateOrder,
       });
       return;
     }
@@ -54,21 +58,23 @@ export const manageOrder = async (req: Request, res: Response) => {
     // deliver the order
     if (order.status === manageOrderStatus.SHIPPED) {
       const updateOrder = await prisma.order.update({
-        where: { id: order.id }, data: {
+        where: { id: order.id },
+        data: {
           status: manageOrderStatus.DELIVERED,
           payment: {
             update: {
-              status: managePaymentStatus.COMPLETED
-            }
-          }
-        }, include: { payment: true }
+              status: managePaymentStatus.COMPLETED,
+            },
+          },
+        },
+        include: { payment: true },
       });
 
       res.status(Status.Success).json({
         status: Status.Success,
         statusMessage: StatusMessages[Status.Success],
         message: "Order is Delivered",
-        order: updateOrder
+        order: updateOrder,
       });
       return;
     }
@@ -78,10 +84,9 @@ export const manageOrder = async (req: Request, res: Response) => {
       status: Status.Success,
       statusMessage: StatusMessages[Status.Success],
       message: "Order was Delivered",
-      order: order
+      order: order,
     });
     return;
-
   } catch (error) {
     errorMessage("Error while manage order: ", res, error);
   }

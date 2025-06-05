@@ -31,7 +31,7 @@ const inventoryAccess = async (req: Request, res: Response, next: NextFunction) 
       if (!admin) {
         res.status(Status.NotFound).json({
           statusMessage: StatusMessages[Status.NotFound],
-          message: "Admin Not found"
+          message: "Admin Not found",
         });
         return;
       }
@@ -39,19 +39,19 @@ const inventoryAccess = async (req: Request, res: Response, next: NextFunction) 
       //ADMIN found -> send the body to next route
       req.body = {
         adminId: admin.id,
-        ...req.body // keep rest of the body
-      }
-      next();//Proceed to the next middleware or route handler
+        ...req.body, // keep rest of the body
+      };
+      next(); //Proceed to the next middleware or route handler
     } else {
       res.status(Status.Unauthorized).json({
         statusMessage: StatusMessages[Status.Unauthorized],
-        message: "Only ADMIN can access the inventory"
-      })
+        message: "Only ADMIN can access the inventory",
+      });
       return;
     }
   } catch (error) {
     errorMessage("Internal server error. Please try again later. : \n", res, error);
   }
-}
+};
 
 export default inventoryAccess;

@@ -29,7 +29,6 @@ async function main() {
   await toysAdmin(hashedPassword);
   await otherAdmin(hashedPassword);
 
-
   // 1. Create 10 users
   const users = await Promise.all(
     Array.from({ length: 10 }, (_, i) =>
@@ -165,9 +164,9 @@ async function main() {
           status: OrderStatus.DELIVERED,
           payment: {
             update: {
-              status: PaymentStatus.COMPLETED
-            }
-          }
+              status: PaymentStatus.COMPLETED,
+            },
+          },
         },
       })
     )

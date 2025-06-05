@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { SignupState } from "@oms/types/store.type"
+import { SignupState } from "@oms/types/store.type";
 
 const initialState: SignupState = {
   isLoading: false,
@@ -8,7 +8,7 @@ const initialState: SignupState = {
 };
 
 const signupSlice = createSlice({
-  name: 'signup',
+  name: "signup",
   initialState,
   reducers: {
     signupStart(state) {

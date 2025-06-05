@@ -8,5 +8,5 @@ export enum manageOrderStatus {
 export enum managePaymentStatus {
   PENDING = "PENDING",
   COMPLETED = "COMPLETED",
-  FAILED = "FAILED"
+  FAILED = "FAILED",
 }

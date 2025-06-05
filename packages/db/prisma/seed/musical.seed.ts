@@ -3,7 +3,6 @@ import { PrismaClient, ProductCategory, Role } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export async function musicalAdmin(password: string) {
-
   const admin = await prisma.user.upsert({
     where: { email: "admin.oms@musical.com" },
     update: {},
@@ -15,7 +14,7 @@ export async function musicalAdmin(password: string) {
       password: password,
       dob: new Date("2025-01-01"),
       role: Role.ADMIN,
-    }
+    },
   });
   console.log("=> Musical Admin ✅");
 
@@ -27,7 +26,8 @@ export async function musicalAdmin(password: string) {
       stock: 6,
       category: ProductCategory.MUSICAL_INSTRUMENTS,
       image: [
-        "https://i.pinimg.com/736x/90/12/62/901262cec19b752373669abef52a6000.jpg", "https://i.pinimg.com/736x/bb/64/6c/bb646cb7f3f3da6d4e47cd2ddfa1739d.jpg",
+        "https://i.pinimg.com/736x/90/12/62/901262cec19b752373669abef52a6000.jpg",
+        "https://i.pinimg.com/736x/bb/64/6c/bb646cb7f3f3da6d4e47cd2ddfa1739d.jpg",
       ],
     },
     {
@@ -37,7 +37,8 @@ export async function musicalAdmin(password: string) {
       stock: 5,
       category: ProductCategory.MUSICAL_INSTRUMENTS,
       image: [
-        "https://i.pinimg.com/736x/19/6f/fe/196ffe446fc9d47994bbf10c25643cde.jpg", "https://i.pinimg.com/736x/bb/64/6c/bb646cb7f3f3da6d4e47cd2ddfa1739d.jpg",
+        "https://i.pinimg.com/736x/19/6f/fe/196ffe446fc9d47994bbf10c25643cde.jpg",
+        "https://i.pinimg.com/736x/bb/64/6c/bb646cb7f3f3da6d4e47cd2ddfa1739d.jpg",
       ],
     },
   ];
@@ -63,5 +64,4 @@ export async function musicalAdmin(password: string) {
   );
 
   console.log("=> Musical Products ✅");
-
 }

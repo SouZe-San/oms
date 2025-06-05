@@ -1,13 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "@oms/utils/api";
 
-export const fetchLowStockProducts = createAsyncThunk(
-  "notifications/fetchLowStockProducts",
-  async () => {
-    const res = await api.get("/inventory/stock/low");
-    return res.data.products;
-  }
-);
+export const fetchLowStockProducts = createAsyncThunk("notifications/fetchLowStockProducts", async () => {
+  const res = await api.get("/inventory/stock/low");
+  return res.data.products;
+});
 
 interface Product {
   id: string;

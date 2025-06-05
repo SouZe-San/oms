@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import api from '@oms/utils/api';
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import api from "@oms/utils/api";
 
 interface Address {
   street: string;
@@ -45,38 +45,34 @@ const initialState: ProductState = {
   error: null,
 };
 
-
 export const fetchProductDetails = createAsyncThunk(
-  'product/fetchProductDetails',
+  "product/fetchProductDetails",
   async (productId: string, thunkAPI) => {
     try {
       const res = await api.get(`/inventory/product/${productId}`);
 
       return res.data;
     } catch (err: any) {
-      return thunkAPI.rejectWithValue(err?.response?.data?.message || 'Failed to load product');
+      return thunkAPI.rejectWithValue(err?.response?.data?.message || "Failed to load product");
     }
   }
 );
 
 // Update product
 export const fetchProductUpdate = createAsyncThunk(
-  'product/fetchProductUpdate',
-  async (
-    { id, data }: { id: string; data: Partial<Product> },
-    thunkAPI
-  ) => {
+  "product/fetchProductUpdate",
+  async ({ id, data }: { id: string; data: Partial<Product> }, thunkAPI) => {
     try {
       const res = await api.put(`/inventory/product/${id}`, data);
       return res.data; // { product, orders }
     } catch (err: any) {
-      return thunkAPI.rejectWithValue(err?.response?.data?.message || 'Failed to update product');
+      return thunkAPI.rejectWithValue(err?.response?.data?.message || "Failed to update product");
     }
   }
 );
 
 const productDetailsSlice = createSlice({
-  name: 'product',
+  name: "product",
   initialState,
   reducers: {
     clearProductState: (state) => {

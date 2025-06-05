@@ -1,7 +1,15 @@
 import { Router } from "express";
 import authenticate from "../middleware/authenticate";
 import inventoryAccess from "../middleware/inventory";
-import { createProduct, deleteProduct, getLowStockProducts, getProduct, getProducts, searchProduct, updateProduct } from "../controllers/inventory.controller";
+import {
+  createProduct,
+  deleteProduct,
+  getLowStockProducts,
+  getProduct,
+  getProducts,
+  searchProduct,
+  updateProduct,
+} from "../controllers/inventory.controller";
 
 const router = Router();
 

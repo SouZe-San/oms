@@ -1,10 +1,6 @@
 import { Request, Response } from "express";
 import { errorMessage } from "../utils/ApiError";
-import {
-  createProductValidator,
-  deleteProductValidator,
-  updateProductValidator,
-} from "@oms/types/product.validator";
+import { createProductValidator, deleteProductValidator, updateProductValidator } from "@oms/types/product.validator";
 import { Status, StatusMessages } from "../statusCode/response";
 import prisma from "@oms/db/prisma";
 
@@ -26,11 +22,11 @@ export const createProduct = async (req: Request, res: Response) => {
 
     //get data from validator
     const { name, description, price, stock, images, category } = validator.data;
-    const adminId = req.body.adminId
+    const adminId = req.body.adminId;
 
     //check if product is already exists
     const product = await prisma.product.findFirst({
-      where: { adminId, name }
+      where: { adminId, name },
     });
     if (product) {
       res.status(Status.Conflict).json({
@@ -49,7 +45,7 @@ export const createProduct = async (req: Request, res: Response) => {
         price,
         stock,
         category,
-        images: images?.length ? { create: images.map((img: { url: string }) => ({ url: img.url })), } : undefined,
+        images: images?.length ? { create: images.map((img: { url: string }) => ({ url: img.url })) } : undefined,
       },
     });
 
@@ -160,13 +156,13 @@ export const getProduct = async (req: Request, res: Response) => {
         payment: op.order.payment?.status ?? "PENDING",
         address: op.order.shippingAddress
           ? {
-            street: op.order.shippingAddress.street,
-            city: op.order.shippingAddress.city,
-            state: op.order.shippingAddress.state,
-            country: op.order.shippingAddress.country,
-            zipCode: op.order.shippingAddress.zipCode,
-            type: op.order.shippingAddress.type,
-          }
+              street: op.order.shippingAddress.street,
+              city: op.order.shippingAddress.city,
+              state: op.order.shippingAddress.state,
+              country: op.order.shippingAddress.country,
+              zipCode: op.order.shippingAddress.zipCode,
+              type: op.order.shippingAddress.type,
+            }
           : null,
       })),
     };
@@ -176,9 +172,9 @@ export const getProduct = async (req: Request, res: Response) => {
       statusMessage: StatusMessages[Status.Success],
       message: "product successfully found",
       product: result.product,
-      orders: result.orders
-    })
-    return
+      orders: result.orders,
+    });
+    return;
   } catch (error) {
     errorMessage("error while fetching product details from inventory", res, error);
   }
@@ -237,7 +233,6 @@ export const searchProduct = async (req: Request, res: Response) => {
   }
 };
 
-
 // ADMIN can update their product by id
 export const updateProduct = async (req: Request, res: Response) => {
   try {
@@ -258,7 +253,7 @@ export const updateProduct = async (req: Request, res: Response) => {
 
     //get data from validator
     const { productId, name, description, price, stock, category } = validator.data;
-    const adminId = req.body.adminId
+    const adminId = req.body.adminId;
 
     // Prepare update data dynamically
     const updateData: Record<string, any> = {};
@@ -370,4 +365,4 @@ export const getLowStockProducts = async (req: Request, res: Response) => {
   } catch (error) {
     errorMessage("Error while showing stock", res, error);
   }
-}
+};
