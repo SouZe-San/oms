@@ -4,7 +4,7 @@ import { Router } from "express";
 import authenticate from "../middleware/authenticate";
 
 // Import Cart controllers
-import { getCart, updateCart } from "../controllers/cart.controller";
+import { addInCart, getCart, updateCart } from "../controllers/cart.controller";
 
 // import Product controllers
 import { getAllProducts, getAllProductsByName, getSingleProduct } from "../controllers/product.controller";
@@ -29,6 +29,7 @@ router.get("/products/search/:name", getAllProductsByName);
 //! Carts Routes
 router.route("/cart").get(authenticate, getCart);
 router.route("/cart").put(authenticate, updateCart);
+router.route("/cart").post(authenticate, addInCart);
 
 //! Order Routes
 router.route("/orders").get(authenticate, getAllOrders);

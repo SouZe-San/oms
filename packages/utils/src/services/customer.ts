@@ -22,6 +22,7 @@ export const moreOfSearchedProducts = async (name: string, skip: number) =>
 // Cart Routes
 export const getCartProducts = async () => customerApi.get("/cart");
 export const updateCart = async (cartBody: CartUpdateBody) => customerApi.put("cart", cartBody);
+export const addInCart = async (cartBody: CartUpdateBody) => customerApi.post("cart", cartBody);
 
 // Order Routes
 export const getAllOrders = async () => customerApi.get("/orders");

@@ -1,5 +1,5 @@
 "use client";
-import { updateCart } from "@oms/utils/api.customer";
+import { addInCart } from "@oms/utils/api.customer";
 
 import { axiosErrorHandler } from "@oms/utils/handlers";
 
@@ -32,7 +32,7 @@ const CartModal = ({ product, onClose }: NotificationModalProps) => {
         productId: product.id,
         quantity: quantity,
       };
-      await updateCart({ products: [productData] });
+      await addInCart({ products: [productData] });
       toast.success("Product added to cart successfully!");
     } catch (error) {
       axiosErrorHandler(error, "Cart Modal - Adding to Cart");
