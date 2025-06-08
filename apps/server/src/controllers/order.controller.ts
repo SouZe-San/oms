@@ -374,6 +374,9 @@ export const getAllOrders = async (req: Request, res: Response) => {
     }
     const { user } = validation.data;
     const orders = await prisma.order.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
       where: {
         userId: user.userId,
       },

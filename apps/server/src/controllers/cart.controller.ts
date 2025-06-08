@@ -215,6 +215,43 @@ export const updateCart = async (req: Request, res: Response) => {
   }
 };
 
+export const addInCart = async (req: Request, res: Response) => {
+  try {
+    // Validate the request body
+    const req_validation = await Cart_reqBody.safeParseAsync(req.body);
+    if (!req_validation.success) {
+      res.status(Status.Forbidden).json({
+        StatusMessages: StatusMessages[Status.Forbidden],
+        message: req_validation.error.errors.map((err) => err.message).join(", "),
+      });
+      return;
+    }
+
+    // Destructure products from body
+    const { products, user } = req_validation.data;
+
+    // Add products to cart
+    for (const product of products) {
+      await prisma.cartProduct.create({
+        data: {
+          name: product.name,
+          productId: product.productId,
+          quantity: product.quantity,
+          userId: user.userId,
+        },
+      });
+    }
+
+    // Send response
+    res.status(Status.Created).json({
+      statusMessage: StatusMessages[Status.Created],
+      message: "Successfully added items to cart",
+    });
+  } catch (error) {
+    errorMessage("Error While adding items to Cart: ", res, error);
+  }
+};
+
 // ! DELETE cart
 // @SouZe-San
 // @description: Delete a cart
